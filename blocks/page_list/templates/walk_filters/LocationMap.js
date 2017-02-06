@@ -1,10 +1,10 @@
 /**
  * The map of upcoming walks for a whole city
  */
-/* global React ReactDOM google $ JanesWalk */
+/* global google JanesWalk */
+import { createElement as ce, Component } from 'react';
+import { render } from 'react-dom';
 import InfoWindow from './InfoWindow';
-
-const { Component, createElement: ce } = React;
 
 // Helper to see if a member is a walk leader
 // Check if their role contains leader, or their type does
@@ -81,7 +81,7 @@ function buildNewMarker({ lat, lng, team = [], startTime, title, gmap, url, shor
     }
 
     // Setup infowindow
-    ReactDOM.render(
+    render(
       ce(InfoWindow, { key: `${title}:${startTime}`, title, date, leaders, url, shortDescription }),
       _infoNode
     );
@@ -141,21 +141,15 @@ function addNewMarkersToMap(markers, outings, gmap) {
 }
 
 export default class LocationMap extends Component {
-  constructor(...args) {
-    super(...args);
-
-    Object.assign(this, {
-      state: { map: null, markers: {} },
-    });
-  }
+  state = { map: null, markers: {} };
 
   componentDidMount() {
-    const { zoomlevel, latlng: [lat, lng] } = this.props;
+    const { zoomlevel, coordinates: [lng, lat], outings } = this.props;
     loadGoogle();
     const locationLatLng = new google.maps.LatLng(lat, lng);
 
     // Setup map
-    const map = new google.maps.Map(ReactDOM.findDOMNode(this), {
+    const map = new google.maps.Map(this.mapNode, {
       center: locationLatLng,
       zoom: zoomlevel || 10,
       backgroundColor: '#d7f0fa',
@@ -163,18 +157,22 @@ export default class LocationMap extends Component {
     });
 
     // Add our markers to the empty map
-    const newMarkers = addNewMarkersToMap(new Map(), this.props.outings, map);
-    this.setState({ map, markers: newMarkers });
+    this.setState({ map, markers: addNewMarkersToMap(new Map(), outings, map) });
   }
 
-  componentWillReceiveProps(props) {
-    const newMarkers = addNewMarkersToMap(this.state.markers, props.outings, this.state.map);
-    this.setState({ markers: newMarkers });
+  componentWillReceiveProps({ outings }) {
+    const { markers, map } = this.state;
+    this.setState({
+      markers: addNewMarkersToMap(markers, outings, map) });
   }
 
   render() {
     return (
-      ce('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } })
+      ce('div', {
+        ref: (node) => { this.mapNode = node; },
+        className: 'cityMap',
+        style: { width: '100%', height: '70vh' },
+      })
     );
   }
 }

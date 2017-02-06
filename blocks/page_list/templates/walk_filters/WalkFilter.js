@@ -1,9 +1,12 @@
-/* global React ReactDOM */
 /**
  * Filters, lists, maps, the whole shebang
  * TODO: this could seriously use some fluxing.
  */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import { createElement as ce, Component } from 'react';
+import { render } from 'react-dom';
+import t from 'es2015-i18n-tag';
+import moment from 'moment';
+import { DatePicker } from 'antd';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -12,19 +15,18 @@ import CityStore from 'janeswalk/stores/CityStore';
 import WalkCards from './WalkCards';
 import WalkList from './WalkList';
 import LocationMap from './LocationMap';
-import DateRange from './DateRange';
 import Filter from './Filter';
 
-const { Component, createElement: ce } = React;
-
 // Actually a little before today
-const today = new Date();
-today.setUTCDate(today.getDate());
-today.setUTCHours(0, 0, 0);
+const today = moment.utc();
+today.hours(0);
+today.minutes(0);
+today.seconds(0);
 
 /**
  * Apply filters and date range to walks
  */
+// TODO: this filterWalks function is ridiculous. This should be render logic.
 const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => outings.filter(({ walk, slot }) => {
   // Convert PHP second-epoch to JS milliseconds epoch
   const time = slot[0] * 1000;
@@ -68,12 +70,12 @@ function thirdRecentDate(outings) {
 function thirdRecentDateRange(outings) {
   const thirdDate = thirdRecentDate(outings);
   if (thirdDate && thirdDate < today) {
-    return [thirdDate.getTime(), null];
+    return [moment(thirdDate.getTime()), null];
   }
   return [today, null];
 }
 
-const getWalkFilterState = ({ filters: filters = {}, typeahead, dateRange, city: city = CityStore.getCity() }) => {
+const getWalkFilterState = ({ filters: filters = {}, typeahead, dateRange, city = CityStore.getCity() }) => {
   const outings = WalkStore.getWalkOutings();
   const usefulRange = dateRange || thirdRecentDateRange(outings);
 
@@ -87,57 +89,92 @@ const getWalkFilterState = ({ filters: filters = {}, typeahead, dateRange, city:
 };
 
 export default class WalkFilter extends Component {
+  // FIXME: remove this state-building with props
   constructor(props) {
     super(props);
-
-    Object.assign(this, {
-      state: getWalkFilterState(props),
-
-      // Stores are updated
-      _onChange: () => {
-        this.setState(getWalkFilterState(this.state));
-      },
-
-      // Toggle whether or not the filters were showing
-      handleToggleFilters: () => {
-        this.setState({ displayFilters: !this.state.displayFilters });
-      },
-
-      // Send the list of walks to the printer
-      printList: () => {
-        const win = window.open();
-        const el = win.document.createElement('div');
-        ReactDOM.render(ce(WalkList, { outings: this.state.filterMatches }), el);
-        window.focus();
-        win.document.body.appendChild(el);
-        win.print();
-        win.close();
-      },
-
-      // Set a filter value
-      setFilter: (filter, val) => {
-        const { filters, outings, dateRange, typeahead, city } = this.state;
-        if (!filters[filter]) filters[filter] = {};
-        Object.assign(filters[filter], { selected: val });
-        this.setState({ filters, filterMatches: filterWalks({ outings, filters, dateRange, city, typeahead }) });
-      },
-
-      // Set our date range filter
-      setDateRange: (from, to) => {
-        const { outings, filters, city, typeahead } = this.state;
-        this.setState({
-          dateRange: [from, to],
-          filterMatches: filterWalks({ outings, filters, dateRange: [from, to], city, typeahead }),
-        });
-      },
-
-      // Typeahead search in the walks
-      handleTypeahead: ({ target: { value: typeahead } }) => {
-        const { filters, outings, dateRange, city } = this.state;
-        this.setState({ typeahead, filterMatches: filterWalks({ filters, outings, dateRange, city, typeahead }) });
-      },
-    });
+    this.state = getWalkFilterState(props);
   }
+
+  // Stores are updated
+  _onChange = () => {
+    this.setState(getWalkFilterState(this.state));
+  };
+
+  // Toggle whether or not the filters were showing
+  handleToggleFilters = () => {
+    this.setState({ displayFilters: !this.state.displayFilters });
+  };
+
+  // Send the list of walks to the printer
+  printList = () => {
+    const win = window.open();
+    const el = win.document.createElement('div');
+    render(ce(WalkList, { outings: this.state.filterMatches }), el);
+    window.focus();
+    win.document.body.appendChild(el);
+    win.print();
+    win.close();
+  };
+
+  // Set a filter value
+  setFilter = (filter, val) => {
+    const { filters, outings, dateRange, typeahead, city } = this.state;
+    this.setState({
+      filters: {
+        ...filters,
+        [filter]: {
+          ...filters[filter],
+          selected: val,
+        },
+      },
+      filterMatches: filterWalks({
+        outings,
+        filters,
+        dateRange,
+        city,
+        typeahead,
+      }),
+    });
+  };
+
+  // Set our date range filter
+  setStartDate = (from) => {
+    const { dateRange } = this.state;
+    this.setState({
+      dateRange: [from, dateRange[1]],
+      filterMatches: filterWalks({ ...this.state, dateRange: [from, dateRange[1]] }),
+    });
+  };
+
+  setEndDate = (to) => {
+    const { dateRange } = this.state;
+    this.setState({
+      dateRange: [dateRange[0], to],
+      filterMatches: filterWalks({ ...this.state, dateRange: [dateRange[0], to] }),
+    });
+  };
+
+  disabledStartDate = (startValue) => {
+    const [, endValue] = this.state.dateRange;
+    if (!startValue || !endValue) {
+      return false;
+    }
+    return startValue.valueOf() > endValue.valueOf();
+  }
+
+  disabledEndDate = (endValue) => {
+    const [startValue] = this.state.dateRange;
+    if (!endValue || !startValue) {
+      return false;
+    }
+    return endValue.valueOf() <= startValue.valueOf();
+  }
+
+  // Typeahead search in the walks
+  handleTypeahead = ({ target: { value: typeahead } }) => {
+    const { filters, outings, dateRange, city } = this.state;
+    this.setState({ typeahead, filterMatches: filterWalks({ filters, outings, dateRange, city, typeahead }) });
+  };
 
   componentWillMount() {
     WalkStore.addChangeListener(this._onChange);
@@ -150,19 +187,26 @@ export default class WalkFilter extends Component {
   }
 
   render() {
-    let locationMapSection;
-
-    const { displayFilters, city, filterMatches, dateRange, filters, typeahead } = this.state;
+    const {
+      displayFilters,
+      city: { latlng: [lat, lng] = [] } = {},
+      filterMatches,
+      dateRange,
+      filters,
+      typeahead,
+    } = this.state;
 
     const Filters = Object.keys(filters).map(
       key => ce(Filter, { key, setFilter: v => this.setFilter(key, v), ...filters[key] })
     );
 
+    let locationMapSection;
+
     // See if this city has a location set
-    if (city && city.latlng.length === 2) {
+    if (lat && lng) {
       locationMapSection = (
         ce('section', { className: 'tab-pane', id: 'jw-map' },
-          ce(LocationMap, { outings: filterMatches, latlng: city.latlng }),
+          ce(LocationMap, { outings: filterMatches, coordinates: [lng, lat] }),
         )
       );
     }
@@ -173,7 +217,22 @@ export default class WalkFilter extends Component {
           Filters,
           ce('li', null,
             ce('label', null, 'Dates'),
-            ce(DateRange, { value: dateRange, onChange: this.setDateRange }),
+            ce(DatePicker, {
+              disabledDate: this.disabledStartDate,
+              showTime: true,
+              format: 'YYYY-MM-DD HH:mm:ss',
+              value: dateRange[0],
+              placeholder: t`After`,
+              onChange: this.setStartDate,
+            }),
+            ce(DatePicker, {
+              disabledDate: this.disabledEndDate,
+              showTime: true,
+              format: 'YYYY-MM-DD HH:mm:ss',
+              value: dateRange[1],
+              placeholder: t`Before`,
+              onChange: this.setEndDate,
+            }),
           )
         )
       )

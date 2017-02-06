@@ -2,8 +2,10 @@
  * Date Range
  * a jQueryUI based React component for picking a to/from date range
  */
-/* global React $ */
-const { createElement: ce, Component } = React;
+import { createElement as ce, Component } from 'react';
+import { DatePicker } from 'antd';
+
+const { MonthPicker, RangePicker } = DatePicker;
 
 const dateFormat = 'yy-mm-dd';
 const offset = (new Date()).getTimezoneOffset() * 60000;

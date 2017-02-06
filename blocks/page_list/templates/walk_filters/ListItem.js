@@ -1,10 +1,9 @@
-/* global React */
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
 // Date formatter
 let dtfDate;
 let dtfTime;
-if (typeof(Intl) === 'object') {
+if (typeof Intl === 'object') {
   dtfDate = new Intl.DateTimeFormat(undefined, {
     year: 'numeric',
     month: 'long',
@@ -18,7 +17,6 @@ if (typeof(Intl) === 'object') {
     timeZone: 'UTC',
   });
 }
-
 
 export default function ListItem({ walk: { map, url, title }, slot }) {
   let Meeting;

@@ -1,12 +1,12 @@
-/* global React */
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 
 const Filter = ({ name, selected, setFilter, data }) => (
   ce('li', null,
     ce('label', null, name),
-    ce('select', { value: selected, onChange: e => setFilter(e.target.value) },
-      ce('option', { value: '' }, 'All'),
-      Object.keys(data).map(k => ce('option', { value: k }, data[k])),
+    ce('select', { value: selected, onChange: ({ target: { value } }) => t([setFilter(value)]) },
+      ce('option', { value: '' }, t`All`),
+      Object.entries(data).map(([value, description]) => ce('option', { key: value, value }, description)),
     ),
   )
 );

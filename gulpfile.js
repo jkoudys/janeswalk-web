@@ -12,6 +12,7 @@ const through = require('through2');
 const webpack = require('webpack');
 const builds = require('./webpack/builds.js');
 const paths = require('./webpack/paths.js');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 gulp.task('prod', () => {
   webpack(builds.production, (err, stats) => {
@@ -48,25 +49,32 @@ gulp.task('js.theme', () => {
 });
 gulp.task('js.blocks', () => {
   [
-    './blocks/page_list/templates/typeahead/',
-    './blocks/page_list/templates/walk_filters/',
+    './blocks/page_list/templates/typeahead',
+    './blocks/page_list/templates/walk_filters',
   ].map(entry => webpack({
-    entry: [`${entry}block.js`],
+    entry: [`${entry}/block.js`],
     output: {
-      path: entry,
+      path: `${entry}/`,
       filename: 'view.js',
     },
+    // TODO: move this into base webpack config
     module: {
       loaders: [{
-        test: /\.less$/,
-        loader: 'style!css!less',
-      }, {
         test: /\.jsx?$/,
-        exclude: /(bower_components)/,
+        exclude: /(bower_components|node_modules)/,
         loader: 'babel',
         query: {
           presets: ['es2015', 'react', 'stage-2'],
         },
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css?-url'),
+      }, {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader?-relativeUrls'),
+      }, {
+        test: /\.json$/,
+        loader: 'json',
       }],
     },
     watch: true,

@@ -1,5 +1,4 @@
-/* global React */
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
 export default ({ blog, location }) => {
   let tabBlog;

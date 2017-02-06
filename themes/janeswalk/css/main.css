@@ -1,3 +1,4 @@
+/* Import bootstrap 3 mixins and variables so we can use them */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -87,6 +88,7 @@ figure {
   margin: 1em 40px;
 }
 hr {
+  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -150,6 +152,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[type="search"] {
   -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 input[type="search"]::-webkit-search-cancel-button,
@@ -244,8 +248,6 @@ th {
   #modals dialog table th,
   #create-walk dialog table td,
   #create-walk dialog table th,
-  #profileWrapper table td,
-  #profileWrapper table th,
   #create-walk table.routeStops td,
   #create-walk table.routeStops th {
     background-color: #fff !important;
@@ -270,7 +272,6 @@ th {
   .table,
   #modals dialog table,
   #create-walk dialog table,
-  #profileWrapper table,
   #create-walk table.routeStops {
     border-collapse: collapse !important;
   }
@@ -285,10 +286,14 @@ th {
 @import "glyphicons.less";
 */
 * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 *:before,
 *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 html {
@@ -336,8 +341,6 @@ img {
 .thumbnail a > img,
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img,
-.ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
 .ccm-page-list-city-cards li figure a > img,
 #create-walk .team-member > img,
@@ -356,6 +359,8 @@ img {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
@@ -403,9 +408,7 @@ h6,
 .h5,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-#profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -472,9 +475,7 @@ h5,
 h6,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-#profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -510,9 +511,7 @@ h3,
 h4,
 .h4,
 .walk-card .thumbnail .walkimage .statusMessage,
-#profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -815,28 +814,24 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-.container,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+.container {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+  .container {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+  .container {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+  .container {
     width: 1170px;
   }
 }
@@ -1495,7 +1490,6 @@ th {
 .table,
 #modals dialog table,
 #create-walk dialog table,
-#profileWrapper table,
 #create-walk table.routeStops {
   width: 100%;
   max-width: 100%;
@@ -1519,12 +1513,6 @@ th {
 #create-walk dialog table > thead > tr > td,
 #create-walk dialog table > tbody > tr > td,
 #create-walk dialog table > tfoot > tr > td,
-#profileWrapper table > thead > tr > th,
-#profileWrapper table > tbody > tr > th,
-#profileWrapper table > tfoot > tr > th,
-#profileWrapper table > thead > tr > td,
-#profileWrapper table > tbody > tr > td,
-#profileWrapper table > tfoot > tr > td,
 #create-walk table.routeStops > thead > tr > th,
 #create-walk table.routeStops > tbody > tr > th,
 #create-walk table.routeStops > tfoot > tr > th,
@@ -1539,7 +1527,6 @@ th {
 .table > thead > tr > th,
 #modals dialog table > thead > tr > th,
 #create-walk dialog table > thead > tr > th,
-#profileWrapper table > thead > tr > th,
 #create-walk table.routeStops > thead > tr > th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;
@@ -1562,12 +1549,6 @@ th {
 #create-walk dialog table > caption + thead > tr:first-child > td,
 #create-walk dialog table > colgroup + thead > tr:first-child > td,
 #create-walk dialog table > thead:first-child > tr:first-child > td,
-#profileWrapper table > caption + thead > tr:first-child > th,
-#profileWrapper table > colgroup + thead > tr:first-child > th,
-#profileWrapper table > thead:first-child > tr:first-child > th,
-#profileWrapper table > caption + thead > tr:first-child > td,
-#profileWrapper table > colgroup + thead > tr:first-child > td,
-#profileWrapper table > thead:first-child > tr:first-child > td,
 #create-walk table.routeStops > caption + thead > tr:first-child > th,
 #create-walk table.routeStops > colgroup + thead > tr:first-child > th,
 #create-walk table.routeStops > thead:first-child > tr:first-child > th,
@@ -1579,14 +1560,12 @@ th {
 .table > tbody + tbody,
 #modals dialog table > tbody + tbody,
 #create-walk dialog table > tbody + tbody,
-#profileWrapper table > tbody + tbody,
 #create-walk table.routeStops > tbody + tbody {
   border-top: 2px solid #ddd;
 }
 .table .table,
 #modals dialog table #modals dialog table,
 #create-walk dialog table #create-walk dialog table,
-#profileWrapper table #profileWrapper table,
 #create-walk table.routeStops #create-walk table.routeStops {
   background-color: #fff;
 }
@@ -1677,18 +1656,6 @@ table th[class*="col-"] {
 #create-walk dialog table > thead > tr.active > th,
 #create-walk dialog table > tbody > tr.active > th,
 #create-walk dialog table > tfoot > tr.active > th,
-#profileWrapper table > thead > tr > td.active,
-#profileWrapper table > tbody > tr > td.active,
-#profileWrapper table > tfoot > tr > td.active,
-#profileWrapper table > thead > tr > th.active,
-#profileWrapper table > tbody > tr > th.active,
-#profileWrapper table > tfoot > tr > th.active,
-#profileWrapper table > thead > tr.active > td,
-#profileWrapper table > tbody > tr.active > td,
-#profileWrapper table > tfoot > tr.active > td,
-#profileWrapper table > thead > tr.active > th,
-#profileWrapper table > tbody > tr.active > th,
-#profileWrapper table > tfoot > tr.active > th,
 #create-walk table.routeStops > thead > tr > td.active,
 #create-walk table.routeStops > tbody > tr > td.active,
 #create-walk table.routeStops > tfoot > tr > td.active,
@@ -1746,18 +1713,6 @@ table th[class*="col-"] {
 #create-walk dialog table > thead > tr.success > th,
 #create-walk dialog table > tbody > tr.success > th,
 #create-walk dialog table > tfoot > tr.success > th,
-#profileWrapper table > thead > tr > td.success,
-#profileWrapper table > tbody > tr > td.success,
-#profileWrapper table > tfoot > tr > td.success,
-#profileWrapper table > thead > tr > th.success,
-#profileWrapper table > tbody > tr > th.success,
-#profileWrapper table > tfoot > tr > th.success,
-#profileWrapper table > thead > tr.success > td,
-#profileWrapper table > tbody > tr.success > td,
-#profileWrapper table > tfoot > tr.success > td,
-#profileWrapper table > thead > tr.success > th,
-#profileWrapper table > tbody > tr.success > th,
-#profileWrapper table > tfoot > tr.success > th,
 #create-walk table.routeStops > thead > tr > td.success,
 #create-walk table.routeStops > tbody > tr > td.success,
 #create-walk table.routeStops > tfoot > tr > td.success,
@@ -1815,18 +1770,6 @@ table th[class*="col-"] {
 #create-walk dialog table > thead > tr.info > th,
 #create-walk dialog table > tbody > tr.info > th,
 #create-walk dialog table > tfoot > tr.info > th,
-#profileWrapper table > thead > tr > td.info,
-#profileWrapper table > tbody > tr > td.info,
-#profileWrapper table > tfoot > tr > td.info,
-#profileWrapper table > thead > tr > th.info,
-#profileWrapper table > tbody > tr > th.info,
-#profileWrapper table > tfoot > tr > th.info,
-#profileWrapper table > thead > tr.info > td,
-#profileWrapper table > tbody > tr.info > td,
-#profileWrapper table > tfoot > tr.info > td,
-#profileWrapper table > thead > tr.info > th,
-#profileWrapper table > tbody > tr.info > th,
-#profileWrapper table > tfoot > tr.info > th,
 #create-walk table.routeStops > thead > tr > td.info,
 #create-walk table.routeStops > tbody > tr > td.info,
 #create-walk table.routeStops > tfoot > tr > td.info,
@@ -1884,18 +1827,6 @@ table th[class*="col-"] {
 #create-walk dialog table > thead > tr.warning > th,
 #create-walk dialog table > tbody > tr.warning > th,
 #create-walk dialog table > tfoot > tr.warning > th,
-#profileWrapper table > thead > tr > td.warning,
-#profileWrapper table > tbody > tr > td.warning,
-#profileWrapper table > tfoot > tr > td.warning,
-#profileWrapper table > thead > tr > th.warning,
-#profileWrapper table > tbody > tr > th.warning,
-#profileWrapper table > tfoot > tr > th.warning,
-#profileWrapper table > thead > tr.warning > td,
-#profileWrapper table > tbody > tr.warning > td,
-#profileWrapper table > tfoot > tr.warning > td,
-#profileWrapper table > thead > tr.warning > th,
-#profileWrapper table > tbody > tr.warning > th,
-#profileWrapper table > tfoot > tr.warning > th,
 #create-walk table.routeStops > thead > tr > td.warning,
 #create-walk table.routeStops > tbody > tr > td.warning,
 #create-walk table.routeStops > tfoot > tr > td.warning,
@@ -1953,18 +1884,6 @@ table th[class*="col-"] {
 #create-walk dialog table > thead > tr.danger > th,
 #create-walk dialog table > tbody > tr.danger > th,
 #create-walk dialog table > tfoot > tr.danger > th,
-#profileWrapper table > thead > tr > td.danger,
-#profileWrapper table > tbody > tr > td.danger,
-#profileWrapper table > tfoot > tr > td.danger,
-#profileWrapper table > thead > tr > th.danger,
-#profileWrapper table > tbody > tr > th.danger,
-#profileWrapper table > tfoot > tr > th.danger,
-#profileWrapper table > thead > tr.danger > td,
-#profileWrapper table > tbody > tr.danger > td,
-#profileWrapper table > tfoot > tr.danger > td,
-#profileWrapper table > thead > tr.danger > th,
-#profileWrapper table > tbody > tr.danger > th,
-#profileWrapper table > tfoot > tr.danger > th,
 #create-walk table.routeStops > thead > tr > td.danger,
 #create-walk table.routeStops > tbody > tr > td.danger,
 #create-walk table.routeStops > tfoot > tr > td.danger,
@@ -1999,7 +1918,6 @@ table th[class*="col-"] {
   .table-responsive > .table,
   .table-responsive > #modals dialog table,
   .table-responsive > #create-walk dialog table,
-  .table-responsive > #profileWrapper table,
   .table-responsive > #create-walk table.routeStops {
     margin-bottom: 0;
   }
@@ -2021,12 +1939,6 @@ table th[class*="col-"] {
   .table-responsive > #create-walk dialog table > thead > tr > td,
   .table-responsive > #create-walk dialog table > tbody > tr > td,
   .table-responsive > #create-walk dialog table > tfoot > tr > td,
-  .table-responsive > #profileWrapper table > thead > tr > th,
-  .table-responsive > #profileWrapper table > tbody > tr > th,
-  .table-responsive > #profileWrapper table > tfoot > tr > th,
-  .table-responsive > #profileWrapper table > thead > tr > td,
-  .table-responsive > #profileWrapper table > tbody > tr > td,
-  .table-responsive > #profileWrapper table > tfoot > tr > td,
   .table-responsive > #create-walk table.routeStops > thead > tr > th,
   .table-responsive > #create-walk table.routeStops > tbody > tr > th,
   .table-responsive > #create-walk table.routeStops > tfoot > tr > th,
@@ -2102,6 +2014,8 @@ label {
   font-weight: bold;
 }
 input[type="search"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 input[type="radio"],
@@ -2156,7 +2070,10 @@ textarea,
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus,
@@ -2171,6 +2088,7 @@ textarea:focus,
 #create-walk dialog input[type=password]:focus {
   border-color: #66afe9;
   outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control::-moz-placeholder,
@@ -2459,6 +2377,7 @@ select[multiple].input-lg {
 .has-success #modals dialog input[type=password],
 .has-success #create-walk dialog input[type=password] {
   border-color: #3c763d;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-success .form-control:focus,
@@ -2472,6 +2391,7 @@ select[multiple].input-lg {
 .has-success #modals dialog input[type=password]:focus,
 .has-success #create-walk dialog input[type=password]:focus {
   border-color: #2b542c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
 }
 .has-success .input-group-addon {
@@ -2501,6 +2421,7 @@ select[multiple].input-lg {
 .has-warning #modals dialog input[type=password],
 .has-warning #create-walk dialog input[type=password] {
   border-color: #8a6d3b;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-warning .form-control:focus,
@@ -2514,6 +2435,7 @@ select[multiple].input-lg {
 .has-warning #modals dialog input[type=password]:focus,
 .has-warning #create-walk dialog input[type=password]:focus {
   border-color: #66512c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
 }
 .has-warning .input-group-addon {
@@ -2543,6 +2465,7 @@ select[multiple].input-lg {
 .has-error #modals dialog input[type=password],
 .has-error #create-walk dialog input[type=password] {
   border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-error .form-control:focus,
@@ -2556,6 +2479,7 @@ select[multiple].input-lg {
 .has-error #modals dialog input[type=password]:focus,
 .has-error #create-walk dialog input[type=password]:focus {
   border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
 }
 .has-error .input-group-addon {
@@ -2771,6 +2695,7 @@ body.city-page > #city-details .create-walk.active,
 #create-walk .filterInputs .filter input[type=button].active {
   outline: 0;
   background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn.disabled,
@@ -2795,6 +2720,7 @@ fieldset[disabled] #create-walk .filterInputs .filter input[type=button] {
   pointer-events: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .btn-default {
@@ -3080,6 +3006,7 @@ fieldset[disabled] .btn-danger.active {
 .btn-link[disabled],
 fieldset[disabled] .btn-link {
   background-color: transparent;
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .btn-link,
@@ -3156,6 +3083,8 @@ input[type="button"].btn-block {
 body.city-page > #city-details .walk-list,
 body.city-page > #city-details .walk-list.showall {
   opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 .fade.in,
@@ -3184,6 +3113,8 @@ tbody.collapse.in {
   position: relative;
   height: 0;
   overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
   transition: height 0.35s ease;
 }
 .caret {
@@ -3219,6 +3150,7 @@ tbody.collapse.in {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
@@ -3536,9 +3468,11 @@ tbody.collapse.in {
   padding-right: 12px;
 }
 .btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn-group.open .dropdown-toggle.btn-link {
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .btn .caret,
@@ -4398,9 +4332,7 @@ body #navbar > div > header .navbar-collapse {
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse,
 .container > body #navbar > div > header .logo,
-.container-fluid > body #navbar > div > header .logo,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse {
+.container-fluid > body #navbar > div > header .logo {
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -4410,9 +4342,7 @@ body #navbar > div > header .navbar-collapse {
   .container > .navbar-collapse,
   .container-fluid > .navbar-collapse,
   .container > body #navbar > div > header .logo,
-  .container-fluid > body #navbar > div > header .logo,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse {
+  .container-fluid > body #navbar > div > header .logo {
     margin-right: 0;
     margin-left: 0;
   }
@@ -4473,8 +4403,7 @@ body #navbar > div > header .logo span:focus {
   body #navbar > div > header > .container .navbar-brand,
   body #navbar > div > header > .container-fluid .navbar-brand,
   .navbar > .container body #navbar > div > header .logo span,
-  .navbar > .container-fluid body #navbar > div > header .logo span,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand {
+  .navbar > .container-fluid body #navbar > div > header .logo span {
     margin-left: -15px;
   }
 }
@@ -4621,6 +4550,7 @@ body #navbar > div > header nav a + ul.social-login-providers.template-fontaweso
   padding: 10px 15px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 13px;
   margin-bottom: 13px;
@@ -4721,6 +4651,7 @@ body #navbar > div > header nav a + ul.social-login-providers.template-fontaweso
     margin-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    -webkit-box-shadow: none;
     box-shadow: none;
   }
   .navbar-form.navbar-right:last-child,
@@ -5481,12 +5412,10 @@ a.list-group-item.active > .badge,
 .jumbotron > hr {
   border-top-color: #d5d5d5;
 }
-.container .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron {
+.container .jumbotron {
   border-radius: 6px;
 }
-.jumbotron .container,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+.jumbotron .container {
   max-width: 100%;
 }
 @media screen and (min-width: 768px) {
@@ -5494,8 +5423,7 @@ a.list-group-item.active > .badge,
     padding-top: 48px;
     padding-bottom: 48px;
   }
-  .container .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron {
+  .container .jumbotron {
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -5505,7 +5433,6 @@ a.list-group-item.active > .badge,
   }
 }
 .thumbnail,
-.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure,
 #create-walk .team-member {
   display: block;
@@ -5515,12 +5442,12 @@ a.list-group-item.active > .badge,
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .thumbnail > img,
 .thumbnail a > img,
-.ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
 .ccm-page-list-city-cards li figure a > img,
 #create-walk .team-member > img,
@@ -5531,9 +5458,6 @@ a.list-group-item.active > .badge,
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active,
-a.ccm-page-list.ccm-blog-index li figure:hover,
-a.ccm-page-list.ccm-blog-index li figure:focus,
-a.ccm-page-list.ccm-blog-index li figure.active,
 a.ccm-page-list-city-cards li figure:hover,
 a.ccm-page-list-city-cards li figure:focus,
 a.ccm-page-list-city-cards li figure.active,
@@ -5543,37 +5467,29 @@ a#create-walk .team-member.active {
   border-color: #428bca;
 }
 .thumbnail .caption,
-.ccm-page-list.ccm-blog-index li figure .caption,
-.thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
 .ccm-page-list-city-cards li figure .caption,
 #create-walk .team-member .caption {
   padding: 9px;
   color: #333333;
 }
-.alert,
-#profileWrapper .steps {
+.alert {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
-.alert h4,
-#profileWrapper .steps h4 {
+.alert h4 {
   margin-top: 0;
   color: inherit;
 }
-.alert .alert-link,
-#profileWrapper .steps .alert-link {
+.alert .alert-link {
   font-weight: bold;
 }
 .alert > p,
-.alert > ul,
-#profileWrapper .steps > p,
-#profileWrapper .steps > ul {
+.alert > ul {
   margin-bottom: 0;
 }
-.alert > p + p,
-#profileWrapper .steps > p + p {
+.alert > p + p {
   margin-top: 5px;
 }
 .alert-dismissable,
@@ -5598,8 +5514,7 @@ a#create-walk .team-member.active {
 .alert-success .alert-link {
   color: #2b542c;
 }
-.alert-info,
-#profileWrapper .steps {
+.alert-info {
   background-color: #d9edf7;
   border-color: #bce8f1;
   color: #31708f;
@@ -5654,6 +5569,7 @@ a#create-walk .team-member.active {
   margin-bottom: 20px;
   background-color: #f5f5f5;
   border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .progress-bar {
@@ -5665,17 +5581,23 @@ a#create-walk .team-member.active {
   color: #fff;
   text-align: center;
   background-color: #428bca;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .progress-striped .progress-bar,
 .progress-bar-striped {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 .progress-bar[aria-valuenow="1"],
@@ -5693,24 +5615,32 @@ a#create-walk .team-member.active {
   background-color: #5cb85c;
 }
 .progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
   background-color: #5bc0de;
 }
 .progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-warning {
   background-color: #f0ad4e;
 }
 .progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-danger {
   background-color: #d9534f;
 }
 .progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .media,
@@ -5921,6 +5851,7 @@ a.list-group-item-danger.active:focus {
   background-color: #fff;
   border: 1px solid transparent;
   border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .panel-body {
@@ -5983,9 +5914,6 @@ a.list-group-item-danger.active:focus {
 .panel > #create-walk dialog table,
 .panel > .table-responsive > #create-walk dialog table,
 .panel > .panel-collapse > #create-walk dialog table,
-.panel > #profileWrapper table,
-.panel > .table-responsive > #profileWrapper table,
-.panel > .panel-collapse > #profileWrapper table,
 .panel > #create-walk table.routeStops,
 .panel > .table-responsive > #create-walk table.routeStops,
 .panel > .panel-collapse > #create-walk table.routeStops {
@@ -5997,8 +5925,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:first-child > #modals dialog table:first-child,
 .panel > #create-walk dialog table:first-child,
 .panel > .table-responsive:first-child > #create-walk dialog table:first-child,
-.panel > #profileWrapper table:first-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child,
 .panel > #create-walk table.routeStops:first-child,
 .panel > .table-responsive:first-child > #create-walk table.routeStops:first-child {
   border-top-right-radius: 3px;
@@ -6028,14 +5954,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:first-child > #create-walk dialog table:first-child > thead:first-child > tr:first-child th:first-child,
 .panel > #create-walk dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
 .panel > .table-responsive:first-child > #create-walk dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
-.panel > #profileWrapper table:first-child > thead:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child td:first-child,
-.panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:first-child,
-.panel > #profileWrapper table:first-child > thead:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child th:first-child,
-.panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > tbody:first-child > tr:first-child th:first-child,
 .panel > #create-walk table.routeStops:first-child > thead:first-child > tr:first-child td:first-child,
 .panel > .table-responsive:first-child > #create-walk table.routeStops:first-child > thead:first-child > tr:first-child td:first-child,
 .panel > #create-walk table.routeStops:first-child > tbody:first-child > tr:first-child td:first-child,
@@ -6070,14 +5988,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:first-child > #create-walk dialog table:first-child > thead:first-child > tr:first-child th:last-child,
 .panel > #create-walk dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
 .panel > .table-responsive:first-child > #create-walk dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
-.panel > #profileWrapper table:first-child > thead:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child td:last-child,
-.panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:last-child,
-.panel > #profileWrapper table:first-child > thead:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child th:last-child,
-.panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > #profileWrapper table:first-child > tbody:first-child > tr:first-child th:last-child,
 .panel > #create-walk table.routeStops:first-child > thead:first-child > tr:first-child td:last-child,
 .panel > .table-responsive:first-child > #create-walk table.routeStops:first-child > thead:first-child > tr:first-child td:last-child,
 .panel > #create-walk table.routeStops:first-child > tbody:first-child > tr:first-child td:last-child,
@@ -6094,8 +6004,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:last-child > #modals dialog table:last-child,
 .panel > #create-walk dialog table:last-child,
 .panel > .table-responsive:last-child > #create-walk dialog table:last-child,
-.panel > #profileWrapper table:last-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child,
 .panel > #create-walk table.routeStops:last-child,
 .panel > .table-responsive:last-child > #create-walk table.routeStops:last-child {
   border-bottom-right-radius: 3px;
@@ -6125,14 +6033,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:last-child > #create-walk dialog table:last-child > tbody:last-child > tr:last-child th:first-child,
 .panel > #create-walk dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
 .panel > .table-responsive:last-child > #create-walk dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
-.panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:first-child,
-.panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:first-child,
-.panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child th:first-child,
-.panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tfoot:last-child > tr:last-child th:first-child,
 .panel > #create-walk table.routeStops:last-child > tbody:last-child > tr:last-child td:first-child,
 .panel > .table-responsive:last-child > #create-walk table.routeStops:last-child > tbody:last-child > tr:last-child td:first-child,
 .panel > #create-walk table.routeStops:last-child > tfoot:last-child > tr:last-child td:first-child,
@@ -6167,14 +6067,6 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:last-child > #create-walk dialog table:last-child > tbody:last-child > tr:last-child th:last-child,
 .panel > #create-walk dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
 .panel > .table-responsive:last-child > #create-walk dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
-.panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:last-child,
-.panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:last-child,
-.panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child th:last-child,
-.panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > #profileWrapper table:last-child > tfoot:last-child > tr:last-child th:last-child,
 .panel > #create-walk table.routeStops:last-child > tbody:last-child > tr:last-child td:last-child,
 .panel > .table-responsive:last-child > #create-walk table.routeStops:last-child > tbody:last-child > tr:last-child td:last-child,
 .panel > #create-walk table.routeStops:last-child > tfoot:last-child > tr:last-child td:last-child,
@@ -6189,7 +6081,6 @@ a.list-group-item-danger.active:focus {
 .panel > .panel-body + .table-responsive,
 .panel > .panel-body + #modals dialog table,
 .panel > .panel-body + #create-walk dialog table,
-.panel > .panel-body + #profileWrapper table,
 .panel > .panel-body + #create-walk table.routeStops {
   border-top: 1px solid #ddd;
 }
@@ -6199,8 +6090,6 @@ a.list-group-item-danger.active:focus {
 .panel > #modals dialog table > tbody:first-child > tr:first-child td,
 .panel > #create-walk dialog table > tbody:first-child > tr:first-child th,
 .panel > #create-walk dialog table > tbody:first-child > tr:first-child td,
-.panel > #profileWrapper table > tbody:first-child > tr:first-child th,
-.panel > #profileWrapper table > tbody:first-child > tr:first-child td,
 .panel > #create-walk table.routeStops > tbody:first-child > tr:first-child th,
 .panel > #create-walk table.routeStops > tbody:first-child > tr:first-child td {
   border-top: 0;
@@ -6465,6 +6354,7 @@ a.list-group-item-danger.active:focus {
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .well blockquote {
@@ -6532,9 +6422,10 @@ button.close {
 .modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
-  transition: -webkit-transform 0.3s ease-out;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 .modal.in .modal-dialog,
 #modals dialog.in .modal-dialog,
@@ -6565,6 +6456,7 @@ button.close {
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: 0;
@@ -6662,6 +6554,7 @@ button.close {
   .modal-content,
   #modals dialog > div > article,
   #create-walk dialog > div > article {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
   .modal-sm {
@@ -6785,6 +6678,7 @@ button.close {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
 }
@@ -6900,6 +6794,8 @@ button.close {
 .carousel-inner > .item {
   display: none;
   position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
 .carousel-inner > .item > img,
@@ -6950,6 +6846,8 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .carousel-control.left {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
@@ -6957,6 +6855,8 @@ button.close {
 .carousel-control.right {
   left: auto;
   right: 0;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
@@ -7107,12 +7007,6 @@ button.close {
 .panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after,
-#profileWrapper div.content div#resourcesBlock div.ideas ul:before,
-#profileWrapper div.content div#resourcesBlock div.ideas ul:after,
-#profileWrapper div.content div#resourcesBlock div.cos ul:before,
-#profileWrapper div.content div#resourcesBlock div.cos ul:after,
 .walk-page .walk-header:before,
 .walk-page .walk-header:after,
 .walk-body:before,
@@ -7144,9 +7038,7 @@ body #navbar > div > header .logo:after,
 .form-horizontal #create-walk dialog label:before,
 .form-horizontal #create-walk dialog label:after,
 .social-login-providers.template-fontawesome:before,
-.social-login-providers.template-fontawesome:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+.social-login-providers.template-fontawesome:after {
   content: " ";
   display: table;
 }
@@ -7165,9 +7057,6 @@ body #navbar > div > header .logo:after,
 .pager:after,
 .panel-body:after,
 .modal-footer:after,
-.ccm-page-list.ccm-blog-index:after,
-#profileWrapper div.content div#resourcesBlock div.ideas ul:after,
-#profileWrapper div.content div#resourcesBlock div.cos ul:after,
 .walk-page .walk-header:after,
 .walk-body:after,
 .walk-body .walk-team .walk-leaders:after,
@@ -7183,8 +7072,7 @@ body #navbar > div > header .logo:after,
 #create-walk dialog > div > article footer:after,
 .form-horizontal #modals dialog label:after,
 .form-horizontal #create-walk dialog label:after,
-.social-login-providers.template-fontawesome:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+.social-login-providers.template-fontawesome:after {
   clear: both;
 }
 .center-block {
@@ -8052,6 +7940,7 @@ body #navbar > div > header .logo:after,
 .glyphicon-tree-deciduous:before {
   content: "\e200";
 }
+/* Import our theme variables. */
 .fade-enter {
   opacity: 0.01;
   max-height: 0;
@@ -8070,6 +7959,9 @@ body #navbar > div > header .logo:after,
   max-height: 0;
   opacity: 0.01;
 }
+/* @import "presets/defaults.css"; */
+/* Import our theme mixins */
+/* Import our theme form style */
 textarea {
   height: auto;
 }
@@ -8092,12 +7984,14 @@ input {
 div.field {
   padding-bottom: 1.5em;
 }
+/* Import our dashboard (c5) style */
 #ccm-toolbar {
   z-index: -1;
 }
 div#ccm-edit-overlay {
   z-index: 1031;
 }
+/* Our style rules - namespace so as not to collide with the core app styles */
 body {
   padding-top: 60px;
   overflow-x: hidden;
@@ -8156,8 +8050,7 @@ body > #body-bg {
   right: 0;
   min-height: 100vh;
   width: 100vw;
-  -webkit-transform: translateZ(-1px) scale(2);
-          transform: translateZ(-1px) scale(2);
+  transform: translateZ(-1px) scale(2);
   background: 50% 50% / cover;
   z-index: -1;
 }
@@ -8527,9 +8420,7 @@ h4,
 h5,
 h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-#profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -8552,9 +8443,7 @@ h3 {
 }
 h4,
 .walk-card .thumbnail .walkimage .statusMessage,
-#profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -8700,8 +8589,7 @@ a {
   line-height: 1em;
   font-weight: 400;
 }
-.notification .container,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+.notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -8821,8 +8709,7 @@ body #navbar > div > header nav ul.social-login-providers.template-fontawesome >
 }
 body #navbar > div > header nav ul.nav > li.notify,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify {
-  -webkit-animation: notifying 0.5s infinite alternate;
-          animation: notifying 0.5s infinite alternate;
+  animation: notifying 0.5s infinite alternate;
 }
 body #navbar > div > header nav ul.nav > li.notify > a,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify > a {
@@ -8841,8 +8728,7 @@ body #navbar > div > header .notification {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-body #navbar > div > header .notification .container,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+body #navbar > div > header .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
@@ -8956,17 +8842,6 @@ body fieldset.search button {
 body div#ccm-toolbar {
   display: none;
   z-index: 1050;
-}
-@-webkit-keyframes notifying {
-  0% {
-    background-color: #f16725;
-  }
-  100% {
-    background-color: rgba(241, 103, 37, 0.7);
-  }
-  100% {
-    background-color: #f16725;
-  }
 }
 @keyframes notifying {
   0% {
@@ -9277,9 +9152,7 @@ body .itinerary .action {
   float: right;
   max-width: 30%;
   position: relative;
-  -webkit-transform: translateY(100%);
-      -ms-transform: translateY(100%);
-          transform: translateY(100%);
+  transform: translateY(100%);
   border: none;
   border-radius: 100%;
   background-color: transparent;
@@ -9790,7 +9663,6 @@ input.plaintext:hover {
   text-decoration: none;
 }
 .walk-card .thumbnail,
-.walk-card .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk .thumbnail,
 .walk-card .ccm-page-list-city-cards li figure,
 .walk-card #create-walk .team-member {
@@ -9799,7 +9671,6 @@ input.plaintext:hover {
   padding: 0;
 }
 .walk-card .thumbnail .walkimage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage,
 .walk-card #create-walk .team-member .walkimage {
@@ -9811,7 +9682,6 @@ input.plaintext:hover {
   min-height: 100px;
 }
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -9827,7 +9697,6 @@ input.plaintext:hover {
   text-align: center;
 }
 .walk-card .thumbnail .walkimage .statusMessage:before,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 .walk-card #create-walk .team-member .walkimage .statusMessage:before {
@@ -9836,16 +9705,12 @@ input.plaintext:hover {
   padding-right: 0.5em;
 }
 .walk-card .thumbnail .caption,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption,
 .walk-card .ccm-page-list-city-cards li figure .caption,
 .walk-card #create-walk .team-member .caption {
   padding: 2px 11px;
 }
 .walk-card .thumbnail .caption p,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption p,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption p,
 .walk-card .ccm-page-list-city-cards li figure .caption p,
 .walk-card #create-walk .team-member .caption p {
@@ -9854,16 +9719,12 @@ input.plaintext:hover {
   font-size: 14px;
 }
 .walk-card .thumbnail .caption h4,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption h4,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h4,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption h4,
 .walk-card .ccm-page-list-city-cards li figure .caption h4,
 .walk-card #create-walk .team-member .caption h4 {
   margin: 11px 0 8px;
 }
 .walk-card .thumbnail .caption h6,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption h6,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption h6,
 .walk-card .ccm-page-list-city-cards li figure .caption h6,
 .walk-card #create-walk .team-member .caption h6 {
@@ -9871,8 +9732,6 @@ input.plaintext:hover {
 }
 @media (max-width: 768px) {
   .walk-card .thumbnail .caption,
-  .walk-card .ccm-page-list.ccm-blog-index li figure .caption,
-  .walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
   .ccm-block-page-list-walk-filters .walk .thumbnail .caption,
   .walk-card .ccm-page-list-city-cards li figure .caption,
   .walk-card #create-walk .team-member .caption {
@@ -9880,7 +9739,6 @@ input.plaintext:hover {
   }
 }
 .walk-card .thumbnail .when,
-.walk-card .ccm-page-list.ccm-blog-index li figure .when,
 .ccm-block-page-list-walk-filters .walk .thumbnail .when,
 .walk-card .ccm-page-list-city-cards li figure .when,
 .walk-card #create-walk .team-member .when {
@@ -9894,7 +9752,6 @@ input.plaintext:hover {
   margin: 0;
 }
 .walk-card .thumbnail .when li,
-.walk-card .ccm-page-list.ccm-blog-index li figure .when li,
 .ccm-block-page-list-walk-filters .walk .thumbnail .when li,
 .walk-card .ccm-page-list-city-cards li figure .when li,
 .walk-card #create-walk .team-member .when li {
@@ -9903,7 +9760,6 @@ input.plaintext:hover {
   font-weight: 400;
 }
 .walk-card .thumbnail .tags,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags,
 .walk-card .ccm-page-list-city-cards li figure .tags,
 .walk-card #create-walk .team-member .tags {
@@ -9914,7 +9770,6 @@ input.plaintext:hover {
   display: none;
 }
 .walk-card .thumbnail .tags .tag,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags .tag,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags .tag,
 .walk-card .ccm-page-list-city-cards li figure .tags .tag,
 .walk-card #create-walk .team-member .tags .tag {
@@ -9925,7 +9780,6 @@ input.plaintext:hover {
   border-radius: 100%;
 }
 .walk-card .thumbnail .tags .fa,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags .fa,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags .fa,
 .walk-card .ccm-page-list-city-cards li figure .tags .fa,
 .walk-card #create-walk .team-member .tags .fa {
@@ -9936,7 +9790,6 @@ input.plaintext:hover {
 }
 @media (max-width: 992px) {
   .walk-card .thumbnail,
-  .walk-card .ccm-page-list.ccm-blog-index li figure,
   .ccm-block-page-list-walk-filters .walk .thumbnail,
   .walk-card .ccm-page-list-city-cards li figure,
   .walk-card #create-walk .team-member {
@@ -9949,7 +9802,6 @@ input.plaintext:hover {
   margin-bottom: 17px;
 }
 .walk-card:hover .thumbnail,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail,
 .walk-card:hover .ccm-page-list-city-cards li figure,
 .walk-card:hover #create-walk .team-member {
@@ -9962,10 +9814,6 @@ input.plaintext:hover {
 .walk-card:hover .thumbnail h6,
 .walk-card:hover .thumbnail p,
 .walk-card:hover .thumbnail li,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure h4,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure h6,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure p,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure li,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail h4,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail h6,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail p,
@@ -9989,101 +9837,86 @@ input.plaintext:hover {
   margin-top: 0;
 }
 .walk-card:active .thumbnail,
-.walk-card:active .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk:active .thumbnail,
 .walk-card:active .ccm-page-list-city-cards li figure,
 .walk-card:active #create-walk .team-member {
   background: #3991fc;
 }
-.ccm-page-list.ccm-blog-index {
-  margin-left: -15px;
-  margin-right: -15px;
-  list-style-type: none;
-  padding: 0;
+/* Block imports */
+.BlogIndex h5 {
+  margin: 0;
 }
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after {
-  content: " ";
-  display: table;
+.BlogIndex__articles,
+.BlogIndex__break {
+  display: flex;
+  margin-bottom: 60px;
 }
-.ccm-page-list.ccm-blog-index:after {
-  clear: both;
+.BlogIndex__article--main {
+  padding: 15px;
+  margin-right: 15px;
+  flex: 2 0 0;
 }
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after {
-  content: " ";
-  display: table;
+.BlogIndex__article--sub {
+  flex: 1 0 0;
 }
-.ccm-page-list.ccm-blog-index:after {
-  clear: both;
+.BlogIndex__smallcard {
+  border-top: 15px solid #F16725;
+  border-bottom: 2px solid #efefef;
+  background-color: #f7f7f7;
+  margin-top: 30px;
+  padding: 15px 30px;
 }
-@media (min-width: 768px) and (max-width: 991px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(2n + 1) {
-    clear: both;
-  }
+.BlogIndex__smallcard:first-child {
+  margin-top: 0;
 }
-@media (min-width: 768px) and (max-width: 991px) and (min-width: 768px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 50%;
-  }
+.BlogIndex__break > blockquote {
+  float: none;
+  text-transform: none;
+  margin: 0;
+  flex: 1 0 0;
 }
-@media (min-width: 992px) and (max-width: 1199px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(3n + 1) {
-    clear: both;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) and (min-width: 992px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 1200px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(3n + 1) {
-    clear: both;
-  }
-}
-@media (min-width: 1200px) and (min-width: 1200px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-.ccm-page-list.ccm-blog-index li:before {
-  content: '' !important;
-  padding: 0 !important;
-}
-.ccm-page-list.ccm-blog-index li figure {
-  padding: 0;
-}
-.ccm-page-list.ccm-blog-index li figure .blogimage {
-  background-size: cover;
-  background-position: 50%;
-  width: 100%;
-  min-height: 240px;
+.BlogIndex__break > blockquote cite {
   display: block;
 }
-.ccm-page-list.ccm-blog-index li figure figcaption {
-  padding: 10px;
+.BlogIndex__break > blockquote cite:before {
+  content: "-- ";
+}
+.BlogIndex__article--med {
+  flex: 1 0 0;
+}
+.BlogIndex__bigcard .BlogIndex__banner {
+  width: calc(100% + 30px);
+  margin: -15px;
+  height: 200px;
+}
+.BlogIndex__bigcard__text {
+  padding: 5% 10%;
+}
+.BlogIndex__mediumcard__head .BlogIndex__banner {
+  height: 100px;
+  width: 100%;
+}
+.BlogIndex__mediumcard__text {
+  display: flex;
+  align-items: center;
+}
+.BlogIndex__mediumcard__text > div {
+  flex: 1 0 0;
+  justify-content: center;
+  padding: 15px;
+}
+.BlogIndex__mediumcard__text h3 {
+  margin-top: 0;
+}
+.BlogIndex__mediumcard,
+.BlogIndex__article--main {
+  border: 1px solid #efefef;
+  border-top: 15px solid #6BADFD;
+  box-shadow: -7.5px 7.5px 0px #efefef;
+}
+.BlogIndex__banner {
+  background-color: #6BADFD;
+  object-fit: cover;
 }
 div.ccm-page-list-rss-icon {
   margin-top: 10px;
@@ -10092,6 +9925,8 @@ div.ccm-page-list-tags {
   display: none;
 }
 div.ccm-page-list-typeahead {
+  --button-offset: 4px;
+  --default-width: 280px;
   position: relative;
   font-family: "Roboto Slab", serif;
 }
@@ -10109,7 +9944,7 @@ div.ccm-page-list-typeahead fieldset.search > ul {
   background: #fff;
   padding: 5px;
   z-index: 2;
-  width: 291px;
+  width: var(--default-width);
   max-height: 14em;
   overflow-y: scroll;
 }
@@ -10299,7 +10134,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   margin-bottom: 60px;
 }
 .ccm-page-list-city-cards li figure a.thumbnail,
-.ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure,
 .ccm-page-list-city-cards li figure a#create-walk .team-member {
   margin-bottom: 0;
@@ -10356,6 +10190,11 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     float: left;
   }
 }
+/**
+ * Style overrides for page types
+ * rule of thumb: try to keep these to a minimum, and include
+ * generalized styles when possible
+ */
 body.home {
   padding-top: 0;
   /* The sticky navbar */
@@ -10982,30 +10821,25 @@ body.home #sponsors ul.neighbourhoodBuilder li {
   margin: 0 auto;
   width: 75%;
 }
-.caption h5,
-.ccm-page-list.ccm-blog-index li figure figcaption h5 {
+.caption h5 {
   color: #F16725;
 }
 @media (max-width: 768px) {
-  .caption h5 a,
-  .ccm-page-list.ccm-blog-index li figure figcaption h5 a {
+  .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
 @media (max-width: 768px) {
-  .caption h6,
-  .ccm-page-list.ccm-blog-index li figure figcaption h6 {
+  .caption h6 {
     margin: 5px 0 0;
   }
 }
-.caption p,
-.ccm-page-list.ccm-blog-index li figure figcaption p {
+.caption p {
   color: #555;
 }
 @media (max-width: 768px) {
-  .caption p,
-  .ccm-page-list.ccm-blog-index li figure figcaption p {
+  .caption p {
     display: none;
   }
 }
@@ -11032,712 +10866,6 @@ body.home #sponsors ul.neighbourhoodBuilder li {
     margin-bottom: 1.85em;
     position: relative;
   }
-}
-#profileWrapper {
-  max-width: 992px;
-  margin: 0 auto;
-  padding-top: 20px;
-}
-#profileWrapper .nav,
-#profileWrapper .social-login-providers.template-fontawesome {
-  margin: 0;
-}
-#profileWrapper div.headline {
-  margin-top: 10px;
-}
-#profileWrapper .field:before,
-#profileWrapper .field:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper .field:after {
-  clear: both;
-}
-#profileWrapper .field:before,
-#profileWrapper .field:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper .field:after {
-  clear: both;
-}
-#profileWrapper div.title:before,
-#profileWrapper div.title:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.title:after {
-  clear: both;
-}
-#profileWrapper div.title:before,
-#profileWrapper div.title:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.title:after {
-  clear: both;
-}
-#profileWrapper div.title span.label {
-  float: left;
-  margin: 0 5px 0 0;
-  color: inherit;
-}
-#profileWrapper div.title a {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 90%;
-  float: left;
-  width: 200px;
-}
-#profileWrapper div.subactions:before,
-#profileWrapper div.subactions:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.subactions:after {
-  clear: both;
-}
-#profileWrapper div.subactions:before,
-#profileWrapper div.subactions:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.subactions:after {
-  clear: both;
-}
-#profileWrapper div.subactions a {
-  display: block;
-  float: left;
-  color: #777;
-  text-decoration: underline;
-  margin: 0 8px 0 0;
-  font-size: 12px;
-}
-#profileWrapper div.subactions a:hover {
-  text-decoration: none;
-}
-#profileWrapper div.progressb {
-  position: relative;
-  background-color: #564940;
-  height: 50px;
-  border-radius: 4px;
-}
-#profileWrapper div.progressb:before,
-#profileWrapper div.progressb:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.progressb:after {
-  clear: both;
-}
-#profileWrapper div.progressb:before,
-#profileWrapper div.progressb:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.progressb:after {
-  clear: both;
-}
-#profileWrapper div.progressb div.bar {
-  background-color: #fff;
-  height: 4px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-}
-#profileWrapper div.progressb div.step {
-  float: left;
-  position: relative;
-  width: 20%;
-  height: 1%;
-}
-#profileWrapper div.progressb div.step div.number {
-  background-color: #fff;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  border-radius: 4px;
-  position: absolute;
-  top: 10px;
-}
-#profileWrapper div.progressb div.step div.copy {
-  position: absolute;
-  top: 35px;
-  left: 0;
-  color: #fff;
-  font-size: 14px;
-}
-#profileWrapper div.overlay div.o-content {
-  width: 45%;
-  margin-left: -22.5%;
-  box-sizing: border-box;
-  padding: 20px;
-  height: auto;
-}
-#profileWrapper div.overlay div.o-content h1 {
-  font-size: 32px;
-  font-weight: normal;
-  margin: 0 0 10px;
-}
-#profileWrapper div.overlay div.o-content p {
-  margin: 0;
-}
-#profileWrapper div.overlay div.o-content div.options {
-  border-top: 1px dashed #ddd;
-  padding: 12px 0 0 0;
-  margin: 24px 0 0 0;
-}
-#profileWrapper div.overlay div.o-content div.options div.option {
-  margin: 0 12px 8px 0;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.copy {
-  line-height: 32px;
-  font-size: 24px;
-  text-align: center;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks {
-  width: 124px;
-  margin: 18px auto 0;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:before,
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
-  clear: both;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:before,
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
-  clear: both;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a {
-  font-size: 18px;
-  height: 36px;
-  line-height: 36px;
-  text-align: center;
-  width: 36px;
-  display: block;
-  float: left;
-  border-radius: 100px;
-  color: #fff;
-  margin: 0 8px 0 0;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a:last-child {
-  margin: 0;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a:hover {
-  text-decoration: none;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter {
-  background-color: #00A9F2;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter:hover {
-  background-color: #80D4F9;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook {
-  background-color: #3D529D;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook:hover {
-  background-color: #9EA9CE;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope {
-  background-color: #F01F00;
-}
-#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope:hover {
-  background-color: #F88F80;
-}
-#profileWrapper div.overlay div.o-content div.nav,
-#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome {
-  position: relative;
-  height: 24px;
-  margin: 12px 0 0;
-  padding: 12px 0 0;
-  border-top: 1px dashed #ddd;
-}
-#profileWrapper div.overlay div.o-content div.nav a,
-#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  color: #fff;
-  background-color: #373942;
-  border-radius: 4px;
-}
-#profileWrapper div.overlay div.o-content div.nav a:hover,
-#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a:hover {
-  text-decoration: none;
-  background-color: #fff;
-  color: #373942;
-}
-#profileWrapper div.overlay div.o-content div.nav a.left,
-#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.left {
-  left: 0;
-}
-#profileWrapper div.overlay div.o-content div.nav a.right,
-#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.right {
-  right: 0;
-}
-#profileWrapper div.content {
-  border: solid #ddd;
-  border-width: 0 1px 1px;
-}
-#profileWrapper div.content div.block {
-  padding: 32px;
-}
-#profileWrapper div.content div.block div.success {
-  margin: 0 0 20px;
-  padding: 20px;
-  border-left: 3px solid #eee;
-  background-color: #F5FAF4;
-  border-color: #5BDE8F;
-  font-size: 18px;
-  display: none;
-}
-#profileWrapper div.content div.block div.success span {
-  padding: 0 8px 0 0;
-}
-#profileWrapper div.content div.block.success div.success {
-  display: block;
-}
-#profileWrapper div.content div#dashboardBlock {
-  clear: both;
-  min-height: 220px;
-}
-#profileWrapper div.content div#dashboardBlock:before,
-#profileWrapper div.content div#dashboardBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#dashboardBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#dashboardBlock:before,
-#profileWrapper div.content div#dashboardBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#dashboardBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#dashboardBlock div.column {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#dashboardBlock div.column {
-    float: left;
-    width: 50%;
-  }
-}
-#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.copy,
-#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.copy,
-#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.copy {
-  font-size: 16px;
-  line-height: 24px;
-}
-#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.btnWrapper,
-#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.btnWrapper,
-#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.btnWrapper {
-  padding: 8px 0 0;
-}
-#profileWrapper div.content div#dashboardBlock div.column.walks ul,
-#profileWrapper div.content div#dashboardBlock div.column.city ul,
-#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul {
-  padding: 0;
-  margin: 10px 0 0 0;
-  list-style-type: none;
-  max-height: 320px;
-  overflow-x: auto;
-}
-#profileWrapper div.content div#dashboardBlock div.column.walks ul li,
-#profileWrapper div.content div#dashboardBlock div.column.city ul li,
-#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li {
-  margin: 0;
-  list-style-type: none;
-  padding: 0 0 24px;
-}
-#profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-#profileWrapper div.content div#cityBlock {
-  clear: both;
-  padding: 32px 0 0;
-}
-#profileWrapper div.content div#cityBlock div.main {
-  padding: 0 32px 32px;
-}
-#profileWrapper div.content div#cityBlock div.main > p {
-  margin: 0;
-  padding: 0;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables {
-  margin: 24px 0 0;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables:before,
-#profileWrapper div.content div#cityBlock div.main div.editables:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables:after {
-  clear: both;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables:before,
-#profileWrapper div.content div#cityBlock div.main div.editables:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables:after {
-  clear: both;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#cityBlock div.main div.editables div.column {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.name {
-  font-weight: bold;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val {
-  padding: 8px 0 0;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p {
-  position: relative;
-  display: block;
-  margin: 0;
-  padding: 0 0 0 32px;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.icon {
-  position: absolute;
-  font-size: 24px;
-  left: 2px;
-  top: 6px;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.bgPhoto {
-  background-image: url('http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg');
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p a {
-  font-size: 12px;
-  padding: 0 0 0 8px;
-}
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar .loadFeed,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=submit],
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=button] {
-  margin: 10px 0 0;
-}
-#profileWrapper div.content div#cityBlock div.footer {
-  padding: 32px;
-  text-align: center;
-  background-color: #FCF6F4;
-  border-top: 1px solid #ddd;
-}
-#profileWrapper div.content div#cityBlock div.footer p {
-  font-size: 22px;
-  margin: 0 0 20px;
-}
-#profileWrapper div.content div#accountBlock {
-  clear: both;
-}
-#profileWrapper div.content div#accountBlock form:before,
-#profileWrapper div.content div#accountBlock form:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#accountBlock form:after {
-  clear: both;
-}
-#profileWrapper div.content div#accountBlock form:before,
-#profileWrapper div.content div#accountBlock form:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#accountBlock form:after {
-  clear: both;
-}
-#profileWrapper div.content div#accountBlock form div.column {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#accountBlock form div.column {
-    float: left;
-    width: 50%;
-  }
-}
-#profileWrapper div.content div#accountBlock form div.column span.required {
-  color: red;
-  padding: 0 4px 0 0;
-}
-#profileWrapper div.content div#pictureBlock {
-  clear: both;
-  position: relative;
-}
-#profileWrapper div.content div#pictureBlock:before,
-#profileWrapper div.content div#pictureBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#pictureBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#pictureBlock:before,
-#profileWrapper div.content div#pictureBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#pictureBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#pictureBlock div.column {
-  float: left;
-  box-sizing: border-box;
-  padding: 0 32px 0 0;
-}
-#profileWrapper div.content div#pictureBlock div.column.widget {
-  width: 520px;
-}
-#profileWrapper div.content div#pictureBlock div.column.tips {
-  width: 358px;
-}
-#profileWrapper div.content div#pictureBlock div.column.tips a {
-  display: block;
-  text-align: right;
-  margin: 20px 0 0 0;
-}
-#profileWrapper div.content div#resourcesBlock {
-  clear: both;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock {
-  margin: 0 0 48px;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
-  clear: both;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding: 0;
-  list-style-type: none;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
-  clear: both;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
-  content: " ";
-  display: table;
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
-  clear: both;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
-    float: left;
-    width: 100%;
-  }
-}
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul {
-  margin-left: -15px;
-  margin-right: -15px;
-  padding: 6px 0 0;
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul li div.banner {
-  border-radius: 4px 4px 0 0;
-  width: 100%;
-  height: 150px;
-  background-size: cover;
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
-  border: 1px solid #ddd;
-  border-bottom-width: 2px;
-  font-size: 16px;
-  padding: 12px 0 12px 8px;
-  border-radius: 0 0 4px 4px;
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta img.flag {
-  border-radius: 4px;
-  border: 2px solid #fff;
-  width: 50px;
-  display: block;
-  margin: -26px auto 0 auto;
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.city a {
-  font-size: 16px;
-}
-#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.title a {
-  font-size: 16px;
-}
-#profileWrapper div.content div#resourcesBlock div.cos ul {
-  margin-left: -15px;
-  margin-right: -15px;
-  padding: 6px 0 0;
-}
-#profileWrapper div.content div#resourcesBlock div.cos ul li img.map {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-}
-#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
-  position: relative;
-  border: 1px solid #ddd;
-  border-bottom-width: 2px;
-  font-size: 16px;
-  padding: 12px 0 12px 8px;
-  border-radius: 0 0 4px 4px;
-}
-#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta .tag {
-  background-color: #6BADFD;
-  border: 2px solid #fff;
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  background-size: cover;
-  background-position: 50%;
-  display: block;
-  margin: -37px auto 0 auto;
-}
-#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta div.email a {
-  font-size: 14px;
-}
-#profileWrapper div.content div#resourcesBlock div.files ul {
-  list-style-type: none;
-  padding: 6px 0 0;
-  margin: 0;
-}
-#profileWrapper div.content div#resourcesBlock div.files ul li a {
-  display: block;
-  height: 50px;
-  padding: 0 0 0 50px;
-}
-#profileWrapper div.content div#resourcesBlock div.files ul li a img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 44px;
-}
-#ccm-profile-body form {
-  font-family: "Roboto Slab", serif;
-  font-weight: 100;
-  font-size: 22px;
-  color: #222;
-}
-#ccm-profile-body form select {
-  margin: 0;
-  height: 40px;
-  border: 1px solid #b4b4b4;
-  border-radius: 5px 0 0 5px;
-  width: 460px;
-  font-size: 22px;
-  color: #888;
-  font-family: "Roboto Slab", serif;
-}
-#ccm-profile-body form fieldset.dropsubmit input[type=submit] {
-  margin-left: -59px;
-}
-#ccm-profile-body form input[type=submit] {
-  height: 40px;
-  min-width: 60px;
-  background-color: #efefef;
-  border: 1px solid #b4b4b4;
-  border-radius: 0 5px 5px 0;
-  font-family: "Roboto Slab", serif;
-  font-weight: 100;
-  font-size: 22px;
-  color: #222;
-}
-#ccm-profile-body ul {
-  margin-left: 50px;
-}
-#ccm-profile-body ul li {
-  list-style-type: none;
-  line-height: 25px;
-  margin-bottom: 3px;
-}
-#ccm-profile-body ul li:before {
-  display: inline-block;
-  content: "» ";
-  padding-right: 10px;
-  font-weight: 700;
-  color: #F16725;
-}
-#ccm-profile-sidebar .ccm-profile-header {
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-#remove-co {
-  margin-top: 2em;
 }
 body.city-page {
   background-attachment: fixed;
@@ -12112,7 +11240,6 @@ body.city-page > #city-details .walk-list .walk-filters a {
   display: inline-block;
 }
 body.city-page > #city-details .walk-list .walk-filters a:first-child i {
-  font-size: 12px;
   margin-right: 3px;
 }
 body.city-page > #city-details .walk-list .walk-filters a:first-child i.fa-chevron-down {
@@ -12463,8 +11590,7 @@ body.city-page > #blog:after {
   }
 }
 @media (max-width: 768px) {
-  .walk-page .container-outter .container,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+  .walk-page .container-outter .container {
     padding: 10px;
   }
 }
@@ -12582,33 +11708,27 @@ body.city-page > #blog:after {
 .walk-page i {
   color: inherit;
 }
-.walk-page .caption,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-page .caption {
   margin-bottom: 1em;
 }
-.walk-page .caption h3,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3 {
+.walk-page .caption h3 {
   margin: 1em 0 0 0;
   line-height: 1em;
 }
-.walk-page .caption h3:first-child,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3:first-child {
+.walk-page .caption h3:first-child {
   margin-top: 0;
   margin-bottom: 0.5em;
 }
-.walk-page .caption h3 .icon-calendar,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3 .icon-calendar {
+.walk-page .caption h3 .icon-calendar {
   font-size: 22px;
   width: 27px;
   color: #999;
 }
-.walk-page .caption p,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption p {
+.walk-page .caption p {
   margin-top: 10px;
   margin-left: 25px;
 }
-.walk-page .caption p.select-day,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption p.select-day {
+.walk-page .caption p.select-day {
   margin: 0 auto;
   display: block;
   width: 60%;
@@ -12622,23 +11742,19 @@ body.city-page > #blog:after {
   font-size: 1.5em;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
-.walk-page .caption i,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption i {
+.walk-page .caption i {
   width: 20px;
   display: inline-block;
 }
-.walk-page .caption ul,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul {
+.walk-page .caption ul {
   margin-top: 10px;
   list-style: none;
 }
-.walk-page .caption ul li,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul li {
+.walk-page .caption ul li {
   position: relative;
   margin-bottom: 0.5em;
 }
-.walk-page .caption ul li:after,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul li:after {
+.walk-page .caption ul li:after {
   content: "\f046";
   font-family: "FontAwesome";
   font-style: normal;
@@ -12652,8 +11768,6 @@ body.city-page > #blog:after {
 }
 .walk-page .thumbnail.accessibility,
 .walk-page .thumbnail.donation,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility,
-.walk-page .ccm-page-list.ccm-blog-index li figure.donation,
 .walk-page .ccm-page-list-city-cards li figure.accessibility,
 .walk-page .ccm-page-list-city-cards li figure.donation,
 .walk-page #create-walk .team-member.accessibility,
@@ -12661,39 +11775,32 @@ body.city-page > #blog:after {
   margin: 1em 0;
 }
 .walk-page .thumbnail.accessibility h4,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4,
 .walk-page .ccm-page-list-city-cards li figure.accessibility h4,
 .walk-page #create-walk .team-member.accessibility h4 {
   margin-top: 1.5em;
 }
 .walk-page .thumbnail.accessibility h4:first-child,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4:first-child,
 .walk-page .ccm-page-list-city-cards li figure.accessibility h4:first-child,
 .walk-page #create-walk .team-member.accessibility h4:first-child {
   margin-top: 0;
 }
 .walk-page .thumbnail hr,
-.walk-page .ccm-page-list.ccm-blog-index li figure hr,
 .walk-page .ccm-page-list-city-cards li figure hr,
 .walk-page #create-walk .team-member hr {
   margin: 10px 0;
 }
 .walk-page .thumbnail .alert,
-.walk-page .ccm-page-list.ccm-blog-index li figure .alert,
 .walk-page .ccm-page-list-city-cards li figure .alert,
-.walk-page .thumbnail #profileWrapper .steps,
 .walk-page #create-walk .team-member .alert {
   margin: 0;
 }
 .walk-page .thumbnail.focus,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus,
 .walk-page .ccm-page-list-city-cards li figure.focus,
 .walk-page #create-walk .team-member.focus {
   transition: box-shadow 1s ease-in-out;
   box-shadow: inset 0 0 0 1px #eee, 0 0 10px rgba(241, 103, 37, 0.7);
 }
 .walk-page .thumbnail.focus h3,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus h3,
 .walk-page .ccm-page-list-city-cards li figure.focus h3,
 .walk-page #create-walk .team-member.focus h3 {
   color: #222;
@@ -12815,16 +11922,13 @@ body.city-page > #blog:after {
   margin-top: 2em;
   margin-bottom: -11px;
 }
-.walk-page aside .caption,
-.walk-page aside .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-page aside .caption {
   margin-bottom: 0;
 }
-.walk-page aside .alert,
-.walk-page aside #profileWrapper .steps {
+.walk-page aside .alert {
   border-radius: 0;
 }
-.walk-page aside .alert p,
-.walk-page aside #profileWrapper .steps p {
+.walk-page aside .alert p {
   margin: 0;
 }
 .walk-page .walk-leaders {
@@ -13188,8 +12292,7 @@ body.city-page > #blog:after {
 .walk-body .walk-team .walk-leaders li > section p {
   margin: 10px 0;
 }
-.walk-body .walk-team .walk-supporters .caption,
-.walk-body .walk-team .walk-supporters .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-body .walk-team .walk-supporters .caption {
   margin-bottom: 1em;
 }
 .walk-body .walk-team .walk-supporters .individual {
@@ -13570,7 +12673,6 @@ body.city-page > #blog:after {
 .walkPage .walkMenu {
   width: 220px;
   margin-right: 12%;
-  position: -webkit-sticky;
   position: sticky;
   /* Hack around the odd behaviour when padding-top is 1px vs 0px */
   /* padding-top: @grid-gutter-width + 16px; */
@@ -13642,8 +12744,12 @@ body.city-page > #blog:after {
 .walkPage .walkMenu .walkParking ul li::before {
   font-size: 22px;
 }
+.walkPage .walkMenu.stuck {
+  /* ugh. Here for dealing with a broken shim only */
+  width: 220px !important;
+  right: 3px;
+}
 .walkPage > .walkHeader {
-  /* border-bottom: 1px solid lightgray; */
   margin-bottom: 50px;
 }
 .walkPage > .walkHeader .coverImage {
@@ -14471,6 +13577,97 @@ body[data-pageviewname=CreateWalkView]:after {
 body[data-pageviewname=CreateWalkView] > footer {
   display: none;
 }
+.WalkBuilder label {
+  display: block;
+}
+.WalkBuilder .ant-radio-button-wrapper {
+  display: inline-block;
+}
+.WalkBuilder section .Lead__Option {
+  padding-top: 70px;
+}
+.WalkBuilder section .Lead__Option > h1 {
+  margin-top: 0;
+}
+.WalkBuilder section .ant-tag {
+  width: 100%;
+  overflow: auto;
+  height: initial;
+  padding: 5px;
+  text-align: center;
+}
+.WalkBuilder section .ant-tag i.fa {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+}
+.WalkBuilder .Lead__Welcome {
+  text-align: center;
+}
+.WalkBuilder .Lead__Welcome h1 {
+  margin: 5px 0 0.2em 0;
+  font-size: 60px;
+}
+@media (max-width: 767px) {
+  .WalkBuilder .Lead__Welcome h1 {
+    font-size: 38px;
+  }
+}
+.WalkBuilder .Lead__Welcome--Foot {
+  opacity: 0.9;
+  font-size: 12px;
+}
+.WalkBuilder .Lead__Finished {
+  text-align: center;
+}
+.WalkBuilder .Lead__Finished h1 {
+  margin: 5px 0 0.2em 0;
+  font-size: 45px;
+}
+@media (max-width: 767px) {
+  .WalkBuilder .Lead__Finished h1 {
+    font-size: 28px;
+  }
+}
+.WalkBuilder .TextArea {
+  display: block;
+  position: relative;
+}
+.WalkBuilder .TextArea__count {
+  position: absolute;
+  right: 3px;
+  bottom: -6px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 1000;
+}
+.WalkBuilder .WalkDetails__Upload p {
+  margin: 0;
+}
+.WalkBuilder .WalkDetails__Upload .ant-upload-list-item-done {
+  height: 120px;
+}
+.WalkBuilder .WalkDetails__Upload .ant-upload-list-item-done .ant-upload-list-item-thumbnail {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 8px;
+}
+.WalkBuilder .WalkDetails__Upload .ant-upload-list-item-done .ant-upload-list-item-thumbnail img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.WalkBuilder .WalkDetails__Upload .ant-upload-list-item-done .ant-upload-list-item-name {
+  display: none;
+}
+.ant-calendar-ok-btn {
+  display: none;
+}
+.ant-calendar-time-picker + .ant-calendar-body + .ant-calendar-footer .ant-calendar-ok-btn {
+  display: block;
+}
 #create-walk {
   /*  Resets */
   /* ==========================================================================
@@ -14644,7 +13841,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   margin: 15px;
 }
 #create-walk .upload-image > .thumbnail,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure,
 #create-walk .upload-image > #create-walk .team-member {
   display: inline-block;
@@ -14656,13 +13852,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   background-size: cover;
 }
 #create-walk .upload-image > .thumbnail a i,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure a i,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure a i,
 #create-walk .upload-image > #create-walk .team-member a i {
   color: #F16725;
 }
 #create-walk .upload-image > .thumbnail input[type=file],
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure input[type=file],
 #create-walk .upload-image > .ccm-page-list-city-cards li figure input[type=file],
 #create-walk .upload-image > #create-walk .team-member input[type=file] {
   position: absolute;
@@ -14672,13 +13866,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   cursor: pointer;
 }
 #create-walk .upload-image > .thumbnail.fileupload,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload,
 #create-walk .upload-image > #create-walk .team-member.fileupload {
   text-align: center;
 }
 #create-walk .upload-image > .thumbnail.fileupload i.fa,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload i.fa,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload i.fa,
 #create-walk .upload-image > #create-walk .team-member.fileupload i.fa {
   display: block;
@@ -14768,9 +13960,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   background-color: #ddd;
 }
 #create-walk #accessibilities > fieldset {
-  -webkit-column-count: 2;
-     -moz-column-count: 2;
-          column-count: 2;
+  column-count: 2;
 }
 #create-walk textarea,
 #create-walk input[type="text"],
@@ -14828,26 +14018,22 @@ body[data-pageviewname=CreateWalkView] > footer {
   background: rgba(0, 0, 0, 0.05);
 }
 #create-walk .thumbnail,
-#create-walk .ccm-page-list.ccm-blog-index li figure,
 #create-walk .ccm-page-list-city-cards li figure,
 #create-walk #create-walk .team-member {
   border-radius: 0;
 }
-#create-walk .alert,
-#create-walk #profileWrapper .steps {
+#create-walk .alert {
   border-radius: 0;
   background: #FFF7DC;
   color: #B95221;
   border-color: transparent;
 }
-#create-walk .alert.alert-error,
-#create-walk #profileWrapper .steps.alert-error {
+#create-walk .alert.alert-error {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
 }
-#create-walk .alert.alert-success,
-#create-walk #profileWrapper .steps.alert-success {
+#create-walk .alert.alert-success {
   color: #468847;
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -15023,7 +14209,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   background: #efefef;
 }
 #create-walk .thumbnail footer,
-#create-walk .ccm-page-list.ccm-blog-index li figure footer,
 #create-walk .ccm-page-list-city-cards li figure footer,
 #create-walk #create-walk .team-member footer {
   border-top: 1px solid #eee;
@@ -15068,7 +14253,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   text-decoration: none;
 }
 #create-walk #block-select .thumbnail,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure,
 #create-walk #block-select .ccm-page-list-city-cards li figure,
 #create-walk #block-select #create-walk .team-member {
   opacity: 0.65;
@@ -15077,13 +14261,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
 }
 #create-walk #block-select .thumbnail img,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure img,
 #create-walk #block-select .ccm-page-list-city-cards li figure img,
 #create-walk #block-select #create-walk .team-member img {
   width: 70%;
 }
 #create-walk #block-select .thumbnail:hover,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure:hover,
 #create-walk #block-select .ccm-page-list-city-cards li figure:hover,
 #create-walk #block-select #create-walk .team-member:hover {
   opacity: 1;
@@ -15533,8 +14715,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   font-weight: bold;
 }
 #create-walk .required .alert,
-#create-walk .required .text-right,
-#create-walk .required #profileWrapper .steps {
+#create-walk .required .text-right {
   font-weight: normal;
 }
 #create-walk .required label:after,
@@ -15694,6 +14875,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   opacity: 0.65;
   pointer-events: none;
 }
+/* Import our theme font overrides */
 /* Language localization */
 body:lang(he) p,
 body:lang(he) h1,
@@ -15714,6 +14896,7 @@ body:lang(he) #create-walk .filterInputs .filter input[type=button] {
   font-family: "Alef", "Roboto Slab", serif;
   direction: rtl;
 }
+/* Import our theme font overrides */
 @media print {
   /* Never print print buttons */
   .print-button {

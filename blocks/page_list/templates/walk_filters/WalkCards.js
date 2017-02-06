@@ -1,12 +1,9 @@
 /**
  * The cards showing your walk
  */
-/* global React */
-
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import Card from './Card';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
-
-const { createElement: ce } = React;
 
 const WalkCards = ({ outings }) => {
   if (outings.length === 0) {
@@ -17,6 +14,7 @@ const WalkCards = ({ outings }) => {
       )
     );
   }
+
   return (
     ce('div', { className: 'walkCards' },
       outings.map(({ walk, slot }) => ce(Card, { key: `walk${walk.id}${slot[0]}`, walk, slot })),

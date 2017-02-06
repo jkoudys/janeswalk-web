@@ -1,5 +1,4 @@
-/* global React */
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
 export default ({ title, url, date, shortDescription, leaders = [] }) => (
   ce('span', null,

@@ -1,11 +1,9 @@
 /**
  * The list of walks to order
  */
-/* global React */
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import ListItem from './ListItem';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
-
-const { createElement: ce } = React;
 
 /**
  * The walk list

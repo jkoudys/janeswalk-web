@@ -342,10 +342,6 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
 	// Permission is hereby granted, free of charge, to any person obtaining a
@@ -385,20 +381,23 @@
 
 	// Obviously not all Emitters should be limited to 10. This function allows
 	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function (n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
 	  this._maxListeners = n;
 	  return this;
 	};
 
-	EventEmitter.prototype.emit = function (type) {
+	EventEmitter.prototype.emit = function(type) {
 	  var er, handler, len, args, i, listeners;
 
-	  if (!this._events) this._events = {};
+	  if (!this._events)
+	    this._events = {};
 
 	  // If there is no 'error' event listener then throw.
 	  if (type === 'error') {
-	    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
 	      er = arguments[1];
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
@@ -413,7 +412,8 @@
 
 	  handler = this._events[type];
 
-	  if (isUndefined(handler)) return false;
+	  if (isUndefined(handler))
+	    return false;
 
 	  if (isFunction(handler)) {
 	    switch (arguments.length) {
@@ -436,30 +436,36 @@
 	    args = Array.prototype.slice.call(arguments, 1);
 	    listeners = handler.slice();
 	    len = listeners.length;
-	    for (i = 0; i < len; i++) {
+	    for (i = 0; i < len; i++)
 	      listeners[i].apply(this, args);
-	    }
 	  }
 
 	  return true;
 	};
 
-	EventEmitter.prototype.addListener = function (type, listener) {
+	EventEmitter.prototype.addListener = function(type, listener) {
 	  var m;
 
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
 
-	  if (!this._events) this._events = {};
+	  if (!this._events)
+	    this._events = {};
 
 	  // To avoid recursion in the case that type === "newListener"! Before
 	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
 
 	  if (!this._events[type])
 	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;else if (isObject(this._events[type]))
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
 	    // If we've already got an array, just append.
-	    this._events[type].push(listener);else
+	    this._events[type].push(listener);
+	  else
 	    // Adding the second element, need to change to array.
 	    this._events[type] = [this._events[type], listener];
 
@@ -473,7 +479,10 @@
 
 	    if (m && m > 0 && this._events[type].length > m) {
 	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
 	      if (typeof console.trace === 'function') {
 	        // not supported in IE 10
 	        console.trace();
@@ -486,8 +495,9 @@
 
 	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
 
-	EventEmitter.prototype.once = function (type, listener) {
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
 
 	  var fired = false;
 
@@ -507,29 +517,36 @@
 	};
 
 	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function (type, listener) {
+	EventEmitter.prototype.removeListener = function(type, listener) {
 	  var list, position, length, i;
 
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
 
-	  if (!this._events || !this._events[type]) return this;
+	  if (!this._events || !this._events[type])
+	    return this;
 
 	  list = this._events[type];
 	  length = list.length;
 	  position = -1;
 
-	  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
 	    delete this._events[type];
-	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+
 	  } else if (isObject(list)) {
 	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
 	        position = i;
 	        break;
 	      }
 	    }
 
-	    if (position < 0) return this;
+	    if (position < 0)
+	      return this;
 
 	    if (list.length === 1) {
 	      list.length = 0;
@@ -538,20 +555,25 @@
 	      list.splice(position, 1);
 	    }
 
-	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
 	  }
 
 	  return this;
 	};
 
-	EventEmitter.prototype.removeAllListeners = function (type) {
+	EventEmitter.prototype.removeAllListeners = function(type) {
 	  var key, listeners;
 
-	  if (!this._events) return this;
+	  if (!this._events)
+	    return this;
 
 	  // not listening for removeListener, no need to emit
 	  if (!this._events.removeListener) {
-	    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
 	    return this;
 	  }
 
@@ -572,31 +594,38 @@
 	    this.removeListener(type, listeners);
 	  } else if (listeners) {
 	    // LIFO order
-	    while (listeners.length) {
+	    while (listeners.length)
 	      this.removeListener(type, listeners[listeners.length - 1]);
-	    }
 	  }
 	  delete this._events[type];
 
 	  return this;
 	};
 
-	EventEmitter.prototype.listeners = function (type) {
+	EventEmitter.prototype.listeners = function(type) {
 	  var ret;
-	  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
 	  return ret;
 	};
 
-	EventEmitter.prototype.listenerCount = function (type) {
+	EventEmitter.prototype.listenerCount = function(type) {
 	  if (this._events) {
 	    var evlistener = this._events[type];
 
-	    if (isFunction(evlistener)) return 1;else if (evlistener) return evlistener.length;
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
 	  }
 	  return 0;
 	};
 
-	EventEmitter.listenerCount = function (emitter, type) {
+	EventEmitter.listenerCount = function(emitter, type) {
 	  return emitter.listenerCount(type);
 	};
 
@@ -609,12 +638,13 @@
 	}
 
 	function isObject(arg) {
-	  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg !== null;
+	  return typeof arg === 'object' && arg !== null;
 	}
 
 	function isUndefined(arg) {
 	  return arg === void 0;
 	}
+
 
 /***/ },
 /* 5 */
@@ -651,8 +681,6 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
@@ -663,6 +691,7 @@
 	 */
 
 	module.exports.Dispatcher = __webpack_require__(7);
+
 
 /***/ },
 /* 7 */
@@ -685,11 +714,7 @@
 
 	exports.__esModule = true;
 
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError('Cannot call a class as a function');
-	  }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var invariant = __webpack_require__(9);
 
@@ -783,7 +808,7 @@
 	 * `FlightPriceStore`.
 	 */
 
-	var Dispatcher = function () {
+	var Dispatcher = (function () {
 	  function Dispatcher() {
 	    _classCallCheck(this, Dispatcher);
 
@@ -900,7 +925,7 @@
 	  };
 
 	  return Dispatcher;
-	}();
+	})();
 
 	module.exports = Dispatcher;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
@@ -908,8 +933,6 @@
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
-
-	'use strict';
 
 	// shim for using process in browser
 	var process = module.exports = {};
@@ -925,7 +948,7 @@
 	function defaultSetTimout() {
 	    throw new Error('setTimeout has not been defined');
 	}
-	function defaultClearTimeout() {
+	function defaultClearTimeout () {
 	    throw new Error('clearTimeout has not been defined');
 	}
 	(function () {
@@ -947,7 +970,7 @@
 	    } catch (e) {
 	        cachedClearTimeout = defaultClearTimeout;
 	    }
-	})();
+	} ())
 	function runTimeout(fun) {
 	    if (cachedSetTimeout === setTimeout) {
 	        //normal enviroments in sane situations
@@ -961,15 +984,17 @@
 	    try {
 	        // when when somebody has screwed with setTimeout but no I.E. maddness
 	        return cachedSetTimeout(fun, 0);
-	    } catch (e) {
+	    } catch(e){
 	        try {
 	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
 	            return cachedSetTimeout.call(null, fun, 0);
-	        } catch (e) {
+	        } catch(e){
 	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
 	            return cachedSetTimeout.call(this, fun, 0);
 	        }
 	    }
+
+
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
@@ -984,16 +1009,19 @@
 	    try {
 	        // when when somebody has screwed with setTimeout but no I.E. maddness
 	        return cachedClearTimeout(marker);
-	    } catch (e) {
+	    } catch (e){
 	        try {
 	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
 	            return cachedClearTimeout.call(null, marker);
-	        } catch (e) {
+	        } catch (e){
 	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
 	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
 	            return cachedClearTimeout.call(this, marker);
 	        }
 	    }
+
+
+
 	}
 	var queue = [];
 	var draining = false;
@@ -1023,7 +1051,7 @@
 	    draining = true;
 
 	    var len = queue.length;
-	    while (len) {
+	    while(len) {
 	        currentQueue = queue;
 	        queue = [];
 	        while (++queueIndex < len) {
@@ -1081,15 +1109,12 @@
 	    throw new Error('process.binding is not supported');
 	};
 
-	process.cwd = function () {
-	    return '/';
-	};
+	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
 	};
-	process.umask = function () {
-	    return 0;
-	};
+	process.umask = function() { return 0; };
+
 
 /***/ },
 /* 9 */
@@ -1119,7 +1144,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
+	var invariant = function (condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
