@@ -5,6 +5,8 @@
 /* global JanesWalk */
 import { createElement as ce } from 'react';
 import { render } from 'react-dom';
+import { LocaleProvider } from 'antd';
+import locale from 'antd/lib/locale-provider/en_US';
 
 // Fluxxy
 import * as WalkActions from 'janeswalk/actions/WalkActions';
@@ -15,9 +17,10 @@ import WalkFilter from './WalkFilter';
 const { event } = JanesWalk;
 
 let _filters = {};
-
 event.on('walkfilters.load', (location) => render(
-  ce(WalkFilter, { filters: _filters, location }),
+  ce(LocaleProvider, { locale },
+    ce(WalkFilter, { filters: _filters, location }),
+  ),
   document.getElementById('janeswalk-walk-filters')
 ));
 

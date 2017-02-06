@@ -57,6 +57,12 @@
 
 	var _reactDom = __webpack_require__(33);
 
+	var _antd = __webpack_require__(200);
+
+	var _en_US = __webpack_require__(949);
+
+	var _en_US2 = _interopRequireDefault(_en_US);
+
 	var _WalkActions = __webpack_require__(179);
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
@@ -69,9 +75,9 @@
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _JanesWalk = JanesWalk,
 	    event = _JanesWalk.event;
@@ -84,9 +90,8 @@
 	/* global JanesWalk */
 
 	var _filters = {};
-
 	event.on('walkfilters.load', function (location) {
-	  return (0, _reactDom.render)((0, _react.createElement)(_WalkFilter2.default, { filters: _filters, location: location }), document.getElementById('janeswalk-walk-filters'));
+	  return (0, _reactDom.render)((0, _react.createElement)(_antd.LocaleProvider, { locale: _en_US2.default }, (0, _react.createElement)(_WalkFilter2.default, { filters: _filters, location: location })), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
@@ -119341,6 +119346,166 @@
 	};
 
 	exports.default = Filter;
+
+/***/ },
+/* 949 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _moment = __webpack_require__(381);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _en_US = __webpack_require__(950);
+
+	var _en_US2 = _interopRequireDefault(_en_US);
+
+	var _en_US3 = __webpack_require__(951);
+
+	var _en_US4 = _interopRequireDefault(_en_US3);
+
+	var _en_US5 = __webpack_require__(952);
+
+	var _en_US6 = _interopRequireDefault(_en_US5);
+
+	var _en_US7 = __webpack_require__(953);
+
+	var _en_US8 = _interopRequireDefault(_en_US7);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	_moment2["default"].locale('en');
+	exports["default"] = {
+	    locale: 'en',
+	    Pagination: _en_US2["default"],
+	    DatePicker: _en_US4["default"],
+	    TimePicker: _en_US6["default"],
+	    Calendar: _en_US8["default"],
+	    Table: {
+	        filterTitle: 'Filter Menu',
+	        filterConfirm: 'OK',
+	        filterReset: 'Reset',
+	        emptyText: 'No Data'
+	    },
+	    Modal: {
+	        okText: 'OK',
+	        cancelText: 'Cancel',
+	        justOkText: 'OK'
+	    },
+	    Popconfirm: {
+	        okText: 'OK',
+	        cancelText: 'Cancel'
+	    },
+	    Transfer: {
+	        notFoundContent: 'Not Found',
+	        searchPlaceholder: 'Search here',
+	        itemUnit: 'item',
+	        itemsUnit: 'items'
+	    },
+	    Select: {
+	        notFoundContent: 'Not Found'
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 950 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = {
+	  // Options.jsx
+	  items_per_page: '/ page',
+	  jump_to: 'Goto',
+	  page: '',
+
+	  // Pagination.jsx
+	  prev_page: 'Previous Page',
+	  next_page: 'Next Page',
+	  prev_5: 'Previous 5 Pages',
+	  next_5: 'Next 5 Pages'
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 951 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _en_US = __webpack_require__(501);
+
+	var _en_US2 = _interopRequireDefault(_en_US);
+
+	var _en_US3 = __webpack_require__(952);
+
+	var _en_US4 = _interopRequireDefault(_en_US3);
+
+	var _objectAssign = __webpack_require__(5);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	// 统一合并为完整的 Locale
+	var locale = {
+	    lang: (0, _objectAssign2["default"])({
+	        placeholder: 'Select date',
+	        rangePlaceholder: ['Start date', 'End date']
+	    }, _en_US2["default"]),
+	    timePickerLocale: (0, _objectAssign2["default"])({}, _en_US4["default"])
+	};
+	// All settings at:
+	// https://github.com/ant-design/ant-design/issues/424
+	exports["default"] = locale;
+	module.exports = exports['default'];
+
+/***/ },
+/* 952 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var locale = {
+	    placeholder: 'Select time'
+	};
+	exports["default"] = locale;
+	module.exports = exports['default'];
+
+/***/ },
+/* 953 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _en_US = __webpack_require__(951);
+
+	var _en_US2 = _interopRequireDefault(_en_US);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	exports["default"] = _en_US2["default"];
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
