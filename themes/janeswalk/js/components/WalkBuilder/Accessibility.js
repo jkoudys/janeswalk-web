@@ -51,7 +51,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
       }),
       accessibles.size > 0 ? ce('p', {},
         t`Why did you describe this walk as having: `,
-        accessibles.map((key) => t(AccessibleIcons[key].name.toLowerCase())).join(', '),
+        accessibles.map((key) => t([AccessibleIcons[key].name.toLowerCase()])).join(', '),
         '?'
       ) : null
     ),

@@ -12,18 +12,19 @@ import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
-const defaultPoint = {
+const buildPoint = ({ geometry: { coordinates } = {}, properties }) => ({
   type: 'Feature',
   geometry: {
     type: 'Point',
-    coordinates: [-79.412173615033, 43.66431003337],
+    coordinates: coordinates || [-79.412173615033, 43.66431003337],
   },
   properties: {
     title: '',
     description: '',
     media: [],
+    ...properties,
   },
-};
+});
 
 let title = '';
 let shortDescription = '';
@@ -289,13 +290,9 @@ const WalkBuilderStore = {
     [AT.WB_TEAM_REMOVE]: ({ member }) => { team = team.delete(team.indexOf(member)); },
     [AT.WB_POINT_ADD]: ({ coordinates }) => {
       pointsHistory.push(points);
-      points = points.push({
-        ...defaultPoint,
-        geometry: {
-          ...defaultPoint.geometry,
-          coordinates,
-        },
-      });
+      points = points.push(buildPoint({
+        geometry: { coordinates },
+      }));
     },
     [AT.WB_POINT_REMOVE]: ({ point }) => {
       pointsHistory.push(points);

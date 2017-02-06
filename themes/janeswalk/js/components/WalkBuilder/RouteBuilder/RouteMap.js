@@ -71,7 +71,7 @@ export default class RouteMap extends PureComponent {
         },
       },
         points.map(({ geometry: { coordinates: [lng, lat] } }, idx) => (
-          ce(StopMarker, { lat, lng, key: `marker${idx}`, idx })
+          ce(StopMarker, { lat, lng, key: `marker${lng}${lat}`, idx })
         ))
       )
     );

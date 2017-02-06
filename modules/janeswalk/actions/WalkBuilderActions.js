@@ -99,7 +99,7 @@ export function addPoint(coordinates) {
 }
 
 export function setPointIndex(point, { change }) {
-  dispatch({ type: AT.WB_POINT_INDEX, change });
+  dispatch({ type: AT.WB_POINT_INDEX, change, point });
 }
 
 export function undoPoint() {

@@ -11,10 +11,10 @@ const WalkStop = ({ title, description, index, handlers }) => (
   ce('tr', { className: 'ant-table-row ant-table-row-level-0' },
     ce('td', {}, ce('strong', {}, String.fromCharCode(65 + index))),
     ce('td', {},
-      ce(Form.Item, { label: index === 0 ? t`Meeting place` : undefined },
+      ce(Form.Item, {},
         ce(Input, {
           value: title,
-          placeholder: t`Location of stop`,
+          placeholder: index === 0 ? t`Meeting place` : t`Location of stop`,
           onChange: handlers.update('title'),
         }),
       ),
@@ -29,14 +29,20 @@ const WalkStop = ({ title, description, index, handlers }) => (
       ),
     ),
     ce('td', {},
-      ce(Button, { onClick: handlers.decrement }, 'Up'),
-      ce(Button, { onClick: handlers.increment }, 'Dn'),
-      ce(Button, { onClick: handlers.remove }, 'X'),
+      ce(Button, { shape: 'circle', onClick: handlers.decrement },
+        ce('i', { className: 'fa fa-arrow-up' }),
+      ),
+      ce(Button, { shape: 'circle', onClick: handlers.increment },
+        ce('i', { className: 'fa fa-arrow-down' }),
+      ),
+      ce(Button, { shape: 'circle', onClick: handlers.remove },
+        ce('i', { className: 'fa fa-times' }),
+      ),
     ),
   )
 );
 
-const WalkStops = ({ points, handlers }) => (
+const WalkStops = ({ points, handlers }) => points.size ? (
   ce('table', { className: 'ant-table-body' },
     ce('thead', { className: 'ant-table-thead' },
       ce('tr', {},
@@ -47,18 +53,23 @@ const WalkStops = ({ points, handlers }) => (
       ),
     ),
     ce('tbody', { className: 'ant-table-tbody' },
-      points.map((point, key) => {
-        const { properties: { title, description } } = point;
+      points.map((point, index) => {
+        const {
+          properties: { title, description },
+          geometry: {
+            coordinates: [lng, lat],
+          },
+        } = point;
         return ce(WalkStop, {
           title,
           description,
-          key,
-          index: key,
+          key: `stop${lat}${lng}`,
+          index,
           handlers: handlers.point(point),
         });
       }),
     )
   )
-);
+) : null;
 
 export default WalkStops;
