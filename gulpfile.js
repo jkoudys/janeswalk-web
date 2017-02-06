@@ -77,16 +77,17 @@ gulp.task('js.blocks', () => {
         loader: 'json',
       }],
     },
-  plugins: base.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-  ]),
-
+    // Production
+    // TODO: run this when NODE_ENV='production' only
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+        },
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+    ],
     watch: true,
   }, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
