@@ -21,7 +21,7 @@ class City
     protected $city;
     protected $cityID;
 
-    protected static function getColumn(string $col, Walk $walk): string
+    protected static function getColumn(string $col, Walk $walk)
     {
         switch ($col) {
             case 'Name':
@@ -44,7 +44,11 @@ class City
                 }
                 return '';
             case 'Meeting Place':
-                return $walk->meetingPlace['title'];
+                list($meetingPlace) = $walk->features;
+                return isset($meetingPlace) ?:
+                    isset($meetingPlace['properties']) ?
+                    $meetingPlace['properties']['title'] :
+                    '';
             case 'Walk Owner Name':
                 $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
                 $name = trim($owner->getAttribute('first_name') . ' ' . $owner->getAttribute('last_name')) ?: $owner->getUserName();
