@@ -41,9 +41,9 @@ export default class RouteBuilder extends Component {
     return (
       ce('section', { id, className: 'Lead__Option' },
         ce('h1', {}, name),
-        ce(Form.Item, {},
+/* TODO: put in        ce(Form.Item, {},
           ce(SocialShare),
-        ),
+        ), */
         ce('div', { style: { position: 'relative' } },
           ce(Radio.Group, { value: mapMode, style: radioStyle, onChange: this.handleModeChange },
             ce(Radio.Button, { value: 'move' },
@@ -54,11 +54,6 @@ export default class RouteBuilder extends Component {
             ce(Radio.Button, { value: 'pin' },
               ce(Tooltip, { title: t`Add a stop` },
                 ce('i', { className: 'fa fa-map-marker' }),
-              ),
-            ),
-            ce(Radio.Button, { value: 'route' },
-              ce(Tooltip, { title: t`Draw your route` },
-                ce('i', { className: 'fa fa-code-fork' }),
               ),
             ),
           ),

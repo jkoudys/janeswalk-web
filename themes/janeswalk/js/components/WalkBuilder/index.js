@@ -4,7 +4,7 @@
  * The main walk builder itself. The component for building a walk!
  */
 import { createElement as ce, Component } from 'react';
-import { Form, Row, Col } from 'antd';
+import { Button, Form, Modal, Row, Col } from 'antd';
 
 import t from 'es2015-i18n-tag';
 import WalkBuilderStore, { memberDefaults } from 'janeswalk/stores/WalkBuilderStore';
@@ -12,6 +12,7 @@ import { save, publish } from 'janeswalk/utils/api/Walk';
 
 import * as WBA from 'janeswalk/actions/WalkBuilderActions';
 
+import WalkPage from '../pages/Walk';
 import Welcome from './Welcome';
 import Navigator from './Navigator';
 import WalkDetails from './WalkDetails';
@@ -52,6 +53,7 @@ export default class WalkBuilder extends Component {
 
   // { value, onChange } for each form field
   handlers = {
+    ward: (value) => WBA.setWard(value),
     title: ({ target: { value } }) => WBA.setTitle(value),
     longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
     shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
@@ -93,6 +95,9 @@ export default class WalkBuilder extends Component {
       console.log(status);
       window.location = `/index.php?cID=${this.state.cID}`;
     },
+    preview: assign(() => this.setState({ preview: true }), {
+      close: () => this.setState({ preview: false }),
+    }),
   };
 
   render() {
@@ -116,9 +121,11 @@ export default class WalkBuilder extends Component {
       times: [time],
       title,
       publishing,
+      ward,
+      preview,
     } = this.state;
     const {
-      city: { cityOrganizer },
+      city: { cityOrganizer, wards },
       city,
       valt,
     } = this.props;
@@ -129,6 +136,16 @@ export default class WalkBuilder extends Component {
     const lastWord = empty.length ? ce(DontForget, { empty, handlers }) : ce(Finished, { publishing, handlers });
 
     return ce(Form, { className: 'WalkBuilder' },
+      ce(Modal, {
+        visible: preview,
+        width: '95%',
+        title: t`Preview`,
+        onCancel: handlers.preview.close,
+        footer: ce(Button, { onClick: handlers.preview.close }, t`Close`),
+        style: { top: 75 },
+      },
+        preview ? ce(WalkPage, { walk: WalkBuilderStore.getSchema(), city }) : null,
+      ),
       ce(Row, { type: 'flex', justify: 'center' },
         ce(Col, Layout.Full,
           ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, time, handlers })
@@ -142,6 +159,8 @@ export default class WalkBuilder extends Component {
           longDescription,
           handlers,
           images,
+          ward,
+          wards,
           valt,
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),

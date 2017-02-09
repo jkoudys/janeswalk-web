@@ -37,7 +37,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
           ));
         }),
       ),
-      ce('p', {}, t`Remember to come back and update this section after you've practiced going on your Walk. We encourage trying to eliminate barriers where you can, especially around mobility.`)
+      ce('p', {}, t`Remember to come back and update this section after you've walked your route once or twice. We strongly encourage you to eliminate accessibility barriers as much as possible, especially those that might limit mobility.`)
     ),
     ce(Form.Item, {
       label: t`Extra info`,
@@ -51,7 +51,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
       }),
       accessibles.size > 0 ? ce('p', {},
         t`Why did you describe this walk as having: `,
-        accessibles.map((key) => t([AccessibleIcons[key].name.toLowerCase()])).join(', '),
+        accessibles.map((key) => t([(AccessibleIcons[key] || { name: key }).name.toLowerCase()])).join(', '),
         '?'
       ) : null
     ),
@@ -77,7 +77,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
         onKeyPress: kbJump,
         onChange: handlers.accessibleTransit,
       }),
-      ce('p', {}, t`Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.`)
+      ce('p', {}, t`What bus, streetcar, subway, etc. routes would you recommend? How can they walk to you from the nearest stop?`)
     )
   )
 );

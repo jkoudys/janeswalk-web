@@ -13,15 +13,12 @@ const colStyle = {
   style: { marginBottom: '5px' },
 };
 
-const Organizer = ({ member: { name, institution, email, website }, handler }) => ce(Card, {
+const Organizer = ({ member: { name, email, website }, handler }) => ce(Card, {
   title: ce('strong', {}, ce('i', { className: 'fa fa-handshake-o' }), ' ', t`Organizer`),
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },
     ce(Input, { onKeyPress: kbJump, onChange: handler('name'), value: name })
-  ),
-  ce(Form.Item, { label: t`Institution` },
-    ce(Input, { onKeyPress: kbJump, onChange: handler('institution'), value: institution })
   ),
   ce(Form.Item, { label: t`Contact` },
     ce(Input.Group, {},

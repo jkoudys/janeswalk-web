@@ -9,15 +9,17 @@ import { icons as themeIcons } from 'janeswalk/utils/lookups/Theme';
 
 import { Row, Col, Form, Tag } from 'antd';
 
+const themeLimit = 3;
+
 const Theme = ({ id, name, themes, handlers }) => {
-  const atLimit = themes.size >= 3;
+  const atLimit = themes.size >= themeLimit;
 
   return (
     ce('section', { id, className: 'Lead__Option' },
       ce('h1', {}, name),
       ce(Row, {},
+        ce('h3', {}, t`Choose up to ${themeLimit}`),
         ce(Form.Item, {
-          label: t`Choose up to ${3}`,
         }, Object.entries(themeIcons).map(([key, { name, icon }]) => {
           const handler = handlers.themes(key);
           const checked = themes.has(key);

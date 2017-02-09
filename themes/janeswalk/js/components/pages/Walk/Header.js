@@ -1,16 +1,7 @@
-import React from 'react';
+import { PropTypes, createElement as ce } from 'react';
 
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
-
-const { createElement: ce } = React;
-
-function getLeaders(team) {
-  return team
-  .filter(({ type }) => type === 'leader')
-  .map(({ name }) => name)
-  .join(', ');
-}
 
 const WalkHeader = ({
   canEdit = false,
@@ -22,12 +13,12 @@ const WalkHeader = ({
   walk,
   walk: {
     id,
-    title,
-    features: [{ props: { title: meetingPlace } = {} } = {}] = [],
     time,
-    team = [],
     images: [{ url: headerImg } = {}] = [],
   },
+  title,
+  leaders,
+  meetingPlace,
   isFavourite,
   schedule,
   onAdd,
@@ -66,20 +57,20 @@ const WalkHeader = ({
         )
       ) : null,
       meetingPlace ? ce('h4', null, meetingPlace) : null,
-      team.length ? ce('h4', null, t`Led By ${getLeaders(team)}`) : null,
+      leaders ? ce('h4', null, t`Led By ${leaders.join(', ')}`) : null,
       ce(AddToItinerary, { time, walk, schedule, onSchedule, onUnschedule }),
     )
   );
 };
 
 WalkHeader.propTypes = {
-  walk: React.PropTypes.object.isRequired,
-  city: React.PropTypes.object.isRequired,
-  isFavourite: React.PropTypes.bool,
-  onRemove: React.PropTypes.func.isRequired,
-  onAdd: React.PropTypes.func.isRequired,
-  onSchedule: React.PropTypes.func.isRequired,
-  onUnschedule: React.PropTypes.func.isRequired,
+  walk: PropTypes.object.isRequired,
+  city: PropTypes.object.isRequired,
+  isFavourite: PropTypes.bool,
+  onRemove: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onSchedule: PropTypes.func.isRequired,
+  onUnschedule: PropTypes.func.isRequired,
 };
 
 export default WalkHeader;

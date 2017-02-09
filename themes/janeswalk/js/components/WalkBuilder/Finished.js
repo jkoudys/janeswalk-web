@@ -8,7 +8,7 @@ import t from 'es2015-i18n-tag';
 import { Icon, Button, Row, Col } from 'antd';
 import { Finished as Layout, imgDir } from '../../constants/Layout';
 
-const Finished = ({ publishing = false, handlers: { publishWalk } }) => (
+const Finished = ({ publishing = false, handlers: { publishWalk, preview } }) => (
   ce('section', { id: 'finish', className: 'Lead__Finished' },
     ce(Row, Layout.Main,
       ce(Col, Layout.Content,
@@ -20,7 +20,7 @@ const Finished = ({ publishing = false, handlers: { publishWalk } }) => (
            publishing ? t`Publishing...` : t`Publish Walk`
         ),
         ce('p', { style: { marginTop: '10px' } },
-          'Or ', ce(Button, { disabled: true }, t`Preview`),
+          'Or ', ce(Button, { onClick: preview }, t`Preview`),
         )
       )
     ),

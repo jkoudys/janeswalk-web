@@ -20,17 +20,20 @@ import WalkMap from './Map';
 
 import Layout from '../../../constants/Layout';
 
-const getWalk = ({ walk, page, city }) => {
+const getWalk = ({ walk }) => {
   const [firstList] = ItineraryStore.getLists();
   return {
-    walk,
-    page,
-    city,
     list: firstList,
     isFavourite: ItineraryStore.hasInList(walk),
     schedule: ItineraryStore.getSchedule(),
   };
 };
+
+function getLeaders(team) {
+  return team
+  .filter(({ type }) => type === 'leader')
+  .map(({ name }) => name);
+}
 
 export default class WalkPage extends Component {
   constructor(props, ...args) {
@@ -38,27 +41,32 @@ export default class WalkPage extends Component {
 
     Object.assign(this, {
       state: getWalk(props),
-      _onChange: () => {
-        this.setState(getWalk);
-      },
-      handleSchedule: time => {
-        if (UserStore.getCurrent()) {
-          Action.schedule(this.state.walk, time);
-        } else {
-          $('#login').modal();
-        }
-      },
-      handleUnschedule: time => Action.unschedule(this.state.walk, time),
-      handleAdd: () => {
-        if (UserStore.getCurrent()) {
-          Action.add(this.state.list, this.state.walk);
-        } else {
-          $('#login').modal();
-        }
-      },
-      handleRemove: () => Action.remove(this.state.list, this.state.walk),
     });
   }
+
+  _onChange = () => {
+    this.setState(getWalk);
+  };
+
+  handleSchedule = (time) => {
+    if (UserStore.getCurrent()) {
+      Action.schedule(this.state.walk, time);
+    } else {
+      $('#login').modal();
+    }
+  };
+
+  handleUnschedule = (time) => Action.unschedule(this.state.walk, time);
+
+  handleAdd = () => {
+    if (UserStore.getCurrent()) {
+      Action.add(this.state.list, this.state.walk);
+    } else {
+      $('#login').modal();
+    }
+  };
+
+  handleRemove = () => Action.remove(this.state.list, this.state.walk);
 
   componentWillMount() {
     ItineraryStore.addChangeListener(this._onChange);
@@ -72,17 +80,24 @@ export default class WalkPage extends Component {
 
   render() {
     const {
-      city,
-      walk,
-      walk: {
-        features = [],
-        themes,
-        accessibles,
-      },
       isFavourite,
       schedule,
     } = this.state;
-    const { canEdit = false } = this.props;
+    const {
+      city,
+      walk,
+      walk: {
+        themes = [],
+        accessibles = [],
+        team = [],
+        title = '',
+        features = [],
+        features: [{ properties: { title: meetingPlace } = {} } = {}] = [],
+      },
+      canEdit = false,
+    } = this.props;
+
+    const leaders = getLeaders(team);
     const hasMarkers = features.length > 0;
 
     const markers = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
@@ -91,7 +106,10 @@ export default class WalkPage extends Component {
     return (
       ce('section', { className: 'walkPage' },
         ce(Header, {
+          title,
           walk,
+          leaders,
+          meetingPlace,
           canEdit,
           city,
           isFavourite,
@@ -101,7 +119,9 @@ export default class WalkPage extends Component {
           onAdd: this.handleAdd,
           onRemove: this.handleRemove,
         }),
-        ce(Affix, { offsetTop: Layout.Nav.height - Layout.Nav.pad }, ce(Menu, this.state)),
+        ce(Affix, { offsetTop: Layout.Nav.height - Layout.Nav.pad },
+          ce(Menu, { ...this.state, title, leaders, themes }),
+        ),
         ce(Description, walk),
         hasMarkers ? ce(WalkMap, { features }) : null,
         hasMarkers ? [
@@ -111,7 +131,7 @@ export default class WalkPage extends Component {
         ce(Accessibility, { flags: accessibles }),
         ce(PublicTransit, walk),
         ce(Parking, walk),
-        ce(Team, walk)
+        ce(Team, walk),
       )
     );
   }

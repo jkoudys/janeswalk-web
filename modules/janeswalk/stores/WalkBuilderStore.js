@@ -138,7 +138,7 @@ const getSchema = (props = [
     case 'themes': return { ...a, themes: [...themes] };
     case 'times': return { ...a, time: getTimeSchema() };
     case 'title': return { ...a, title };
-    case 'ward': return { ...a, ward };
+    case 'ward': return { ...a, wards: ward };
     default: return a;
   }
 }, {
@@ -252,6 +252,7 @@ const WalkBuilderStore = {
       themes: newThemes,
       accessibles: newAccessibles,
       images: newImages = [],
+      wards = '',
     } }) => {
       const receivedRoute = features.find(f => f.geometry.type === 'LineString');
       published = walk.published;
@@ -261,6 +262,7 @@ const WalkBuilderStore = {
       open = time.open;
       cID = +walkId;
       team = iList(newTeam);
+      ward = wards;
       accessibleInfo = newAI;
       accessibleTransit = newAT;
       accessibleFind = newAF;

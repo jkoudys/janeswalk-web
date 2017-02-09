@@ -15,7 +15,7 @@ const techEmail = 'tech@janeswalk.org';
 
 const jumpNext = () => jump('#menuOptions0');
 
-const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, time, handlers }) => (
+const Welcome = ({ name, title, time, handlers }) => (
   ce('section', { className: 'Lead__Welcome' },
     ce(Row, Layout.Main,
       ce(Col),
@@ -46,13 +46,9 @@ const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, t
     ),
     ce(Row, { className: 'Lead__Welcome--Foot' },
       ce('p', {},
-        t`Feel free to email organizer ${`${firstName} ${lastName}`.trim()} if you have any questions! `,
-        '(', ce('a', { href: `mailto:${email}` }, email), ')'
-      ),
-      ce('p', {},
-        t`If you're having technical problems setting up your walk, reach out to us at `,
+        t`If you're having technical problems setting up your walk, reach out to our Project Office at `,
         ce('a', { href: `mailto:${techEmail}` }, techEmail)
-      )
+      ),
     )
   )
 );

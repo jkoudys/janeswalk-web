@@ -105,3 +105,7 @@ export function setPointIndex(point, { change }) {
 export function undoPoint() {
   dispatch({ type: AT.WB_POINT_UNDO });
 }
+
+export function setWard(value) {
+  dispatch({ type: AT.WB_SET_WARD, value });
+}

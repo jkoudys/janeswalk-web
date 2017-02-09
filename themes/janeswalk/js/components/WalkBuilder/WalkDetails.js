@@ -6,9 +6,11 @@
 /* global CCM_TOOLS_PATH */
 import { createElement as ce } from 'react';
 import t from 'es2015-i18n-tag';
-import { Form, Input, Upload, Icon } from 'antd';
+import { Form, Input, Upload, Icon, Select } from 'antd';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
+
+const { Option } = Select;
 
 const WalkDetails = ({
   id,
@@ -18,6 +20,8 @@ const WalkDetails = ({
   longDescription,
   images,
   handlers,
+  ward,
+  wards = [],
   valt,
 }) => (
   ce('section', { id, className: 'Lead__Option' },
@@ -55,7 +59,7 @@ const WalkDetails = ({
            t`Drag or click here to replace your Walk's image.` :
            t`Drag your Walk's preview image here, or click to upload.`),
       ),
-      t`We recommend wider images over tall ones. They'll look better at the top of your Walk page.`
+      t`We recommend wider images, around 600 pixels wide, over taller ones. They will look better at the top of your Walk page.`
     ),
     ce(Form.Item, {
       label: t`Your walk in a nutshell`,
@@ -83,8 +87,19 @@ const WalkDetails = ({
           onChange: handlers.longDescription,
         })
       ),
-      ce('p', {}, t`Help jump start the conversation on your Walk, by giving readers an idea of the discussions you'll be having on the Walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the Walk.`)
-    )
+      ce('p', {}, t`What is this Walk about? What questions and issues will you be exploring? Jump-start the discussion by getting people thinking about how they can contribute to your Walking Conversation.`)
+    ),
+    wards.length ? ce(Form.Item, {},
+      ce('label', {},
+        t`Region`,
+        ce(Select, { value: ward, onChange: handlers.ward },
+          wards.map(({ value }) => ce(Option, {
+            key: value,
+            value,
+          }, value)),
+        ),
+      ),
+    ) : null,
   )
 );
 

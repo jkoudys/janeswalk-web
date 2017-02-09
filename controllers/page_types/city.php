@@ -93,17 +93,4 @@ class CityPageTypeController extends Controller
         $blog->filterByParentID($this->c->getCollectionID());
         $this->set('blog', $blog->get(1)[0]);
     }
-
-    /*
-     * walks()
-     * Called when you hit city/path/walks
-     * Used for the 'show all walks', as this is very separate from the main city
-     * logic. 'Edit' mode will expand both city areas and the areas shown in here,
-     * so you can edit either mode at the same time.
-     */
-    public function walks()
-    {
-        $this->view();
-        $this->set('show', 'all');
-    }
 }
