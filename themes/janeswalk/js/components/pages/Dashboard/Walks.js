@@ -1,6 +1,6 @@
 import { createElement as ce, Component } from 'react';
+import t from 'es2015-i18n-tag';
 import { Tag, Button } from 'antd';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkFilters from './WalkFilters.jsx';
 import WalksMap from './WalksMap.jsx';
 
@@ -70,13 +70,13 @@ export default class Walks extends Component {
           team,
           url,
           published,
-          map: { markers: [{ title: meeting } = {}] = [] } = {},
+          features: [{ properties: { title: meeting } = {} }] = [{}],
           time: { slots } = {},
           attendees,
         } = walks.get(id);
         let start;
         if (slots && slots.length) start = slots[0][0];
-        return <Walk {...{ title, id, key: `walk${id}`, team, url, published, meeting, start, canEdit, attendees }} />;
+        return ce(Walk, { title, id, key: `walk${id}`, team, url, published, meeting, start, canEdit, attendees });
       });
     } else if (currentView === 'map') {
       WalkList = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />;

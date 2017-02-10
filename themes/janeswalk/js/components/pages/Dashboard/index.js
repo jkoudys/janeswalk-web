@@ -1,13 +1,14 @@
-import React, { createElement as ce } from 'react';
+import { Component, createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 
 import UserStore from 'janeswalk/stores/UserStore';
 import CityStore from 'janeswalk/stores/CityStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import AreaStore from 'janeswalk/stores/AreaStore';
 
-import Header from './Header.jsx';
-import Menu from './Menu.jsx';
-import Summary from './Summary.jsx';
+import Header from './Header';
+import Menu from './Menu';
+import Summary from './Summary';
 
 const getDashData = () => ({
   walks: WalkStore.getWalks(),
@@ -17,13 +18,10 @@ const getDashData = () => ({
   announcements: AreaStore.getArea('Announcements COs only'),
 });
 
-export default class Dashboard extends React.Component {
-  constructor(...props) {
-    super(...props);
+export default class Dashboard extends Component {
+  state = getDashData();
 
-    this.state = getDashData();
-    this._onChange = this._onChange.bind(this);
-  }
+  _onChange = () => this.setState(getDashData);
 
   componentWillMount() {
     UserStore.addChangeListener(this._onChange);
@@ -37,10 +35,6 @@ export default class Dashboard extends React.Component {
     WalkStore.removeChangeListener(this._onChange);
     CityStore.removeChangeListener(this._onChange);
     AreaStore.removeChangeListener(this._onChange);
-  }
-
-  _onChange() {
-    this.setState(getDashData);
   }
 
   render() {

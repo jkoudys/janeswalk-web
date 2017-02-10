@@ -1,9 +1,9 @@
 // TODO: ImpactReport is not set-up
 // import ImpactReport from './ImpactReport.jsx';
 import { createElement as ce, PureComponent } from 'react';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 
-import Walks from './Walks.jsx';
+import Walks from './Walks';
 
 export default class Menu extends PureComponent {
   constructor(props, ...args) {

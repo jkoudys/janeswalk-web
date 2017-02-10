@@ -1,13 +1,12 @@
 import { createElement as ce } from 'react';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
-import WithLinks from 'janeswalk/components/WithLinks.jsx';
+import t from 'es2015-i18n-tag';
 
 const DashboardHeader = ({ user: { firstName, groups }, announcements = '' }) => (
   ce('header', {},
     ce('h3', {},
       firstName.toUpperCase(),
       ' ',
-      groups.includes('City Organizers') ? 'Organizer' : 'Walk Leader', ' Dashboard'
+      groups.includes('City Organizers') ? t`Organizer` : t`Walk Leader`, ' ', t`Dashboard`,
     ),
     ce('h4', {}, t`Hi, ${firstName}!`),
     ce('section', { className: 'dashboardLatestPost' },

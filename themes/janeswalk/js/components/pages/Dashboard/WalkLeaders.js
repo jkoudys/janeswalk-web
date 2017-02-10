@@ -1,6 +1,6 @@
 import { createElement as ce, PureComponent } from 'react';
 import { Button } from 'antd';
-import WalkLeader from './WalkLeader.jsx';
+import WalkLeader from './WalkLeader';
 
 // TODO: finish writing this later. It needs to be a pure-component and 'leaders'
 // are an immutable List. Toggles will sort leaders alphabetically or by number of

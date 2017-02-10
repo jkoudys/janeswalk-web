@@ -1,4 +1,5 @@
-import React, { createElement as ce } from 'react';
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 // TODO*: Refactoring Components, WalksFilter is not doing much
 
 const Filter = ({ name, handle, toggleFilter, removeFilter, options, filters }) => {
@@ -6,24 +7,22 @@ const Filter = ({ name, handle, toggleFilter, removeFilter, options, filters }) 
 
   if (Object.keys(filters).includes(handle)) {
     ActiveFilters = Object.keys(filters[handle]).map(fh =>
-      <button key={handle} className={filters[fh] ? 'activeFilter' : 'inActiveFilter'}>
-        <span className="buttonToggle" onClick={() => toggleFilter(fh)}> {name} </span>
-        <span className="buttonClose" onClick={() => removeFilter(fh)}> × </span>
-      </button>
+      ce('button', { key: handle, className: filters[fh] ? 'activeFilter' : 'inActiveFilter' },
+        ce('span', { className: 'buttonToggle', onClick: () => toggleFilter(fh) }, t([name])),
+        ce('span', { className: 'buttonClose', onClick: () => removeFilter(fh) }, ' × '),
+      )
     );
   }
 
   return (
-    <li>
-      <label></label>
-      <select value="Select" onChange={e => toggleFilter(e.target.value)}>
-        <option value="">{name}</option>
-        {Object.keys(options).map((h, i) => <option key={i} value={h}>{options[h]}</option>)}
-      </select>
-      <section>
-      {ActiveFilters}
-      </section>
-    </li>
+    ce('li', {},
+      ce('label'),
+      ce('select', { value: 'Select', onChange: e => toggleFilter(e.target.value) },
+        ce('option', { value: '' }, name),
+        Object.entries(options).map(([key, val]) => ce('option', { key, value: key }, t([val]))),
+      ),
+      ce('section', {}, ActiveFilters),
+    )
   );
 };
 
