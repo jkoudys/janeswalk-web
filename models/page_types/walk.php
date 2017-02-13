@@ -214,7 +214,8 @@ class Walk extends \Model implements \JsonSerializable
             return $features;
         }
 
-        return $map;
+        // Clear out any bad data we may have accumulated
+        return array_values(array_filter($map));
     }
 
     /**

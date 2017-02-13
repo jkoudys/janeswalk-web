@@ -1,27 +1,21 @@
 import { createElement as ce, Component } from 'react';
 import t from 'es2015-i18n-tag';
 import { Tag, Button } from 'antd';
-import WalkFilters from './WalkFilters.jsx';
-import WalksMap from './WalksMap.jsx';
+import WalkFilters from './WalkFilters';
+import WalksMap from './WalksMap';
 
 // TODO: (Post-PR) Walk common component found in <Itinerary/> and <WalkPage/>, Refactor to a single component or mixin
-import Walk from './Walk.jsx';
+import Walk from './Walk';
 
-function removeFilter(filters, handle, option) {
-  const newFilters = Object.assign({}, filters);
-  newFilters[handle] = Object.assign({}, filters[handle]);
-  delete newFilters[handle][option];
+const removeFilter = (filters, handle, option) => ({
+  ...filters,
+  [handle]: { ...filters[handle], [option]: undefined },
+});
 
-  return newFilters;
-}
-
-function toggleFilter(filters, handle, option) {
-  const newFilters = Object.assign({}, filters);
-  newFilters[handle] = Object.assign({}, filters[handle]);
-  newFilters[handle][option] = !newFilters[handle][option];
-
-  return newFilters;
-}
+const toggleFilter = (filters, handle, option) => ({
+  ...filters,
+  [handle]: { ...filters[handle], [option]: !filters[handle][option] },
+});
 
 // TODO: load only the ones we need from the walk data
 const allFilters = require('../../../json/FilterStubs.json');
@@ -75,11 +69,11 @@ export default class Walks extends Component {
           attendees,
         } = walks.get(id);
         let start;
-        if (slots && slots.length) start = slots[0][0];
+        if (slots && slots.length) start = +slots[0][0];
         return ce(Walk, { title, id, key: `walk${id}`, team, url, published, meeting, start, canEdit, attendees });
       });
     } else if (currentView === 'map') {
-      WalkList = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />;
+      WalkList = ce(WalksMap, { walks: user.walks.map(wID => walks.get(wID)), city });
     }
 
     // The toggle for the past walks

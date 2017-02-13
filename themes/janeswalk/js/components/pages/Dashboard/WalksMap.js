@@ -14,24 +14,21 @@ const InfoWindow = ({ url, title, shortDescription }) => (
   )
 );
 
-const manageMarkers = (map, markers, walks) => {
+const manageMarkers = (map, markers = [], walks) => {
   const infoWindow = new google.maps.InfoWindow({ maxWidth: 600 });
   const _infoNode = document.createElement('div');
 
-  // Remove any markers that are not part of active walks
-  markers = markers.filter(m => {
-    if (walks.find(w => (w.id === m.walkId))) return true;
-    m.setMap(null);
-    return false;
-  });
-
   // Add additional markers
-  walks.forEach(({
+  walks.reduce((a, {
     id,
     title,
     shortDescription,
     url,
-    features: [{ geometry: [lng, lat] } = {}] = [],
+    features: [{
+      geometry: {
+        coordinates: [lng, lat] = [],
+      } = {},
+    } = {}] = [],
   }) => {
     if (lat && lng) {
       const walkFound = markers.find(({ walkId }) => (walkId === id));
@@ -44,8 +41,6 @@ const manageMarkers = (map, markers, walks) => {
           walkId: id,
         });
 
-        markers.push(marker);
-
         google.maps.event.addListener(marker, 'click', () => {
           render(ce(InfoWindow, { title, shortDescription, url }), _infoNode);
 
@@ -54,11 +49,18 @@ const manageMarkers = (map, markers, walks) => {
           infoWindow.setContent(_infoNode);
           infoWindow.open(map, marker);
         });
+
+        return a.concat(marker);
       }
     }
-  });
 
-  return markers;
+    return a;
+  }, markers.filter(m => {
+    // Remove any markers that are not part of active walks
+    if (walks.find(w => (w.id === m.walkId))) return true;
+    m.setMap(null);
+    return false;
+  }));
 };
 
 export default class WalksMap extends Component {

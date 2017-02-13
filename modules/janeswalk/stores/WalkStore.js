@@ -7,36 +7,21 @@
 
 import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
+import { OrderedMap as iMap, List as iList } from 'immutable';
 import Store from './Store';
 
 // Store singletons
 // The Walk objects, keyed by walk ID (ie collection ID)
-const _walks = new Map();
-
-// Receive a single walk
-function receiveWalk(walk) {
-  _walks.set(+walk.id, walk);
-}
-
-// Receive an array of walks
-function receiveWalks(walks) {
-  for (const walk of walks) {
-    receiveWalk(walk);
-  }
-}
+let _walks = iMap();
 
 // Get the "outings", or scheduled dates, for our walks
-function getWalkOutings() {
-  return [..._walks.values()].reduce((arr, walk) => {
-    if (walk.time && walk.time.slots) {
-      for (const slot of walk.time.slots) {
-        arr.push({ walk, slot });
-      }
-    }
-    return arr;
-  }, [])
-  .sort((a, b) => a.slot[0] - b.slot[0]);
-}
+const getWalkOutings = () => _walks.reduce((a, walk) => {
+  const { time: { slots } = {} } = walk;
+
+  if (slots) return a.push(slots);
+  return a;
+}, iList())
+.sort(({ slot: [a] }, { slot: [b] }) => a - b);
 
 const WalkStore = {
   ...Store,
@@ -46,8 +31,12 @@ const WalkStore = {
 
   // Register our dispatch token as a static method
   dispatchToken: register({
-    [AT.WALK_RECEIVE]: ({ walk }) => receiveWalk(walk),
-    [AT.WALK_RECEIVE_ALL]: ({ walks }) => receiveWalks(walks),
+    [AT.WALK_RECEIVE]: ({ walk, walk: id }) => { _walks = _walks.set(+id, walk); },
+    [AT.WALK_RECEIVE_ALL]: ({ walks }) => {
+      for (const walk of walks) {
+        _walks = _walks.set(+walk.id, walk);
+      }
+    },
   }, () => WalkStore.emitChange()),
 };
 
