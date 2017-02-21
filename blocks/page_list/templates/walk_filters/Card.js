@@ -38,7 +38,7 @@ const Card = ({
     id = -1,
     title = '',
     url = '',
-    thumbnails: [{ url: thumbUrl } = {}] = [],
+    images: [{ url: thumbUrl } = {}] = [],
     features: [{
       properties: {
         title: meetingTitle,

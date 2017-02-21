@@ -1,5 +1,7 @@
 {
   "roles": {
-    "walk-leader": "Walk Leader"
+    "leader": "Walk Leader",
+    "organizer": "Walk Organizer",
+    "volunteer": "Volunteer"
   }
 }

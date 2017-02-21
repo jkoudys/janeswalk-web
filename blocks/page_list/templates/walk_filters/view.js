@@ -117438,7 +117438,7 @@
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
 	// Walk Builder
-	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX', 'WB_POINT_UNDO',
+	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_WARD', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX', 'WB_POINT_UNDO',
 
 	// City
 	'CITY_RECEIVE',
@@ -117499,11 +117499,18 @@
 	  value: true
 	});
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * Filters, lists, maps, the whole shebang
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * TODO: this could seriously use some fluxing.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
+
+
+	// Flux
+
 
 	var _templateObject = _taggedTemplateLiteral(['After'], ['After']),
 	    _templateObject2 = _taggedTemplateLiteral(['Before'], ['Before']),
@@ -117557,14 +117564,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Filters, lists, maps, the whole shebang
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * TODO: this could seriously use some fluxing.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-	// Flux
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// Actually a little before today
 	var today = _moment2.default.utc();
@@ -117585,10 +117585,19 @@
 	      typeahead = _ref$typeahead === undefined ? '' : _ref$typeahead;
 	  return outings.filter(function (_ref2) {
 	    var walk = _ref2.walk,
-	        slot = _ref2.slot;
+	        _ref2$walk$slots = _ref2.walk.slots;
+	    _ref2$walk$slots = _ref2$walk$slots === undefined ? [] : _ref2$walk$slots;
+
+	    var _ref2$walk$slots2 = _slicedToArray(_ref2$walk$slots, 1),
+	        _ref2$walk$slots2$ = _ref2$walk$slots2[0];
+
+	    _ref2$walk$slots2$ = _ref2$walk$slots2$ === undefined ? [] : _ref2$walk$slots2$;
+
+	    var _ref2$walk$slots2$2 = _slicedToArray(_ref2$walk$slots2$, 1),
+	        nextInSeconds = _ref2$walk$slots2$2[0];
 
 	    // Convert PHP second-epoch to JS milliseconds epoch
-	    var time = slot[0] * 1000;
+	    var time = nextInSeconds && nextInSeconds * 1000;
 
 	    // TODO: cleanup and perf test
 	    // Filter by checking that the filter doesn't match the walk
@@ -118274,9 +118283,18 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * Walk store
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * description, and people involved with a walk.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
+
 	var _AppDispatcher = __webpack_require__(933);
 
 	var _JWConstants = __webpack_require__(937);
+
+	var _immutable = __webpack_require__(896);
 
 	var _Store = __webpack_require__(942);
 
@@ -118286,84 +118304,38 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
-	                                                                                                                                                                                                     * Walk store
-	                                                                                                                                                                                                     *
-	                                                                                                                                                                                                     * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	                                                                                                                                                                                                     * description, and people involved with a walk.
-	                                                                                                                                                                                                     */
-
 	// Store singletons
 	// The Walk objects, keyed by walk ID (ie collection ID)
-	var _walks = new Map();
-
-	// Receive a single walk
-	function receiveWalk(walk) {
-	  _walks.set(+walk.id, walk);
-	}
-
-	// Receive an array of walks
-	function receiveWalks(walks) {
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var walk = _step.value;
-
-	      receiveWalk(walk);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
-	}
+	var _walks = (0, _immutable.OrderedMap)();
 
 	// Get the "outings", or scheduled dates, for our walks
-	function getWalkOutings() {
-	  return [].concat(_toConsumableArray(_walks.values())).reduce(function (arr, walk) {
-	    if (walk.time && walk.time.slots) {
-	      var _iteratorNormalCompletion2 = true;
-	      var _didIteratorError2 = false;
-	      var _iteratorError2 = undefined;
+	var getWalkOutings = function getWalkOutings() {
+	  return _walks.reduce(function (a, walk) {
+	    var _walk$time = walk.time;
+	    _walk$time = _walk$time === undefined ? {} : _walk$time;
+	    var slots = _walk$time.slots;
 
-	      try {
-	        for (var _iterator2 = walk.time.slots[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	          var slot = _step2.value;
 
-	          arr.push({ walk: walk, slot: slot });
-	        }
-	      } catch (err) {
-	        _didIteratorError2 = true;
-	        _iteratorError2 = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	            _iterator2.return();
-	          }
-	        } finally {
-	          if (_didIteratorError2) {
-	            throw _iteratorError2;
-	          }
-	        }
-	      }
-	    }
-	    return arr;
-	  }, []).sort(function (a, b) {
-	    return a.slot[0] - b.slot[0];
+	    if (slots) return a.push(slots);
+	    return a;
+	  }, (0, _immutable.List)()).sort(function (_ref, _ref2) {
+	    var _ref$slot = _ref.slot;
+	    _ref$slot = _ref$slot === undefined ? [] : _ref$slot;
+
+	    var _ref$slot2 = _slicedToArray(_ref$slot, 1),
+	        _ref$slot2$ = _ref$slot2[0],
+	        a = _ref$slot2$ === undefined ? 0 : _ref$slot2$;
+
+	    var _ref2$slot = _ref2.slot;
+	    _ref2$slot = _ref2$slot === undefined ? [] : _ref2$slot;
+
+	    var _ref2$slot2 = _slicedToArray(_ref2$slot, 1),
+	        _ref2$slot2$ = _ref2$slot2[0],
+	        b = _ref2$slot2$ === undefined ? 0 : _ref2$slot2$;
+
+	    return a - b;
 	  });
-	}
+	};
 
 	var WalkStore = _extends({}, _Store2.default, {
 	  getWalks: function getWalks() {
@@ -118375,12 +118347,36 @@
 	  getWalkOutings: getWalkOutings,
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
-	    var walk = _ref.walk;
-	    return receiveWalk(walk);
-	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
-	    var walks = _ref2.walks;
-	    return receiveWalks(walks);
+	  dispatchToken: (0, _AppDispatcher.register)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref3) {
+	    var walk = _ref3.walk,
+	        id = _ref3.walk;
+	    _walks = _walks.set(+id, walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref4) {
+	    var walks = _ref4.walks;
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
+
+	    try {
+	      for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var walk = _step.value;
+
+	        _walks = _walks.set(+walk.id, walk);
+	      }
+	    } catch (err) {
+	      _didIteratorError = true;
+	      _iteratorError = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion && _iterator.return) {
+	          _iterator.return();
+	        }
+	      } finally {
+	        if (_didIteratorError) {
+	          throw _iteratorError;
+	        }
+	      }
+	    }
 	  }), _register), function () {
 	    return WalkStore.emitChange();
 	  })
@@ -118902,14 +118898,14 @@
 	      title = _ref$walk$title === undefined ? '' : _ref$walk$title,
 	      _ref$walk$url = _ref$walk.url,
 	      url = _ref$walk$url === undefined ? '' : _ref$walk$url,
-	      _ref$walk$thumbnails = _ref$walk.thumbnails;
-	  _ref$walk$thumbnails = _ref$walk$thumbnails === undefined ? [] : _ref$walk$thumbnails;
+	      _ref$walk$images = _ref$walk.images;
+	  _ref$walk$images = _ref$walk$images === undefined ? [] : _ref$walk$images;
 
-	  var _ref$walk$thumbnails2 = _slicedToArray(_ref$walk$thumbnails, 1),
-	      _ref$walk$thumbnails3 = _ref$walk$thumbnails2[0];
+	  var _ref$walk$images2 = _slicedToArray(_ref$walk$images, 1),
+	      _ref$walk$images2$ = _ref$walk$images2[0];
 
-	  _ref$walk$thumbnails3 = _ref$walk$thumbnails3 === undefined ? {} : _ref$walk$thumbnails3;
-	  var thumbUrl = _ref$walk$thumbnails3.url,
+	  _ref$walk$images2$ = _ref$walk$images2$ === undefined ? {} : _ref$walk$images2$;
+	  var thumbUrl = _ref$walk$images2$.url,
 	      _ref$walk$features = _ref$walk.features;
 	  _ref$walk$features = _ref$walk$features === undefined ? [] : _ref$walk$features;
 
@@ -119233,8 +119229,10 @@
 	    // Build the team list of walk leaders
 	    var leaders = team.filter(function (member) {
 	      return isWalkLeader(member);
-	    }).map(function (member) {
-	      return member['name-first'] + ' ' + member['name-last'];
+	    }).map(function (_ref3) {
+	      var _ref3$name = _ref3.name,
+	          name = _ref3$name === undefined ? '' : _ref3$name;
+	      return name;
 	    });
 
 	    // Best-effort grab of the time
@@ -119300,20 +119298,20 @@
 
 	  try {
 	    for (var _iterator2 = outings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	      var _ref4 = _step2.value;
-	      var _ref4$walk = _ref4.walk,
-	          id = _ref4$walk.id,
-	          _ref4$walk$features = _ref4$walk.features,
-	          features = _ref4$walk$features === undefined ? [] : _ref4$walk$features,
-	          _ref4$walk$team = _ref4$walk.team,
-	          team = _ref4$walk$team === undefined ? [] : _ref4$walk$team,
-	          _ref4$walk$title = _ref4$walk.title,
-	          title = _ref4$walk$title === undefined ? '' : _ref4$walk$title,
-	          _ref4$walk$url = _ref4$walk.url,
-	          url = _ref4$walk$url === undefined ? '' : _ref4$walk$url,
-	          _ref4$walk$shortDescr = _ref4$walk.shortDescription,
-	          shortDescription = _ref4$walk$shortDescr === undefined ? '' : _ref4$walk$shortDescr,
-	          slot = _ref4.slot;
+	      var _ref5 = _step2.value;
+	      var _ref5$walk = _ref5.walk,
+	          id = _ref5$walk.id,
+	          _ref5$walk$features = _ref5$walk.features,
+	          features = _ref5$walk$features === undefined ? [] : _ref5$walk$features,
+	          _ref5$walk$team = _ref5$walk.team,
+	          team = _ref5$walk$team === undefined ? [] : _ref5$walk$team,
+	          _ref5$walk$title = _ref5$walk.title,
+	          title = _ref5$walk$title === undefined ? '' : _ref5$walk$title,
+	          _ref5$walk$url = _ref5$walk.url,
+	          url = _ref5$walk$url === undefined ? '' : _ref5$walk$url,
+	          _ref5$walk$shortDescr = _ref5$walk.shortDescription,
+	          shortDescription = _ref5$walk$shortDescr === undefined ? '' : _ref5$walk$shortDescr,
+	          slot = _ref5.slot;
 
 	      if (markers.has(id)) {
 	        // We already have this marker built, so simply add it to the map
@@ -119323,27 +119321,27 @@
 	          return f.type === 'Feature' && f.geometry.type === 'Point';
 	        });
 
-	        var _ref5 = features.find(function (f) {
+	        var _ref6 = features.find(function (f) {
 	          return f.type === 'Feature' && f.geometry.type === 'LineString';
 	        }) || {},
-	            _ref5$geometry = _ref5.geometry;
+	            _ref6$geometry = _ref6.geometry;
 
-	        _ref5$geometry = _ref5$geometry === undefined ? {} : _ref5$geometry;
-	        var _ref5$geometry$coordi = _ref5$geometry.coordinates,
-	            route = _ref5$geometry$coordi === undefined ? [] : _ref5$geometry$coordi;
+	        _ref6$geometry = _ref6$geometry === undefined ? {} : _ref6$geometry;
+	        var _ref6$geometry$coordi = _ref6$geometry.coordinates,
+	            route = _ref6$geometry$coordi === undefined ? [] : _ref6$geometry$coordi;
 
 	        // Grab either the first stop or route point
 
-	        var _ref6 = [].concat(_toConsumableArray(points.map(function (m) {
+	        var _ref7 = [].concat(_toConsumableArray(points.map(function (m) {
 	          return m.geometry.coordinates;
 	        })), _toConsumableArray(route)),
-	            _ref6$ = _ref6[0];
+	            _ref7$ = _ref7[0];
 
-	        _ref6$ = _ref6$ === undefined ? [] : _ref6$;
+	        _ref7$ = _ref7$ === undefined ? [] : _ref7$;
 
-	        var _ref6$2 = _slicedToArray(_ref6$, 2),
-	            lng = _ref6$2[0],
-	            lat = _ref6$2[1];
+	        var _ref7$2 = _slicedToArray(_ref7$, 2),
+	            lng = _ref7$2[0],
+	            lat = _ref7$2[1];
 
 	        if (lat && lng) {
 	          // We must build a marker
@@ -119373,7 +119371,7 @@
 	  _inherits(LocationMap, _Component);
 
 	  function LocationMap() {
-	    var _ref7;
+	    var _ref8;
 
 	    var _temp, _this, _ret;
 
@@ -119383,7 +119381,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref7 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref7, [this].concat(args))), _this), _this.state = { map: null, markers: {} }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref8 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref8, [this].concat(args))), _this), _this.state = { map: null, markers: {} }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(LocationMap, [{
@@ -119412,8 +119410,8 @@
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(_ref8) {
-	      var outings = _ref8.outings;
+	    value: function componentWillReceiveProps(_ref9) {
+	      var outings = _ref9.outings;
 	      var _state = this.state,
 	          markers = _state.markers,
 	          map = _state.map;

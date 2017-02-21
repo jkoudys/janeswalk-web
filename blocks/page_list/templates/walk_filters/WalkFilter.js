@@ -27,9 +27,12 @@ today.seconds(0);
  * Apply filters and date range to walks
  */
 // TODO: this filterWalks function is ridiculous. This should be render logic.
-const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => outings.filter(({ walk, slot }) => {
+const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => outings.filter(({
+  walk,
+  walk: { slots: [[nextInSeconds] = []] = [] },
+}) => {
   // Convert PHP second-epoch to JS milliseconds epoch
-  const time = slot[0] * 1000;
+  const time = nextInSeconds && nextInSeconds * 1000;
 
   // TODO: cleanup and perf test
   // Filter by checking that the filter doesn't match the walk

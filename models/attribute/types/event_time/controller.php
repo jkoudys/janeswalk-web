@@ -23,9 +23,14 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
         // Add the 'slots' that this could be scheduled on
         // Note that this is seconds since epoch, not ms; MySQL and PHP both
         // assume seconds, while javascript likes ms
-        $reArr['slots'] = $db->GetAll(
-            'SELECT UNIX_TIMESTAMP(atet.start) AS "0", UNIX_TIMESTAMP(atet.end) AS "1" FROM atEventTime atet INNER JOIN atSchedule ats ON (ats.avID = atet.atScheduleID AND ats.avID = ?) ORDER BY start < CURRENT_DATE, start',
-            [$this->getAttributeValueID()]
+        $reArr['slots'] = array_map(
+            function ($slot) {
+                return [(int) $slot[0], (int) $slot[1]];
+            },
+            $db->GetAll(
+                'SELECT UNIX_TIMESTAMP(atet.start) AS "0", UNIX_TIMESTAMP(atet.end) AS "1" FROM atEventTime atet INNER JOIN atSchedule ats ON (ats.avID = atet.atScheduleID AND ats.avID = ?) ORDER BY start < CURRENT_DATE, start',
+                [$this->getAttributeValueID()]
+            )
         );
 
         // Cast our values to expected types

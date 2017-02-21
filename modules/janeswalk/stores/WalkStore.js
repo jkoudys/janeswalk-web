@@ -15,13 +15,14 @@ import Store from './Store';
 let _walks = iMap();
 
 // Get the "outings", or scheduled dates, for our walks
-const getWalkOutings = () => _walks.reduce((a, walk) => {
+const getWalkOutings = () => _walks
+.reduce((a, walk) => {
   const { time: { slots } = {} } = walk;
 
   if (slots) return a.push(slots);
   return a;
 }, iList())
-.sort(({ slot: [a] }, { slot: [b] }) => a - b);
+.sort(({ slot: [a = 0] = [] }, { slot: [b = 0] = [] }) => a - b);
 
 const WalkStore = {
   ...Store,

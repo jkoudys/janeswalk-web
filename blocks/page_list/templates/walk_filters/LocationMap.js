@@ -63,8 +63,7 @@ function buildNewMarker({ lat, lng, team = [], startTime, title, gmap, url, shor
     let date;
 
     // Build the team list of walk leaders
-    const leaders = team.filter(member => isWalkLeader(member))
-    .map(member => `${member['name-first']} ${member['name-last']}`);
+    const leaders = team.filter(member => isWalkLeader(member)).map(({ name = '' }) => name);
 
     // Best-effort grab of the time
     try {
