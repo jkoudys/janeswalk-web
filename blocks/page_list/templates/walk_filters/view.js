@@ -117512,9 +117512,7 @@
 	// Flux
 
 
-	var _templateObject = _taggedTemplateLiteral(['After'], ['After']),
-	    _templateObject2 = _taggedTemplateLiteral(['Before'], ['Before']),
-	    _templateObject3 = _taggedTemplateLiteral(['Search in Walks below'], ['Search in Walks below']);
+	var _templateObject = _taggedTemplateLiteral(['Search in Walks below'], ['Search in Walks below']);
 
 	var _react = __webpack_require__(2);
 
@@ -117527,8 +117525,6 @@
 	var _moment = __webpack_require__(360);
 
 	var _moment2 = _interopRequireDefault(_moment);
-
-	var _antd = __webpack_require__(179);
 
 	var _WalkStore = __webpack_require__(941);
 
@@ -117553,6 +117549,10 @@
 	var _Filter = __webpack_require__(952);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
+
+	var _FilterList = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./FilterList\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _FilterList2 = _interopRequireDefault(_FilterList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -117708,7 +117708,7 @@
 	      });
 	    };
 
-	    _this.setStartDate = function (from) {
+	    _this.handleStartDate = function (from) {
 	      var dateRange = _this.state.dateRange;
 
 	      _this.setState({
@@ -117717,7 +117717,7 @@
 	      });
 	    };
 
-	    _this.setEndDate = function (to) {
+	    _this.handleEndDate = function (to) {
 	      var dateRange = _this.state.dateRange;
 
 	      _this.setState({
@@ -117794,8 +117794,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      var _state = this.state,
 	          displayFilters = _state.displayFilters,
 	          _state$city = _state.city;
@@ -117811,11 +117809,12 @@
 	          filters = _state.filters,
 	          typeahead = _state.typeahead;
 
-	      var Filters = Object.keys(filters).map(function (key) {
-	        return (0, _react.createElement)(_Filter2.default, _extends({ key: key, setFilter: function setFilter(v) {
-	            return _this2.setFilter(key, v);
-	          } }, filters[key]));
-	      });
+	      var disabledStartDate = this.disabledStartDate,
+	          disabledEndDate = this.disabledEndDate,
+	          handleStartDate = this.handleStartDate,
+	          handleEndDate = this.handleEndDate,
+	          setFilter = this.setFilter;
+
 
 	      var locationMapSection = void 0;
 
@@ -117824,26 +117823,18 @@
 	        locationMapSection = (0, _react.createElement)('section', { className: 'tab-pane', id: 'jw-map' }, (0, _react.createElement)(_LocationMap2.default, { outings: filterMatches, coordinates: [lng, lat] }));
 	      }
 
-	      var AllFilters = (0, _react.createElement)('section', null, (0, _react.createElement)('ul', { className: 'filters' }, Filters, (0, _react.createElement)('li', null, (0, _react.createElement)('label', null, 'Dates'), (0, _react.createElement)(_antd.DatePicker, {
-	        disabledDate: this.disabledStartDate,
-	        showTime: true,
-	        format: 'YYYY-MM-DD HH:mm:ss',
-	        value: dateRange[0],
-	        placeholder: (0, _es2015I18nTag2.default)(_templateObject),
-	        onChange: this.setStartDate
-	      }), (0, _react.createElement)(_antd.DatePicker, {
-	        disabledDate: this.disabledEndDate,
-	        showTime: true,
-	        format: 'YYYY-MM-DD HH:mm:ss',
-	        value: dateRange[1],
-	        placeholder: (0, _es2015I18nTag2.default)(_templateObject2),
-	        onChange: this.setEndDate
-	      }))));
-
-	      return (0, _react.createElement)('section', { className: 'ccm-block-page-list-walk-filters' }, (0, _react.createElement)('div', { className: 'walk-filters' }, (0, _react.createElement)('a', { className: 'filter-header', onClick: this.handleToggleFilters }, (0, _react.createElement)('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }, 'Filters')), (0, _react.createElement)('a', { className: 'print-button', onClick: this.printList }, (0, _react.createElement)('i', { className: 'fa fa-print' }, 'Print List')), displayFilters ? AllFilters : null), (0, _react.createElement)('div', { className: 'walk-typeahead' }, (0, _react.createElement)('input', {
+	      return (0, _react.createElement)('section', { className: 'ccm-block-page-list-walk-filters' }, (0, _react.createElement)('div', { className: 'walk-filters' }, (0, _react.createElement)('a', { className: 'filter-header', onClick: this.handleToggleFilters }, (0, _react.createElement)('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }, 'Filters')), (0, _react.createElement)('a', { className: 'print-button', onClick: this.printList }, (0, _react.createElement)('i', { className: 'fa fa-print' }, 'Print List')), displayFilters ? (0, _react.createElement)(_FilterList2.default, {
+	        disabledStartDate: disabledStartDate,
+	        disabledEndDate: disabledEndDate,
+	        dateRange: dateRange,
+	        filters: Object.entries(filters),
+	        handleStartDate: handleStartDate,
+	        handleEndDate: handleEndDate,
+	        setFilter: setFilter
+	      }) : null), (0, _react.createElement)('div', { className: 'walk-typeahead' }, (0, _react.createElement)('input', {
 	        type: 'text',
 	        value: typeahead,
-	        placeholder: (0, _es2015I18nTag2.default)(_templateObject3),
+	        placeholder: (0, _es2015I18nTag2.default)(_templateObject),
 	        onChange: this.handleTypeahead
 	      })), (0, _react.createElement)('div', { className: 'walks-area' }, (0, _react.createElement)(_WalkCards2.default, { outings: filterMatches }), locationMapSection));
 	    }
