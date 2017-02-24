@@ -1,7 +1,4 @@
 {
   "require": {
-    "phpunit/phpunit": "4.1.*",
-    "squizlabs/php_codesniffer": "*@dev",
-    "qaribou/immutable.php": "*"
   }
 }
