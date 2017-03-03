@@ -1,13 +1,10 @@
-/* global React ReactDOM */
+import { createElement as ce, Component } from 'react';
+import { render } from 'react-dom';
+import t from 'es2015-i18n-tag';
 import { LineChart, PieChart } from 'react-d3';
 import { BarChart } from 'react-d3/barchart';
+import { printElement } from 'janeswalk/utils/print';
 import HBarChart from './HBarChart.jsx';
-
-const YEARS = {
-  '2015': Date.UTC(2015, 0),
-  '2014': Date.UTC(2014, 0),
-  '2013': Date.UTC(2013, 0)
-};
 
 const pieData = [
   { label: 'Returning', value: 65.0 },
@@ -15,121 +12,126 @@ const pieData = [
 ];
 
 // <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
-// TODO: this function isn't very well written. Should be in the store, too
-function buildWalksByYear(dates) {
-  // 2014, 2015
-  const values = [{x: 2014, y: 0}, {x: 2015, y: 0}];
-  dates.forEach(date => {
-    if (date.range[0] * 1000 < YEARS['2015']) {
-      values[0]['y']++;
-    } else {
-      values[1]['y']++;
-    }
-  });
-  return [{
-    label: '1',
-    values: values.map(v => {v.x = v.x + ' (' + v.y + ')'; return v})
-  }];
-}
+const buildWalksByYear = (dates) => ({
+  label: '1',
+  values: Object.entries(dates.reduce((a, date) => {
+    const year = (new Date(date)).getUTCYear();
+    return { ...a, [year]: (a[year] || 0) + 1 };
+  }, {}))
+  .map(([year, count]) => ({ x: `${year} (${count})`, y: count })),
+});
 
 function buildWardWalkData(walksPerWard) {
-  const values = Object.keys(walksPerWard).map((k, i) => ({y: k, x: walksPerWard[k]}));
+  const values = Object.entries(walksPerWard).map(([k, v]) => ({ y: k, x: v }));
 
   // Some magic to sort and sort parsed numbers, so 10 comes after 2.
-  const sorted = values.map(i => [i.y.match(/(\d+)/)[1], i]).sort((a,b) => a[0] - b[0]).map(i => i[1]);
+  // FIXME: magic is bad.
+  const sorted = values.map(i => [i.y.match(/(\d+)/)[1], i]).sort(([a], [b]) => a - b).map(i => i[1]);
 
-  return [Object.assign({}, {label: '1'}, {values: sorted})];
+  return [{ label: '1', values: sorted }];
 }
 
-const ReturningWalkLeaders = ({walks, leaders, dates, year}) => (
-  <section className="returning-walk-leaders">
-    <h3>{year}</h3>
-    <PieChart data={pieData} width={400} height={400} radius={100} innerRadius={30} />
-  </section>
+const ReturningWalkLeaders = ({ walks, leaders, year }) => (
+  ce('section', { className: 'returning-walk-leaders' },
+    ce('h3', {}, year),
+    ce(PieChart, { data: pieData, width: 400, height: 400, radius: 100, innerRadius: 30 }),
+  )
 );
 
 const walksPerLeaderData = [
-  {label: '1', values: [{x: 1, y: 60}, {x: 2, y: 20}, {x: 3, y: 3}, {x: 4, y: 5}]},
+  { label: '1', values: [{ x: 1, y: 60 }, { x: 2, y: 20 }, { x: 3, y: 3 }, { x: 4, y: 5 }] },
 ];
 
-const WalksPerLeader = ({walks, leaders, dates}) => (
-  <section className="walks-per-leader">
-    <h3>Walks per Leader</h3>
-    <BarChart data={walksPerLeaderData} width={400} height={400} />
-  </section>
+const WalksPerLeader = ({ walks, leaders, dates }) => (
+  ce('section', { className: 'walks-per-leader' },
+    ce('h3', {}, t`Walks per Leader`),
+    ce(BarChart, { data: walksPerLeaderData, width: 400, height: 400 }),
+  )
 );
 
-const WalksPerWard = ({wardWalkCount}) => (
-  <section className="walks-per-ward">
-    <h3>Walks per Region</h3>
-    <HBarChart data={buildWardWalkData(wardWalkCount)} width={'100%'} />
-  </section>
+const WalksPerWard = ({ wardWalkCount }) => (
+  ce('section', { className: 'walks-per-ward' },
+    ce('h3', {}, t`Walks per Region`),
+    ce(HBarChart, { data: buildWardWalkData(wardWalkCount), width: '100%' }),
+  )
 );
 
-const WalksPerYear = ({dates}) => (
-  <section className="walks-per-year">
-    <h3>Walks per Year</h3>
-    <BarChart data={buildWalksByYear(dates)} width={400} height={400} />
-  </section>
+const WalksPerYear = ({ dates }) => (
+  ce('section', { className: 'walks-per-year' },
+    ce('h3', {}, t`Walks per Year`),
+    ce(BarChart, { data: buildWalksByYear(dates), width: 400, height: 400 }),
+  )
 );
 
-const WalkLeaders = ({leaders, limit, showAll, showSome}) => (
-  <section className="walk-leaders">
-    <h3>Most Active Walk Leaders</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>email</th>
-          <th>Total Walks</th>
-        </tr>
-      </thead>
-      <tbody>
-        {leaders.sort((a, b) => b.walkIds.length - a.walkIds.length).slice(0, limit).map(leader => (
-          <tr>
-            <td>{leader['name-first'] + ' ' + leader['name-last']}</td>
-            <td>{leader['email']}</td>
-            <td>{leader.walkIds.length}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    {limit ? <a onClick={showAll}>Show All</a> : <a onClick={showSome}>Collapse</a>}
-  </section>
+const WalkLeaders = ({ leaders, limit, showAll, showSome }) => (
+  ce('section', { className: 'walk-leaders' },
+    ce('h3', {}, 'Most Active Walk Leaders'),
+    ce('table', {},
+      ce('thead', {},
+        ce('tr', {},
+          ce('th', {}, t`Name`),
+          ce('th', {}, t`email`),
+          ce('th', {}, t`Total Walks`),
+        ),
+      ),
+      ce('tbody', {}, leaders
+        .sort(({ walkIds: { a } }, { walkIds: { b } }) => b - a)
+        .slice(0, limit)
+        .map(({ name, email, walkIds }) => (
+          ce('tr', {},
+            ce('td', {}, name),
+            ce('td', {}, email),
+            ce('td', {}, walkIds.length),
+          )
+        ))
+      ),
+    ),
+    limit ?
+      ce('a', { onClick: showAll }, t`Show All`) :
+      ce('a', { onClick: showSome }, t`Collapse`),
+  )
 );
 
-export default class ImpactReport extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {leadersLimit: 6};
-  }
+export default class ImpactReport extends Component {
+  state = { leadersLimit: 6 };
 
   /**
    * Print this whole element
    */
   printReport() {
-    const win = window.open();
-    const styles = document.querySelectorAll('style[rel=stylesheet]');
-    window.focus();
-    [].forEach.call(styles, s => win.appendChild(s.cloneNode()));
-    win.document.body.appendChild(ReactDOM.findDOMNode(this).cloneNode(true));
-    win.print();
-    win.close();
+    printElement(this);
   }
 
   render() {
-    const {city, leaders, walks, details, dates, startDate, wardWalkCount} = this.props;
+    const {
+      city,
+      dates,
+      details,
+      leaders,
+      startDate,
+      walks,
+      wardWalkCount,
+    } = this.props;
+
     return (
-      <section>
-        <p>
-          <a className="print-button" onClick={() => this.printReport()}><i className="fa fa-print" /> Print Report</a>
-        </p>
-        <h3>In {city.name}, there have been {Object.keys(leaders).length} registered walk leaders, who led {dates.length} walks since {startDate}!</h3>
-        <WalkLeaders leaders={Object.keys(leaders).filter(k => k).map(k => leaders[k])} limit={this.state.leadersLimit} showAll={() => this.setState({leadersLimit: undefined})} showSome={() => this.setState({leadersLimit: 6})} />
-        <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
-        <WalksPerWard wardWalkCount={wardWalkCount} />
-        <WalksPerYear dates={dates} />
-      </section>
+      ce('section', {},
+        ce('p', {},
+          ce('a', { className: 'print-button', onClick: this.printReport() },
+            ce('i', { className: 'fa fa-print' }),
+            t` Print Report`,
+          ),
+        ),
+        ce('h3', {}, t`In ${city.name}, there have been ${Object.keys(leaders).length} registered walk leaders, who led ${dates.length} walks since ${startDate}!`),
+        ce(WalkLeaders, {
+          leaders: Object.keys(leaders).filter(k => k).map(k => leaders[k]),
+          limit: this.state.leadersLimit,
+          showAll: () => this.setState({ leadersLimit: undefined }),
+          showSome: () => this.setState({ leadersLimit: 6 }),
+        }),
+        ce(ReturningWalkLeaders, { walks, dates, year: 2015 }),
+        ce(WalksPerWard, { wardWalkCount }),
+        ce(WalksPerYear, { dates }),
+      )
     );
   }
 }

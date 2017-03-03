@@ -89,14 +89,14 @@
 	 */
 	/* global JanesWalk */
 
-	var _filters = {};
+	var filters = {};
 	event.on('walkfilters.load', function (location) {
-	  return (0, _reactDom.render)((0, _react.createElement)(_antd.LocaleProvider, { locale: _en_US2.default }, (0, _react.createElement)(_WalkFilter2.default, { filters: _filters, location: location })), document.getElementById('janeswalk-walk-filters'));
+	  return (0, _reactDom.render)((0, _react.createElement)(_antd.LocaleProvider, { locale: _en_US2.default }, (0, _react.createElement)(_WalkFilter2.default, { filters: filters, location: location })), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
-	event.on('filters.receive', function (filters) {
-	  _filters = filters;
+	event.on('filters.receive', function (f) {
+	  return Object.assign(filters, f);
 	});
 	event.on('city.receive', function (city) {
 	  return CityActions.receive(city);
@@ -117499,9 +117499,9 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _filters;
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * Filters, lists, maps, the whole shebang
@@ -117522,35 +117522,35 @@
 
 	var _es2015I18nTag2 = _interopRequireDefault(_es2015I18nTag);
 
-	var _moment = __webpack_require__(360);
+	var _recentdates = __webpack_require__(941);
 
-	var _moment2 = _interopRequireDefault(_moment);
+	var _print = __webpack_require__(942);
 
-	var _WalkStore = __webpack_require__(941);
+	var _WalkStore = __webpack_require__(943);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _CityStore = __webpack_require__(944);
+	var _CityStore = __webpack_require__(946);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
-	var _WalkCards = __webpack_require__(945);
+	var _WalkCards = __webpack_require__(947);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
 
-	var _WalkList = __webpack_require__(948);
+	var _WalkList = __webpack_require__(950);
 
 	var _WalkList2 = _interopRequireDefault(_WalkList);
 
-	var _LocationMap = __webpack_require__(950);
+	var _LocationMap = __webpack_require__(952);
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
 
-	var _Filter = __webpack_require__(952);
+	var _Filter = __webpack_require__(954);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
 
-	var _FilterList = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./FilterList\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _FilterList = __webpack_require__(955);
 
 	var _FilterList2 = _interopRequireDefault(_FilterList);
 
@@ -117558,219 +117558,136 @@
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// Actually a little before today
-	var today = _moment2.default.utc();
-	today.hours(0);
-	today.minutes(0);
-	today.seconds(0);
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	/**
 	 * Apply filters and date range to walks
 	 */
-	// TODO: this filterWalks function is ridiculous. This should be render logic.
-	var filterWalks = function filterWalks(_ref) {
-	  var outings = _ref.outings,
-	      filters = _ref.filters,
-	      dateRange = _ref.dateRange,
-	      city = _ref.city,
-	      _ref$typeahead = _ref.typeahead,
-	      typeahead = _ref$typeahead === undefined ? '' : _ref$typeahead;
-	  return outings.filter(function (_ref2) {
-	    var walk = _ref2.walk,
-	        _ref2$walk$slots = _ref2.walk.slots;
-	    _ref2$walk$slots = _ref2$walk$slots === undefined ? [] : _ref2$walk$slots;
-
-	    var _ref2$walk$slots2 = _slicedToArray(_ref2$walk$slots, 1),
-	        _ref2$walk$slots2$ = _ref2$walk$slots2[0];
-
-	    _ref2$walk$slots2$ = _ref2$walk$slots2$ === undefined ? [] : _ref2$walk$slots2$;
-
-	    var _ref2$walk$slots2$2 = _slicedToArray(_ref2$walk$slots2$, 1),
-	        nextInSeconds = _ref2$walk$slots2$2[0];
-
-	    // Convert PHP second-epoch to JS milliseconds epoch
-	    var time = nextInSeconds && nextInSeconds * 1000;
-
-	    // TODO: cleanup and perf test
-	    // Filter by checking that the filter doesn't match the walk
-	    // Note that this would be a lot cleaner using functions, but it's
-	    // built with a big set of basic boolean operators to speed it up
-	    // along this likely bottleneck
-	    if (filters.theme && filters.theme.selected && !walk.themes[filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.accessibles[filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.reduce(function (a, _ref3) {
-	      var name = _ref3.name;
-	      return a + name;
-	    }, '')).match(new RegExp(typeahead, 'i'))) {
-	      return false;
-	    }
-	    return true;
-	  });
-	};
-
-	/**
-	 * Grab the day the 3rd most recent walk appears on
-	 */
-	function thirdRecentDate(outings) {
-	  if (outings.length) {
-	    var lastThree = outings.slice(-3);
-	    // Find the day the walk starts
-	    if (lastThree[0].slot) {
-	      var lastDate = new Date(lastThree[0].slot[0] * 1000);
-	      lastDate.setUTCHours(0);
-	      lastDate.setUTCMinutes(0);
-	      return lastDate;
-	    }
+	var filters = (_filters = {
+	  theme: function theme(_ref, selected) {
+	    var themes = _ref.themes;
+	    return themes[selected];
+	  },
+	  ward: function ward(_ref2, selected) {
+	    var wards = _ref2.wards;
+	    return wards === selected;
 	  }
-	  return null;
-	}
+	}, _defineProperty(_filters, 'theme', function theme(_ref3, selected) {
+	  var accessibles = _ref3.accessibles;
+	  return accessibles[selected];
+	}), _defineProperty(_filters, 'initiative', function initiative(_ref4, selected) {
+	  var initiatives = _ref4.initiatives;
+	  return initiatives.includes(selected);
+	}), _defineProperty(_filters, 'city', function city(_ref5, selected) {
+	  var cityID = _ref5.cityID;
 
-	function thirdRecentDateRange(outings) {
-	  var thirdDate = thirdRecentDate(outings);
-	  if (thirdDate && thirdDate < today) {
-	    return [(0, _moment2.default)(thirdDate.getTime()), null];
-	  }
-	  return [today, null];
-	}
+	  return +cityID === +selected;
+	}), _defineProperty(_filters, 'dateRange', function dateRange(_ref6, _ref7) {
+	  var _ref6$slots = _ref6.slots;
+	  _ref6$slots = _ref6$slots === undefined ? [] : _ref6$slots;
 
-	var getWalkFilterState = function getWalkFilterState(_ref4) {
-	  var _ref4$filters = _ref4.filters,
-	      filters = _ref4$filters === undefined ? {} : _ref4$filters,
-	      typeahead = _ref4.typeahead,
-	      dateRange = _ref4.dateRange,
-	      _ref4$city = _ref4.city,
-	      city = _ref4$city === undefined ? _CityStore2.default.getCity() : _ref4$city;
+	  var _ref6$slots2 = _slicedToArray(_ref6$slots, 1),
+	      _ref6$slots2$ = _ref6$slots2[0];
 
-	  var outings = _WalkStore2.default.getWalkOutings();
-	  var usefulRange = dateRange || thirdRecentDateRange(outings);
+	  _ref6$slots2$ = _ref6$slots2$ === undefined ? [] : _ref6$slots2$;
 
-	  return {
-	    outings: outings,
-	    filters: filters,
-	    city: city,
-	    dateRange: usefulRange,
-	    filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: usefulRange, city: city, typeahead: typeahead })
-	  };
-	};
+	  var _ref6$slots2$2 = _slicedToArray(_ref6$slots2$, 1),
+	      nextInSeconds = _ref6$slots2$2[0];
+
+	  var _ref8 = _slicedToArray(_ref7, 2),
+	      start = _ref8[0],
+	      end = _ref8[1];
+
+	  var time = nextInSeconds && nextInSeconds * 1000;
+
+	  // Exclude walks with no time set, if searching on time
+	  if (!time) return false;
+
+	  return start <= nextInSeconds || nextInSeconds <= end;
+	}), _defineProperty(_filters, 'typeahead', function typeahead(_ref9) {
+	  var _ref9$title = _ref9.title,
+	      title = _ref9$title === undefined ? '' : _ref9$title,
+	      _ref9$longDescription = _ref9.longDescription,
+	      longDescription = _ref9$longDescription === undefined ? '' : _ref9$longDescription,
+	      _ref9$shortDescriptio = _ref9.shortDescription,
+	      shortDescription = _ref9$shortDescriptio === undefined ? '' : _ref9$shortDescriptio,
+	      team = _ref9.team;
+	  var q = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+	  // Don't filter out until minimum length query reached
+	  if (q.length < 3) return true;
+
+	  var teamNames = team.reduce(function (a, _ref10) {
+	    var name = _ref10.name;
+	    return a + ' ' + name;
+	  }, '');
+
+	  return (title + ' ' + longDescription + ' ' + shortDescription + ' ' + teamNames).match(new RegExp(q, 'i'));
+	}), _filters);
 
 	var WalkFilter = function (_Component) {
 	  _inherits(WalkFilter, _Component);
 
-	  // FIXME: remove this state-building with props
-	  function WalkFilter(props) {
+	  function WalkFilter() {
+	    var _ref11;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, WalkFilter);
 
-	    var _this = _possibleConstructorReturn(this, (WalkFilter.__proto__ || Object.getPrototypeOf(WalkFilter)).call(this, props));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    _this._onChange = function () {
-	      _this.setState(getWalkFilterState(_this.state));
-	    };
-
-	    _this.handleToggleFilters = function () {
-	      _this.setState({ displayFilters: !_this.state.displayFilters });
-	    };
-
-	    _this.printList = function () {
-	      var win = window.open();
-	      var el = win.document.createElement('div');
-	      (0, _reactDom.render)((0, _react.createElement)(_WalkList2.default, { outings: _this.state.filterMatches }), el);
-	      window.focus();
-	      win.document.body.appendChild(el);
-	      win.print();
-	      win.close();
-	    };
-
-	    _this.setFilter = function (filter, val) {
-	      var _this$state = _this.state,
-	          filters = _this$state.filters,
-	          outings = _this$state.outings,
-	          dateRange = _this$state.dateRange,
-	          typeahead = _this$state.typeahead,
-	          city = _this$state.city;
-
-	      _this.setState({
-	        filters: _extends({}, filters, _defineProperty({}, filter, _extends({}, filters[filter], {
-	          selected: val
-	        }))),
-	        filterMatches: filterWalks({
-	          outings: outings,
-	          filters: filters,
-	          dateRange: dateRange,
-	          city: city,
-	          typeahead: typeahead
-	        })
-	      });
-	    };
-
-	    _this.handleStartDate = function (from) {
-	      var dateRange = _this.state.dateRange;
-
-	      _this.setState({
-	        dateRange: [from, dateRange[1]],
-	        filterMatches: filterWalks(_extends({}, _this.state, { dateRange: [from, dateRange[1]] }))
-	      });
-	    };
-
-	    _this.handleEndDate = function (to) {
-	      var dateRange = _this.state.dateRange;
-
-	      _this.setState({
-	        dateRange: [dateRange[0], to],
-	        filterMatches: filterWalks(_extends({}, _this.state, { dateRange: [dateRange[0], to] }))
-	      });
-	    };
-
-	    _this.disabledStartDate = function (startValue) {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref11 = WalkFilter.__proto__ || Object.getPrototypeOf(WalkFilter)).call.apply(_ref11, [this].concat(args))), _this), _this.state = {
+	      dateRange: [],
+	      typeahead: ''
+	    }, _this.handleToggleFilters = function () {
+	      return _this.setState({ displayFilters: !_this.state.displayFilters });
+	    }, _this.printList = function () {
+	      return (0, _print.printElement)((0, _react.createElement)(_WalkList2.default, { outings: _this.state.filterMatches }));
+	    }, _this.handleStartDate = function (from) {
 	      var _this$state$dateRange = _slicedToArray(_this.state.dateRange, 2),
-	          endValue = _this$state$dateRange[1];
+	          to = _this$state$dateRange[1];
+
+	      _this.setState({ dateRange: [from, to] });
+	    }, _this.handleEndDate = function (to) {
+	      var _this$state$dateRange2 = _slicedToArray(_this.state.dateRange, 1),
+	          from = _this$state$dateRange2[0];
+
+	      _this.setState({ dateRange: [from, to] });
+	    }, _this.disabledStartDate = function (startValue) {
+	      var _this$state$dateRange3 = _slicedToArray(_this.state.dateRange, 2),
+	          endValue = _this$state$dateRange3[1];
 
 	      if (!startValue || !endValue) {
 	        return false;
 	      }
 	      return startValue.valueOf() > endValue.valueOf();
-	    };
-
-	    _this.disabledEndDate = function (endValue) {
-	      var _this$state$dateRange2 = _slicedToArray(_this.state.dateRange, 1),
-	          startValue = _this$state$dateRange2[0];
+	    }, _this.disabledEndDate = function (endValue) {
+	      var _this$state$dateRange4 = _slicedToArray(_this.state.dateRange, 1),
+	          startValue = _this$state$dateRange4[0];
 
 	      if (!endValue || !startValue) {
 	        return false;
 	      }
 	      return endValue.valueOf() <= startValue.valueOf();
-	    };
-
-	    _this.handleTypeahead = function (_ref5) {
-	      var typeahead = _ref5.target.value;
-	      var _this$state2 = _this.state,
-	          filters = _this$state2.filters,
-	          outings = _this$state2.outings,
-	          dateRange = _this$state2.dateRange,
-	          city = _this$state2.city;
-
-	      _this.setState({ typeahead: typeahead, filterMatches: filterWalks({ filters: filters, outings: outings, dateRange: dateRange, city: city, typeahead: typeahead }) });
-	    };
-
-	    _this.state = getWalkFilterState(props);
-	    return _this;
+	    }, _this.handleTypeahead = function (_ref12) {
+	      var typeahead = _ref12.target.value;
+	      return _this.setState({ typeahead: typeahead });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-
-	  // Stores are updated
-
 
 	  // Toggle whether or not the filters were showing
 
 
 	  // Send the list of walks to the printer
-
-
-	  // Set a filter value
 
 
 	  // Set our date range filter
@@ -117780,34 +117697,21 @@
 
 
 	  _createClass(WalkFilter, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      _WalkStore2.default.addChangeListener(this._onChange);
-	      _CityStore2.default.addChangeListener(this._onChange);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      _WalkStore2.default.removeChangeListener(this._onChange);
-	      _CityStore2.default.removeChangeListener(this._onChange);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state,
 	          displayFilters = _state.displayFilters,
-	          _state$city = _state.city;
-	      _state$city = _state$city === undefined ? {} : _state$city;
-	      var _state$city$latlng = _state$city.latlng;
-	      _state$city$latlng = _state$city$latlng === undefined ? [] : _state$city$latlng;
-
-	      var _state$city$latlng2 = _slicedToArray(_state$city$latlng, 2),
-	          lat = _state$city$latlng2[0],
-	          lng = _state$city$latlng2[1],
-	          filterMatches = _state.filterMatches,
 	          dateRange = _state.dateRange,
 	          filters = _state.filters,
 	          typeahead = _state.typeahead;
+	      var _props$city = this.props.city;
+	      _props$city = _props$city === undefined ? _CityStore2.default.getCity() : _props$city;
+	      var _props$city$latlng = _props$city.latlng;
+	      _props$city$latlng = _props$city$latlng === undefined ? [] : _props$city$latlng;
+
+	      var _props$city$latlng2 = _slicedToArray(_props$city$latlng, 2),
+	          lat = _props$city$latlng2[0],
+	          lng = _props$city$latlng2[1];
 
 	      var disabledStartDate = this.disabledStartDate,
 	          disabledEndDate = this.disabledEndDate,
@@ -118269,6 +118173,78 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.thirdRecentDate = thirdRecentDate;
+	exports.thirdRecentDateRange = thirdRecentDateRange;
+
+	var _moment = __webpack_require__(360);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// Actually a little before today
+	var today = _moment2.default.utc(); /**
+	                                     * Grab the day the 3rd most recent walk appears on
+	                                     */
+
+	today.hours(0);
+	today.minutes(0);
+	today.seconds(0);
+
+	function thirdRecentDate(outings) {
+	  if (outings.length) {
+	    var lastThree = outings.slice(-3);
+	    // Find the day the walk starts
+	    if (lastThree[0].slot) {
+	      var lastDate = new Date(lastThree[0].slot[0] * 1000);
+	      lastDate.setUTCHours(0);
+	      lastDate.setUTCMinutes(0);
+	      return lastDate;
+	    }
+	  }
+	  return null;
+	}
+
+	function thirdRecentDateRange(outings) {
+	  var thirdDate = thirdRecentDate(outings);
+	  if (thirdDate && thirdDate < today) {
+	    return [(0, _moment2.default)(thirdDate.getTime()), null];
+	  }
+	  return [today, null];
+	}
+
+/***/ },
+/* 942 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.printElement = printElement;
+
+	var _reactDom = __webpack_require__(33);
+
+	function printElement(reactElement) {
+	  var win = window.open();
+	  var el = win.document.createElement('div');
+	  (0, _reactDom.render)(reactElement, el);
+	  window.focus();
+	  win.document.body.appendChild(el);
+	  win.print();
+	  win.close();
+	}
+
+/***/ },
+/* 943 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _register;
 
@@ -118287,7 +118263,7 @@
 
 	var _immutable = __webpack_require__(896);
 
-	var _Store = __webpack_require__(942);
+	var _Store = __webpack_require__(944);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -118376,7 +118352,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 942 */
+/* 944 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -118392,7 +118368,7 @@
 	// Requires
 
 
-	var _events = __webpack_require__(943);
+	var _events = __webpack_require__(945);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -118420,7 +118396,7 @@
 	exports.default = Store;
 
 /***/ },
-/* 943 */
+/* 945 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -118728,7 +118704,7 @@
 
 
 /***/ },
-/* 944 */
+/* 946 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -118748,7 +118724,7 @@
 
 	var _JWConstants = __webpack_require__(937);
 
-	var _Store = __webpack_require__(942);
+	var _Store = __webpack_require__(944);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -118777,7 +118753,7 @@
 	exports.default = CityStore;
 
 /***/ },
-/* 945 */
+/* 947 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -118795,7 +118771,7 @@
 
 	var _es2015I18nTag2 = _interopRequireDefault(_es2015I18nTag);
 
-	var _Card = __webpack_require__(946);
+	var _Card = __webpack_require__(948);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -118823,7 +118799,7 @@
 	exports.default = WalkCards;
 
 /***/ },
-/* 946 */
+/* 948 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -118842,7 +118818,7 @@
 
 	var _react = __webpack_require__(2);
 
-	var _Theme = __webpack_require__(947);
+	var _Theme = __webpack_require__(949);
 
 	var _es2015I18nTag = __webpack_require__(940);
 
@@ -118954,7 +118930,7 @@
 	exports.default = Card;
 
 /***/ },
-/* 947 */
+/* 949 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -119008,7 +118984,7 @@
 	}
 
 /***/ },
-/* 948 */
+/* 950 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -119028,7 +119004,7 @@
 
 	var _es2015I18nTag2 = _interopRequireDefault(_es2015I18nTag);
 
-	var _ListItem = __webpack_require__(949);
+	var _ListItem = __webpack_require__(951);
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
@@ -119052,7 +119028,7 @@
 	};
 
 /***/ },
-/* 949 */
+/* 951 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -119112,7 +119088,7 @@
 	}
 
 /***/ },
-/* 950 */
+/* 952 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -119133,7 +119109,7 @@
 
 	var _reactDom = __webpack_require__(33);
 
-	var _InfoWindow = __webpack_require__(951);
+	var _InfoWindow = __webpack_require__(953);
 
 	var _InfoWindow2 = _interopRequireDefault(_InfoWindow);
 
@@ -119431,7 +119407,7 @@
 	exports.default = LocationMap;
 
 /***/ },
-/* 951 */
+/* 953 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -119453,7 +119429,7 @@
 	};
 
 /***/ },
-/* 952 */
+/* 954 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -119479,11 +119455,11 @@
 	var Filter = function Filter(_ref) {
 	  var name = _ref.name,
 	      selected = _ref.selected,
-	      setFilter = _ref.setFilter,
+	      _onChange = _ref.onChange,
 	      data = _ref.data;
 	  return (0, _react.createElement)('li', null, (0, _react.createElement)('label', null, name), (0, _react.createElement)('select', { value: selected, onChange: function onChange(_ref2) {
 	      var value = _ref2.target.value;
-	      return setFilter(value);
+	      return _onChange(value);
 	    } }, (0, _react.createElement)('option', { value: '' }, (0, _es2015I18nTag2.default)(_templateObject)), Object.entries(data).map(function (_ref3) {
 	    var _ref4 = _slicedToArray(_ref3, 2),
 	        value = _ref4[0],
@@ -119494,6 +119470,75 @@
 	};
 
 	exports.default = Filter;
+
+/***/ },
+/* 955 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _templateObject = _taggedTemplateLiteral(['After'], ['After']),
+	    _templateObject2 = _taggedTemplateLiteral(['Before'], ['Before']);
+
+	var _react = __webpack_require__(2);
+
+	var _es2015I18nTag = __webpack_require__(940);
+
+	var _es2015I18nTag2 = _interopRequireDefault(_es2015I18nTag);
+
+	var _antd = __webpack_require__(179);
+
+	var _Filter = __webpack_require__(954);
+
+	var _Filter2 = _interopRequireDefault(_Filter);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+	var FilterList = function FilterList(_ref) {
+	  var disabledStartDate = _ref.disabledStartDate,
+	      disabledEndDate = _ref.disabledEndDate,
+	      handleStartDate = _ref.handleStartDate,
+	      handleEndDate = _ref.handleEndDate,
+	      _ref$filters = _ref.filters,
+	      filters = _ref$filters === undefined ? [] : _ref$filters,
+	      _ref$dateRange = _ref.dateRange,
+	      dateRange = _ref$dateRange === undefined ? [] : _ref$dateRange;
+	  return (0, _react.createElement)('section', null, (0, _react.createElement)('ul', { className: 'filters' }, filters.map(function (_ref2) {
+	    var _ref3 = _slicedToArray(_ref2, 2),
+	        key = _ref3[0],
+	        v = _ref3[1];
+
+	    return (0, _react.createElement)(_Filter2.default, _extends({ key: key }, v, { onChange: function onChange(option) {
+	        return setFilter(key, option);
+	      } }));
+	  }), (0, _react.createElement)('li', null, (0, _react.createElement)('label', null, 'Dates'), (0, _react.createElement)(_antd.DatePicker, {
+	    disabledDate: disabledStartDate,
+	    showTime: true,
+	    format: 'YYYY-MM-DD HH:mm:ss',
+	    value: dateRange[0],
+	    placeholder: (0, _es2015I18nTag2.default)(_templateObject),
+	    onChange: handleStartDate
+	  }), (0, _react.createElement)(_antd.DatePicker, {
+	    disabledDate: disabledEndDate,
+	    showTime: true,
+	    format: 'YYYY-MM-DD HH:mm:ss',
+	    value: dateRange[1],
+	    placeholder: (0, _es2015I18nTag2.default)(_templateObject2),
+	    onChange: handleEndDate
+	  }))));
+	};
+
+	exports.default = FilterList;
 
 /***/ }
 /******/ ]);

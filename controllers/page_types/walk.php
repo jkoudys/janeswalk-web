@@ -1,12 +1,14 @@
 <?php
-use \JanesWalk\Models\PageTypes\Walk;
+namespace JanesWalk\Controllers\PageTypes;
+
+use \JanesWalk\Models\PageTypes\Walk as Model;
 use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
 use \JanesWalk\Controllers\JanesWalk as Controller;
 
 use Concrete\Core\Legacy\NavigationHelper;
 use Concrete\Core\Legacy\ImageHelper;
 
-class WalkPageTypeController extends Controller
+class Walk extends Controller
 {
     /**
      * @type Walk $walk The Walk model
@@ -15,7 +17,7 @@ class WalkPageTypeController extends Controller
 
     public function on_start()
     {
-        $this->walk = new Walk($this->c);
+        $this->walk = new Model($this->c);
 
         /* Ideally this should be in a router, not the individual on_start.
          * c5.7 uses symfony2 for routing

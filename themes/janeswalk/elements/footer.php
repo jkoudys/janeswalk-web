@@ -13,7 +13,7 @@
         </nav>
         <section class="status-copyright">
             <p>Jane's Walk is a project of Tides Canada Initiatives Society, a registered charity.</p>
-            <p>Jane's Walk &copy; 2014. All rights reserved.</p>
+            <p>Jane's Walk &copy; 2017. All rights reserved.</p>
         </section>
     </footer>
     <div id="progress" style="z-index: -1;"></div>
@@ -28,8 +28,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="<?= $this->getThemePath() . (CONCRETE5_ENV === 'dev' ? '/js/janeswalk.js' : '/js/janeswalk.min.js') ?>"></script>
-    <?php include DIR_BASE . '/concrete5/web/concrete/elements/footer_required.php'; ?>
+    <?php include DIR_BASE . '/concrete5/web/elements/footer_required.php'; ?>
   </body>
 </html>

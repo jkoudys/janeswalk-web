@@ -1,6 +1,6 @@
 <?php
 // Include composer classes
-require_once __DIR__ . '/vendor/autoload.php';
+@include_once __DIR__ . '/vendor/autoload.php';
 
 // Our autoloader for JanesWalk classes
 // Format: JanesWalk\{TopLevel}\{SubDir}\{SubDir}\{ClassName}

@@ -122,8 +122,9 @@ CityStore.addChangeListener(() => {
 });
 
 Promise.all(Object.values(startups)).then(() => {
+  const { locale: { name: chosenLocale = 'en' } = {} } = JanesWalk;
   // Load our translations upfront
-  getTranslations(JanesWalk.locale);
+  getTranslations(chosenLocale);
 
   renderGlobal();
   addFluxListeners();

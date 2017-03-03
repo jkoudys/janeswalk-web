@@ -1,7 +1,9 @@
-/* global React ReactDOM JanesWalk */
+/* global JanesWalk */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const { createElement: ce, Component } = React;
+import { createElement as ce, Component } from 'react';
+import { render } from 'react-dom';
+
 const { startups, event } = JanesWalk;
 
 /**
@@ -140,7 +142,7 @@ class PageListTypeahead extends Component {
 // TODO: get browserify-shim working and `import React from 'react';`
 startups.dom.then(() => {
   const { user } = JanesWalk;
-  event.on('countries.receive', countries => ReactDOM.render(
+  event.on('countries.receive', countries => render(
     ce(PageListTypeahead, { countries, user }),
     document.getElementById('ccm-jw-page-list-typeahead')
   ));

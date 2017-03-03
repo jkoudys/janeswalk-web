@@ -2,6 +2,8 @@ import { createElement as ce } from 'react';
 import t from 'es2015-i18n-tag';
 import { DatePicker } from 'antd';
 
+import Filter from './Filter';
+
 const FilterList = ({
   disabledStartDate,
   disabledEndDate,
@@ -12,8 +14,7 @@ const FilterList = ({
 }) => (
   ce('section', null,
     ce('ul', { className: 'filters' },
-      filters.map(([key, v]) => ce(Filter, { key, ...v, (option) => setFilter(key, option) })),
-      Filters,
+      filters.map(([key, v]) => ce(Filter, { key, ...v, onChange: (option) => setFilter(key, option) })),
       ce('li', null,
         ce('label', null, 'Dates'),
         ce(DatePicker, {

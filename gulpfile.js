@@ -52,7 +52,7 @@ gulp.task('js.blocks', () => {
     './blocks/page_list/templates/typeahead',
     './blocks/page_list/templates/walk_filters',
   ].map(entry => webpack({
-    entry: [`${entry}/block.js`],
+    entry: [`${entry}/router.js`],
     output: {
       path: `${entry}/`,
       filename: 'view.js',
@@ -99,7 +99,7 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['babel-polyfill', 'element-closest', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/sticky.js', './js/shims.js', './js/jwobject.js'],
+    entry: ['babel-polyfill', 'element-closest', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/sticky.js', './js/jwobject.js'],
     output: {
       path: './js',
       filename: 'jwglobal.js',

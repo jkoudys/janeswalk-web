@@ -10,6 +10,11 @@ const _lists = new Set();
 // Map<{walk}:[times]> A map of times set for each walk
 const _schedule = new Map();
 
+// All walks in all the itineraries
+function* allWalks() {
+  for (const list of _lists) yield* list.walks;
+}
+
 // Has this store been synced, and is it syncing?
 let _lastChange = Date.now();
 
@@ -63,9 +68,7 @@ const _receiveAll = ({ lists, schedule }) => {
 };
 
 function hasInList(walk) {
-  for (const list of _lists) {
-    if (list.walks.has(walk)) return true;
-  }
+  for (const listWalk of allWalks()) if (walk === listWalk) return true;
   return false;
 }
 
@@ -74,17 +77,15 @@ const ItineraryStore = {
   getLists: () => _lists,
   getSchedule: () => _schedule,
   getWalks: (list) => list.walks,
+  getAllWalks: () => allWalks(),
   getLastChange: () => _lastChange,
+  totalWalks: () => [...allWalks()].length,
   hasInList,
 
   hasInSchedule(walk, time) {
     const times = _schedule.get(walk);
     if (times && times.has(+time)) return true;
     return false;
-  },
-
-  totalWalks() {
-    return [..._lists].reduce((a, { walks }) => (a + walks.size), 0);
   },
 
   dispatcherIndex: register({

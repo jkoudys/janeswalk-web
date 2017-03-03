@@ -5,6 +5,8 @@
 import { createElement as ce, Component } from 'react';
 import { render } from 'react-dom';
 import t from 'es2015-i18n-tag';
+import { thirdRecentDateRange } from 'janeswalk/utils/recentdates';
+import { printElement } from 'janeswalk/utils/print';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -15,8 +17,6 @@ import WalkList from './WalkList';
 import LocationMap from './LocationMap';
 import Filter from './Filter';
 import FilterList from './FilterList';
-
-import { thirdRecentDateRange } from '../../utils/recentdates';
 
 /**
  * Apply filters and date range to walks
@@ -50,59 +50,17 @@ const filters = {
   },
 };
 
-const getWalkFilterState = ({ filters = {}, typeahead, dateRange, city = CityStore.getCity() }) => {
-  const outings = WalkStore.getWalkOutings();
-  const usefulRange = dateRange || thirdRecentDateRange(outings);
-
-  return {
-    outings,
-    filters,
-    city,
-    dateRange: usefulRange,
-  };
-};
-
 export default class WalkFilter extends Component {
-  // FIXME: remove this state-building with props
-  constructor(props) {
-    super(props);
-    this.state = getWalkFilterState(props);
-  }
-
-  // Stores are updated
-  _onChange = () => {
-    this.setState(getWalkFilterState(this.state));
+  state = {
+    dateRange: [],
+    typeahead: '',
   };
 
   // Toggle whether or not the filters were showing
-  handleToggleFilters = () => {
-    this.setState({ displayFilters: !this.state.displayFilters });
-  };
+  handleToggleFilters = () => this.setState({ displayFilters: !this.state.displayFilters });
 
   // Send the list of walks to the printer
-  printList = () => {
-    const win = window.open();
-    const el = win.document.createElement('div');
-    render(ce(WalkList, { outings: this.state.filterMatches }), el);
-    window.focus();
-    win.document.body.appendChild(el);
-    win.print();
-    win.close();
-  };
-
-  // Set a filter value
-  setFilter = (filter, val) => {
-    const { filters, outings, dateRange, typeahead, city } = this.state;
-    this.setState({
-      filters: {
-        ...filters,
-        [filter]: {
-          ...filters[filter],
-          selected: val,
-        },
-      },
-    });
-  };
+  printList = () => printElement(ce(WalkList, { outings: this.state.filterMatches }));
 
   // Set our date range filter
   handleStartDate = (from) => {
@@ -132,30 +90,20 @@ export default class WalkFilter extends Component {
   };
 
   // Typeahead search in the walks
-  handleTypeahead = ({ target: { value: typeahead } }) => {
-    const { filters, outings, dateRange, city } = this.state;
-    this.setState({ typeahead  });
-  };
-
-  componentWillMount() {
-    WalkStore.addChangeListener(this._onChange);
-    CityStore.addChangeListener(this._onChange);
-  }
-
-  componentWillUnmount() {
-    WalkStore.removeChangeListener(this._onChange);
-    CityStore.removeChangeListener(this._onChange);
-  }
+  handleTypeahead = ({ target: { value: typeahead } }) => this.setState({ typeahead });
 
   render() {
     const {
       displayFilters,
-      city: { latlng: [lat, lng] = [] } = {},
-      filterMatches,
       dateRange,
       filters,
       typeahead,
     } = this.state;
+
+    const {
+      city: { latlng: [lat, lng] = [] } = CityStore.getCity(),
+    } = this.props;
+
     const {
       disabledStartDate,
       disabledEndDate,
