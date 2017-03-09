@@ -57,6 +57,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "google-map-react": "^0.22.0",
     "janeswalk": "*",
+    "jquery-dialog": "^0.5.1",
     "jump.js": "^1.0.1",
     "moment": "^2.17.1",
     "moment-timezone": "^0.5.11",
