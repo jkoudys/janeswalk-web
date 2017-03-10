@@ -17,10 +17,9 @@ let _walks = iMap();
 // Get the "outings", or scheduled dates, for our walks
 const getWalkOutings = () => _walks.reduce((a, walk) => {
   const { time: { slots } = {} } = walk;
-
-  if (slots) return a.push(slots);
+  if (slots && slots.length) return a.concat(slots);
   return a;
-}, iList())
+}, [])
 .sort(({ slot: [a] }, { slot: [b] }) => a - b);
 
 const WalkStore = {
