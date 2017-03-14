@@ -18,8 +18,7 @@ let _walks = iMap();
 const getWalkOutings = () => _walks
 .reduce((a, walk) => {
   const { time: { slots } = {} } = walk;
-
-  if (slots) return a.push(slots);
+  if (slots && slots.length) return a.concat(slots);
   return a;
 }, iList())
 .sort(({ slot: [a = 0] = [] }, { slot: [b = 0] = [] }) => a - b);

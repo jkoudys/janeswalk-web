@@ -14,6 +14,8 @@ const builds = require('./webpack/builds.js');
 const paths = require('./webpack/paths.js');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const presets = ['babel-preset-es2015', 'babel-preset-es2016', 'babel-preset-es2017', 'babel-preset-stage-2'].map(require.resolve);
+
 gulp.task('prod', () => {
   webpack(builds.production, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
@@ -64,7 +66,7 @@ gulp.task('js.blocks', () => {
         exclude: /(bower_components|node_modules)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react', 'stage-2'],
+          presets: presets.concat('babel-preset-react'),
         },
       }, {
         test: /\.css$/,
@@ -99,7 +101,7 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['babel-polyfill', 'element-closest', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/sticky.js', './js/jwobject.js'],
+    entry: ['babel-polyfill', 'element-closest', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/jwobject.js'],
     output: {
       path: './js',
       filename: 'jwglobal.js',
@@ -110,7 +112,7 @@ gulp.task('js.global', () => {
         exclude: /(bower_components|node_modules)/,
         loader: 'babel',
         query: {
-          presets: ['es2015'],
+          presets,
         },
       }],
     },

@@ -165,14 +165,12 @@
 
 	        // If there's a matching city, that's the URL we go to
 	        if (firstCountry) {
-	          (function () {
-	            var firstCity = firstCountry.cities[0];
-	            if (firstCity) {
-	              _this.setState({ q: firstCity.name }, function () {
-	                ev.target.action = firstCity.url;
-	              });
-	            }
-	          })();
+	          var firstCity = firstCountry.cities[0];
+	          if (firstCity) {
+	            _this.setState({ q: firstCity.name }, function () {
+	              ev.target.action = firstCity.url;
+	            });
+	          }
 	        }
 	      }
 	    });
