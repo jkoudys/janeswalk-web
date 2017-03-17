@@ -1,19 +1,17 @@
-import React from 'react';
+import { createElement as ce } from 'react';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const WalkRoute = ({ markers }) => (
-  <section className="walkRoute">
-    <a name="Walk Route"></a>
-    <h2>{t`Walk Route`}</h2>
-    <ol>
-      {markers.map(({ properties: { title, description } }, i) => (
-        <li key={`routeentry${i}`}>
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </li>
-      ))}
-    </ol>
-  </section>
+  ce('section', { className: 'walkRoute' },
+    ce('a', { name: 'Walk Route' }),
+    ce('h2', {}, t`Walk Route`),
+    ce('ol', {}, markers.map(({ properties: { title, description } }, i) => (
+      ce('li', { key: `routeentry${i}` },
+        ce('h2', {}, title),
+        ce('p', {}, description),
+      )
+    ))),
+  )
 );
 
 export default WalkRoute;

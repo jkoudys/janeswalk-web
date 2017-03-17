@@ -11,14 +11,17 @@ import WalkLeader from './WalkLeader';
 class WalkLeaders extends PureComponent {
   state = { onlyUpcoming: false, sortBy: 'alpha' };
 
-  handleAlpha: () => this.setState({ sortBy: 'alpha' });
-  handleCount: () => this.setState({ sortBy: 'total' });
-  handleToggleUpcoming: () => this.setState({ onlyUpcoming: !this.state.onlyUpcoming });
+  handleAlpha = () => this.setState({ sortBy: 'alpha' });
+  handleCount = () => this.setState({ sortBy: 'total' });
+  handleToggleUpcoming = () => this.setState({ onlyUpcoming: !this.state.onlyUpcoming });
 
   render() {
     const { leaders } = this.props;
     const { onlyUpcoming, sortBy } = this.state;
 
+    return ce('div');
+  }
+/*
   ce('section', { className: 'dashboardWalkLeaders' },
     ce(Button, {
       onClick: 
@@ -46,7 +49,7 @@ class WalkLeaders extends PureComponent {
       Sort by Most Walks
     </button>
     activeLeaders.map((wL, i) => ce(WalkLeader,  { ...wL, key: `leader${i}` }))
-  )
-);
+  )*/
+}
 
 export default WalkLeaders;

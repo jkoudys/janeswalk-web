@@ -1,20 +1,18 @@
-import React from 'react';
+import { PropTypes, createElement as ce } from 'react';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const WalkDescription = ({ longDescription = '' }) => (
-  <section className="walkDescription">
-    <a name="About This Walk" />
-    <h2>
-      <span className="topRule">
-        {t`About This Walk`}
-      </span>
-    </h2>
-    <article dangerouslySetInnerHTML={{ __html: longDescription }} />
-  </section>
+  ce('section', { className: 'walkDescription' },
+    ce('a', { name: 'About This Walk' }),
+    ce('h2', {},
+      ce('span', { className: 'topRule' }, t`About This Walk`),
+    ),
+    ce('article', { dangerouslySetInnerHTML: { __html: longDescription } }),
+  )
 );
 
 WalkDescription.propTypes = {
-  longDescription: React.PropTypes.string.isRequired,
+  longDescription: PropTypes.string.isRequired,
 };
 
 export default WalkDescription;
