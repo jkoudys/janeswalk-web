@@ -7,6 +7,8 @@ const excludedFiles = [
   'janeswalk.min.js',
 ];
 
+const getTranslateStrings = () => 1;
+
 // Recursively get JS
 const getFiles = (dir) => fsp.readdir(dir)
 .then((files) => Promise.all(files.map((file) => {
@@ -21,8 +23,8 @@ const getFiles = (dir) => fsp.readdir(dir)
 .then((files) => Array.prototype.concat(...files));
 
 Promise.all([
-  getFiles('./themes/janeswalk/js'),
-  getFiles('./js'),
+//  getFiles('./themes/janeswalk/js'),
+//  getFiles('./js'),
   getFiles('./blocks'),
 ]).then((fileSets) => {
   // Flatten and get all the .js
@@ -39,4 +41,4 @@ Promise.all([
     .catch((err) => console.error(file, err))
   ));
 })
-//.then((ast) => console.log(ast));
+.then((ast) => console.log(JSON.stringify(ast)));
