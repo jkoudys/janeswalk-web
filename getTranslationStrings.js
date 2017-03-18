@@ -22,10 +22,33 @@ const getFiles = (dir) => fsp.readdir(dir)
 })))
 .then((files) => Array.prototype.concat(...files));
 
+const findTags = (ob) => Object.values(ob).reduce((a, e) => {
+  if (e && typeof e === 'object') {
+    if (Array.isArray(e)) {
+      return a.concat(
+        ...e.filter(({ type }) => type === 'TaggedTemplateExpression'),
+        ...e.map(v => findTags(v))
+      );
+    }
+    if (e.type === 'TaggedTemplateExpression') return a.concat(e);
+    return a.concat(findTags(e));
+  }
+  return a;
+}, []);
+
+// Take a TaggedTemplateExpression and build a tagged `Hello, ${0}!` string
+const insertTokens = ({ quasi: { quasis } }) => quasis
+.map(({ value: { cooked } }) => cooked)
+.reduce((a, e, i, { length }) => {
+  if (i === length - 1) return a + e;
+  return a + e + '${' + i + '}';
+}, '');
+
 Promise.all([
-//  getFiles('./themes/janeswalk/js'),
+//  getFiles('./test'),
+  getFiles('./themes/janeswalk/js'),
 //  getFiles('./js'),
-  getFiles('./blocks'),
+//  getFiles('./blocks'),
 ]).then((fileSets) => {
   // Flatten and get all the .js
   return Promise.all(Array.prototype.concat(...fileSets)
@@ -41,4 +64,10 @@ Promise.all([
     .catch((err) => console.error(file, err))
   ));
 })
-.then((ast) => console.log(JSON.stringify(ast)));
+.then((asts) => asts.map((ast) => {
+  return findTags(ast)
+  .filter(({ tag: { name } }) => name === 't')
+  .map(insertTokens);
+}))
+.then((tags) => console.log(Object.keys(Array.prototype.concat(...tags).reduce((a, e) => (a[e] = true, a), {})).sort()))
+.catch((err) => console.log(err));

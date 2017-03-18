@@ -57,7 +57,7 @@ const WalkHeader = ({
         )
       ) : null,
       meetingPlace ? ce('h4', null, meetingPlace) : null,
-      leaders ? ce('h4', null, t`Led By ${leaders.join(', ')}`) : null,
+      leaders ? ce('h4', null, t`Led by ${leaders.join(', ')}`) : null,
       ce(AddToItinerary, { time, walk, schedule, onSchedule, onUnschedule }),
     )
   );

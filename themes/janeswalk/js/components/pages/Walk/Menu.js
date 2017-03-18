@@ -28,7 +28,7 @@ const WalkMenu = ({
   let meetingPlaceHead;
 
   if (leaders) {
-    leaderHead = ce('h6', {}, t`Led By ${leaders.join(', ')}`);
+    leaderHead = ce('h6', {}, t`Led by ${leaders.join(', ')}`);
   }
   if (time.slots.length) {
     nextDateHead = ce('h6', {}, dateFormatted(time.slots[0][0]));
