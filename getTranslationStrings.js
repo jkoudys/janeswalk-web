@@ -26,15 +26,21 @@ const findTags = (ob) => Object.values(ob).reduce((a, e) => {
   if (e && typeof e === 'object') {
     if (Array.isArray(e)) {
       return a.concat(
-        ...e.filter(({ type }) => type === 'TaggedTemplateExpression'),
-        ...e.map(v => findTags(v))
+        ...e.filter((v) => v && v.type === 'TaggedTemplateExpression'),
+        ...e.map(v => v && findTags(v))
       );
     }
     if (e.type === 'TaggedTemplateExpression') return a.concat(e);
-    return a.concat(findTags(e));
+    return a.concat(findTags(e)).filter(v => v);
   }
   return a;
 }, []);
+
+const uniqueTags = (tags) => Object
+.keys(Array.prototype
+  .concat(...tags)
+  .reduce((a, e) => (a[e] = true, a), {})
+).sort();
 
 // Take a TaggedTemplateExpression and build a tagged `Hello, ${0}!` string
 const insertTokens = ({ quasi: { quasis } }) => quasis
@@ -45,10 +51,8 @@ const insertTokens = ({ quasi: { quasis } }) => quasis
 }, '');
 
 Promise.all([
-//  getFiles('./test'),
   getFiles('./themes/janeswalk/js'),
-//  getFiles('./js'),
-//  getFiles('./blocks'),
+  getFiles('./blocks'),
 ]).then((fileSets) => {
   // Flatten and get all the .js
   return Promise.all(Array.prototype.concat(...fileSets)
@@ -69,5 +73,10 @@ Promise.all([
   .filter(({ tag: { name } }) => name === 't')
   .map(insertTokens);
 }))
-.then((tags) => console.log(Object.keys(Array.prototype.concat(...tags).reduce((a, e) => (a[e] = true, a), {})).sort()))
+.then(uniqueTags)
+.then((tags) => tags.map((tag) => {
+  const escaped = JSON.stringify(tag);
+  return `msgid ${escaped}\nmsgstr ${escaped}\n`;
+}).join('\n'))
+.then(console.log)
 .catch((err) => console.log(err));
