@@ -139,7 +139,6 @@ class PageListTypeahead extends Component {
   }
 }
 
-// TODO: get browserify-shim working and `import React from 'react';`
 startups.dom.then(() => {
   const { user } = JanesWalk;
   event.on('countries.receive', countries => render(

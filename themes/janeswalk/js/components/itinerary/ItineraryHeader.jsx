@@ -1,32 +1,37 @@
-import {t} from 'janeswalk/stores/I18nStore';
-import React from 'react';
+import t from 'es2015-i18n-tag';
+import { PropTypes, createElement as ce } from 'react';
 
-const ItineraryHeader = ({list, onChangeTitle, onChangeDescription}) => (
-  <header className="itineraryHeader">
-    <h2>
-      <input
-        type="text"
-        required="required"
-        value={list.title}
-        placeholder={t('My Itinerary\'s Title')}
-        onChange={ev => onChangeTitle(ev.target.value)}
-      />
-    </h2>
-    {(list.shareUrl && false) ? <h5 className="shareUrl"><a href={list.shareUrl}>{list.shareUrl}</a></h5> : null}
-    <h4 className="walklistDescription">
-      <textarea
-        required="required"
-        value={list.description}
-        placeholder={t('Tell people about it! Start typing here to give your list some commentary.')}
-        onChange={ev => onChangeDescription(ev.target.value)}
-      />
-    </h4>
-  </header>
+const ItineraryHeader = ({ list, onChangeTitle, onChangeDescription }) => (
+  ce('header', { className: 'itineraryHeader' },
+    ce('h2', {},
+      ce('input', {
+        type: 'text',
+        required: true,
+        value: list.title,
+        placeholder: t`My Itinerary's Title`,
+        onChange: (ev) => onChangeTitle(ev.target.value),
+      }),
+    ),
+    (list.shareUrl && false) ?
+      ce('h5', { className: 'shareUrl' },
+        ce('a', { href: list.shareUrl },
+          list.shareUrl,
+        ),
+      ) : null,
+    ce('h4', { className: 'walklistDescription' },
+      ce('textarea', {
+        required: true,
+        value: list.description,
+        placeholder: t`Tell people about it! Start typing here to give your list some commentary.`,
+        onChange: (ev) => onChangeDescription(ev.target.value),
+      }),
+    ),
+  )
 );
 
 ItineraryHeader.propTypes = {
-  title: React.PropTypes.string,
-  description: React.PropTypes.string
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
 
 export default ItineraryHeader;

@@ -2,9 +2,10 @@ const webpack = require('webpack');
 const precss = require('precss');
 const paths = require('./paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ImportPlugin = require('babel-plugin-import');
 
 const base = {
-  entry: [paths.jsx_app],
+  entry: [paths.js_app, ...paths.js_blocks],
   module: {
     loaders: [{
       test: /\.jsx?$/,
@@ -12,6 +13,14 @@ const base = {
       loader: 'babel',
       query: {
         presets: ['es2015', 'react', 'stage-2'],
+      },
+      options: {
+        plugins: [
+          new ImportPlugin({
+            libraryName: 'antd',
+            style: true,   // or 'css'
+          }),
+        ],
       },
     }, {
       test: /\.css$/,

@@ -1,26 +1,24 @@
-import {createList} from 'janeswalk/actions/ItineraryActions';
-import {t} from 'janeswalk/stores/I18nStore';
-import React from 'react';
+import { createList } from 'janeswalk/actions/ItineraryActions';
+import t from 'es2015-i18n-tag';
+import { createElement as ce } from 'react';
 
-const ItinerarySelect = ({lists, activeList, onChoose, onCreate}) => {
+const ItinerarySelect = ({ lists, activeList, onChoose, onCreate }) => {
   const listItems = [];
   lists.forEach(list => listItems.push(
-    <li key={list.id}>
-      <a className={activeList === list ? 'selected' : ''} onClick={() => onChoose(list)}>
-        {list.title} ({list.walks.size})
-      </a>
-    </li>
+    ce('li', { key: list.id },
+      ce('a', { className: activeList === list ? 'selected' : '', onClick: () => onChoose(list) },
+        `list.title (${list.walks.size})`,
+      ),
+    )
   ));
 
   return (
-    <dialog id="itinerary-select" className="static-list">
-      <ul>
-        {listItems}
-      </ul>
-      <button onClick={onCreate}>
-        <i className="fa fa-plus" /> {t('New List')}
-      </button>
-    </dialog>
+    ce('dialog', { id: 'itinerary-select', className: 'static-list' },
+      ce('ul', {}, listItems),
+      ce('button', { onClick: onCreate },
+       ce('i', { className: 'fa fa-plus' }), ' ', t`New List`,
+      ),
+    )
   );
 };
 

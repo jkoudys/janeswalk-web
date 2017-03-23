@@ -1,40 +1,31 @@
-import React from 'react';
+import { PropTypes, createElement as ce } from 'react';
 
 const AddWalkToList = ({ lists, walk, list, onAdd, onRemove }) => {
   // selectedWalk comes from where
-  const allLists = [];
-
-  for (const otherList of lists) {
+  const allLists = lists.reduce((a, otherList) => {
     if (list !== otherList) {
       const { id, title, walks } = otherList;
       const walkFound = walks.has(walk);
-      let action;
+      const onClick = walkFound ? () => onRemove(otherList) : () => onAdd(otherList);
 
-      if (walkFound) {
-        action = () => onRemove(otherList);
-      } else {
-        action = () => onAdd(otherList);
-      }
-
-      allLists.push(
-        <li key={id}>
-          <a onClick={action} className={walkFound ? 'selected' : ''}>{title}</a>
-        </li>
+      return a.concat(
+        ce('li', { key: id },
+          ce('a', { onClick, className: walkFound ? 'selected' : '' }, title),
+        )
       );
     }
-  }
+    return a;
+  }, []);
 
   return (
-    <div id="addWalk" className="add-walk-to-list">
-      <ul>
-        {allLists}
-      </ul>
-    </div>
+    ce('div', { id: 'addWalk', className: 'add-walk-to-list' },
+      ce('ul', {}, allLists),
+    )
   );
 };
 
 AddWalkToList.propTypes = {
-  lists: React.PropTypes.instanceOf(Set),
+  lists: PropTypes.instanceOf(Set),
 };
 
 export default AddWalkToList;

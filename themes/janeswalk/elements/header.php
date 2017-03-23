@@ -1,3 +1,7 @@
+<?php
+$v = View::getInstance();
+$v->addHeaderItem('<script src="' . BASE_URL . '/js/jwglobal.js"></script>');
+?>
 <!DOCTYPE html>
 <html>
 <head prefix="og: http://ogp.me/ns#">
@@ -13,8 +17,7 @@
         <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
     <?php } ?>
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/janeswalk.css">
-    <?php include DIR_BASE . '/concrete5/web/elements/header_required.php'; ?>
-    <script src="<?= BASE_URL ?>/js/jwglobal.js"></script>
+    <?php include DIR_BASE . '/concrete5/web/elements/header_required.php'; ?> 
     <script type="text/javascript">const CCM_THEME_PATH = '<?= $this->getThemePath() ?>';window.fbAsyncInit = function () {FB.init({appId: '544710848887303', status: true, xfbml: true }); };(function (d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = '//connect.facebook.net/en_US/all.js'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
 </head>
 <body

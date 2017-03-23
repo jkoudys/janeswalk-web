@@ -1,9 +1,8 @@
-/* global React */
-
+import { PropTypes, Component, createElement as ce } from 'react';
 import AddWalkToList from './AddWalkToList.jsx';
 import AddToItinerary from './AddToItinerary.jsx';
 
-class Walk extends React.Component {
+class Walk extends Component {
   constructor(...args) {
     super(...args);
     Object.assign(this, {
@@ -32,36 +31,29 @@ class Walk extends React.Component {
     } = walk;
 
     return (
-      <li className="walklistItem">
-        <div className="walk">
-          <h3>
-            <a href={url}>
-              {title}
-            </a>
-          </h3>
-          <h4>{meeting}</h4>
-          <AddToItinerary {...{ schedule, time, walk, onSchedule, onUnschedule, isScheduled }} />
-        </div>
-        <button
-          className="action removeWalk"
-          onClick={() => onRemove(list)}
-        />
-        <button
-          className={`action addWalk ${dialogOpen ? 'selected' : ''}`}
-          onClick={this.handleToggleDialog}
-        />
-        {dialogOpen ? <AddWalkToList {...{ lists, walk, list, onAdd, onRemove }} /> : null}
-      </li>
+      ce('li', { className: 'walklistItem' },
+        ce('div', { className: 'walk' },
+          ce('h3', {}, ce('a', { href: url }, title)),
+          ce('h4', {}, meeting),
+          ce(AddToItinerary, { schedule, time, walk, onSchedule, onUnschedule, isScheduled }),
+        ),
+        ce('button', { className: 'action removeWalk', onClick: () => onRemove(list) }),
+        ce('button', {
+          className: `action addWalk ${dialogOpen ? 'selected' : ''}`,
+          onClick: this.handleToggleDialog },
+        ),
+        dialogOpen ? ce(AddWalkToList, { lists, walk, list, onAdd, onRemove }) : null,
+      )
     );
   }
 }
 
 Walk.propTypes = {
-  title: React.PropTypes.string,
-  time: React.PropTypes.number,
-  meeting: React.PropTypes.string,
-  id: React.PropTypes.number.isRequired,
-  remove: React.PropTypes.func.isRequired,
+  title: PropTypes.string,
+  time: PropTypes.number,
+  meeting: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
 Walk.defaultProps = {

@@ -3,7 +3,7 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import * as Actions from 'janeswalk/actions/ItineraryActions';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
@@ -15,12 +15,12 @@ const getItinerary = (list = [...ItineraryStore.getLists()][0]) => ({
   schedule: ItineraryStore.getSchedule(),
 });
 
-import React from 'react';
+import { Component, createElement as ce } from 'react';
 
 const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}00`;
 
 
-export default class Itinerary extends React.Component {
+export default class Itinerary extends Component {
   constructor(props, ...args) {
     super(props, ...args);
     Object.assign(this, {
@@ -56,8 +56,6 @@ END:VEVENT`
           }).join('\n');
         });
         const link = document.createElement('a');
-
-//        const timeSet = schedule.get(walk) || new Set();
         const ics =
 `BEGIN:VCALENDAR
 PRODID:-//JanesWalk//JanesWalk.org//EN
@@ -103,39 +101,50 @@ END:VCALENDAR`;
       const onUnschedule = time => Actions.unschedule(walk, time);
 
       return (
-        <Walk
-          key={walk.id}
-          list={activeList}
-          {...{ lists, walk, schedule, onAdd, onRemove, onSchedule, onUnschedule }}
-        />
+        ce(Walk, {
+          key: walk.id,
+          list: activeList,
+          lists,
+          walk,
+          schedule,
+          onAdd,
+          onRemove,
+          onSchedule,
+          onUnschedule,
+        })
       );
     });
 
     return (
-      <dialog ref={this._loadRef} open>
-        <section id="itinerary">
-          <i className="close fa fa-times" onClick={this.handleHide} />
-          <ItinerarySelect
-            onChoose={this.handleChooseItinerary}
-            onCreate={this.handleCreateItinerary}
-            {...{ lists, activeList }}
-          />
-          <div className="itinerary">
-            <section>
-              <ItineraryHeader
-                onChangeDescription={this.handleChangeDescription}
-                onChangeTitle={this.handleChangeTitle}
-                list={activeList}
-              />
-            </section>
-            <ul>
-              <a onClick={this.handleICS}><i className="fa fa-calendar" /> Add to Calendar</a>
-              {ItineraryWalks}
-            </ul>
-          </div>
-          <p className="knightFdn-itinerary">{t`Powered by the Knight Foundation`}</p>
-        </section>
-      </dialog>
+      ce('dialog', { ref: this._loadRef, open: true },
+        ce('section', { id: 'itinerary' },
+          ce('i', { className: 'close fa fa-times', onClick: this.handleHide }),
+          ce(ItinerarySelect, {
+            onChoose: this.handleChooseItinerary,
+            onCreate: this.handleCreateItinerary,
+            lists,
+            activeList,
+          }),
+          ce('div', { className: 'itinerary' },
+            ce('section', {},
+              ce(ItineraryHeader, {
+                onChangeDescription: this.handleChangeDescription,
+                onChangeTitle: this.handleChangeTitle,
+                list: activeList,
+              }),
+            ),
+            ce('ul', {},
+              ce('a', { onClick: this.handleICS },
+                ce('i', { className: 'fa fa-calendar' }),
+                ' ',
+                t`Add to Calendar`,
+              ),
+              ItineraryWalks
+            ),
+          ),
+          ce('p', { className: 'knightFdn-itinerary' }, t`Powered by the Knight Foundation`),
+        ),
+      )
     );
   }
 }

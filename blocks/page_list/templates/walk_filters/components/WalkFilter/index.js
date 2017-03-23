@@ -7,6 +7,7 @@ import { render } from 'react-dom';
 import t from 'es2015-i18n-tag';
 import { thirdRecentDateRange } from 'janeswalk/utils/recentdates';
 import { printElement } from 'janeswalk/utils/print';
+import { Set as iSet } from 'immutable';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -96,12 +97,11 @@ export default class WalkFilter extends Component {
     const {
       displayFilters,
       dateRange,
-      filters,
       typeahead,
     } = this.state;
 
     const {
-      city: { latlng: [lat, lng] = [] } = CityStore.getCity(),
+      city: { latlng: [lat, lng] = [] } = CityStore.getCity() || {},
     } = this.props;
 
     const {
@@ -113,6 +113,8 @@ export default class WalkFilter extends Component {
     } = this;
 
     let locationMapSection;
+// FIXME
+    const filterMatches = [];
 
     // See if this city has a location set
     if (lat && lng) {
