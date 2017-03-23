@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const precss = require('precss');
 const paths = require('./paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ImportPlugin = require('babel-plugin-import');
+// const ImportPlugin = require('babel-plugin-import');
 
 const base = {
   entry: [paths.js_app, ...paths.js_blocks],
@@ -10,34 +10,24 @@ const base = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /(bower_components|node_modules)/,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         presets: ['es2015', 'react', 'stage-2'],
       },
-      options: {
-        plugins: [
-          new ImportPlugin({
-            libraryName: 'antd',
-            style: true,   // or 'css'
-          }),
-        ],
-      },
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css?-url'),
+      loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?-url' }),
     }, {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader?-relativeUrls'),
+      loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?-url!less-loader?-relativeUrls' }),
     }, {
       test: /\.json$/,
-      loader: 'json',
+      loader: 'json-loader',
     }],
   },
 
-  postcss: () => [precss],
-
   plugins: [
-    new ExtractTextPlugin('../css/janeswalk.css', { allChunks: true }),
+    new ExtractTextPlugin({ filename: '../css/janeswalk.css', allChunks: true }),
   ],
 };
 

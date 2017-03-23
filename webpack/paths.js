@@ -1,21 +1,26 @@
+const { resolve } = require('path');
+
+const theme = resolve('./themes/janeswalk/js');
+const blockTemplates = resolve('./blocks/page_list/templates');
+
 module.exports = {
-  js: './themes/janeswalk/js',
+  js: theme,
   js_lib: [
-    './themes/janeswalk/js/app.js',
-    './themes/janeswalk/js/extend.js',
-    './themes/janeswalk/js/shims.js',
-    './themes/janeswalk/js/tiny-pubsub.js',
+    `${theme}/app.js`,
+    `${theme}/extend.js`,
+    `${theme}/shims.js`,
+    `${theme}/tiny-pubsub.js`,
   ],
-  js_app: './themes/janeswalk/js/router.js',
+  js_app: `${theme}/router.js`,
   js_blocks: [
-    './blocks/page_list/templates/typeahead',
-    './blocks/page_list/templates/walk_filters',
+    `${blockTemplates}/typeahead`,
+    `${blockTemplates}/walk_filters`,
   ],
-  js_views: ['./themes/janeswalk/js/router.js'],
-  jsx: ['./themes/janeswalk/js/components/**/*.jsx'],
-  languages: './languages',
-  mos: ['./languages/*/*.mo'],
-  less: ['./themes/janeswalk/css/main.less'],
-  css: './themes/janeswalk/css/',
-  react_views: './themes/janeswalk/js/components/',
+  js_views: [`${theme}/router.js`],
+  jsx: [`${theme}/components/**/*.jsx`],
+  languages: `./languages`,
+  mos: [`./languages/*/*.mo`],
+  less: [`./themes/janeswalk/css/main.less`],
+  css: `./themes/janeswalk/css/`,
+  react_views: `${theme}/components/`,
 };

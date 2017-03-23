@@ -57,6 +57,20 @@ export default class WalkFilter extends Component {
     typeahead: '',
   };
 
+  componentWillMount() {
+    CityStore.addChangeListener(this.onChange);
+  }
+
+  componentDidMount() {
+    this.setState({ menuOptions: this.menuOptions });
+  }
+
+  componentWillUnmount() {
+    CityStore.removeChangeListener(this.onChange);
+  }
+
+  onChange = () => this.setState({ city: CityStore.getCity(), filters: CityStore.getFilters() });
+
   // Toggle whether or not the filters were showing
   handleToggleFilters = () => this.setState({ displayFilters: !this.state.displayFilters });
 
@@ -98,11 +112,9 @@ export default class WalkFilter extends Component {
       displayFilters,
       dateRange,
       typeahead,
+      city: { latlng: [lat, lng] = [] } = {},
+      filters = {},
     } = this.state;
-
-    const {
-      city: { latlng: [lat, lng] = [] } = CityStore.getCity() || {},
-    } = this.props;
 
     const {
       disabledStartDate,

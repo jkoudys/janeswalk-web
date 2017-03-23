@@ -16,15 +16,16 @@ import WalkFilter from './components/WalkFilter';
 
 const { event } = JanesWalk;
 
-const filters = {};
 event.on('walkfilters.load', (location) => render(
   ce(LocaleProvider, { locale },
-    ce(WalkFilter, { filters, location }),
+    ce(WalkFilter, { location }),
   ),
   document.getElementById('janeswalk-walk-filters')
 ));
 
+console.log('walk filters');
+
 // Listen for updates, add routing
-event.on('filters.receive', f => Object.assign(filters, f));
+event.on('filters.receive', f => CityActions.receiveFilters(f));
 event.on('city.receive', city => CityActions.receive(city));
 event.on('walks.receive', walks => WalkActions.receiveAll(walks));

@@ -41,6 +41,7 @@ const ActionTypes = [
 
   // City
   'CITY_RECEIVE',
+  'CITY_FILTERS_RECEIVE',
 
   // Areas
   'AREA_RECEIVE',
