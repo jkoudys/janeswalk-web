@@ -23,8 +23,6 @@ event.on('walkfilters.load', (location) => render(
   document.getElementById('janeswalk-walk-filters')
 ));
 
-console.log('walk filters');
-
 // Listen for updates, add routing
 event.on('filters.receive', f => CityActions.receiveFilters(f));
 event.on('city.receive', city => CityActions.receive(city));

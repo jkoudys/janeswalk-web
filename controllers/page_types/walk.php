@@ -1,6 +1,4 @@
 <?php
-namespace JanesWalk\Controllers\PageTypes;
-
 use \JanesWalk\Models\PageTypes\Walk as Model;
 use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
 use \JanesWalk\Controllers\JanesWalk as Controller;
@@ -8,7 +6,7 @@ use \JanesWalk\Controllers\JanesWalk as Controller;
 use Concrete\Core\Legacy\NavigationHelper;
 use Concrete\Core\Legacy\ImageHelper;
 
-class Walk extends Controller
+class WalkPageTypeController extends \Controller
 {
     /**
      * @type Walk $walk The Walk model

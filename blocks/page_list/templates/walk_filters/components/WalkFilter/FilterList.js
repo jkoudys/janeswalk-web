@@ -9,6 +9,7 @@ const FilterList = ({
   disabledEndDate,
   handleStartDate,
   handleEndDate,
+  setFilter,
   filters = [],
   dateRange = [],
 }) => (

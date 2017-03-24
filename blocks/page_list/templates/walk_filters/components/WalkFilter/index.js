@@ -3,7 +3,6 @@
  * TODO: this could seriously use some fluxing.
  */
 import { createElement as ce, Component } from 'react';
-import { render } from 'react-dom';
 import t from 'es2015-i18n-tag';
 import { thirdRecentDateRange } from 'janeswalk/utils/recentdates';
 import { printElement } from 'janeswalk/utils/print';
@@ -16,49 +15,56 @@ import CityStore from 'janeswalk/stores/CityStore';
 import WalkCards from './WalkCards';
 import WalkList from './WalkList';
 import LocationMap from './LocationMap';
-import Filter from './Filter';
 import FilterList from './FilterList';
 
 /**
  * Apply filters and date range to walks
  */
-const filters = {
-  theme: ({ themes }, selected) => themes[selected],
-  ward: ({ wards }, selected) => (wards === selected),
-  theme: ({ accessibles }, selected) => accessibles[selected],
-  initiative: ({ initiatives }, selected) => initiatives.includes(selected),
+const filterMethods = {
+  theme: ({ themes = [] }, selected) => themes.includes(selected),
+  ward: ({ wards = [] }, selected) => wards.includes(selected),
+  accessibility: ({ accessibles = [] }, selected) => accessibles.includes(selected),
+  initiative: ({ initiatives = [] }, selected) => initiatives.includes(selected),
 
   city({ cityID }, selected) {
     return +cityID === +selected;
   },
 
-  dateRange({ slots: [[nextInSeconds] = []] = [] }, [start, end]) {
+  dateRange([nextInSeconds], [start, end]) {
     const time = nextInSeconds && nextInSeconds * 1000;
+    const afterStart = !start || start <= nextInSeconds;
+    const beforeEnd = !end || nextInSeconds <= end;
 
-    // Exclude walks with no time set, if searching on time
-    if (!time) return false;
-
-    return start <= nextInSeconds || nextInSeconds <= end;
+    return afterStart && beforeEnd;
   },
 
-  typeahead({ title = '', longDescription = '', shortDescription = '', team }, q = '') {
+  typeahead({ title = '', longDescription = '', shortDescription = '', team = [] }, q = '') {
     // Don't filter out until minimum length query reached
     if (q.length < 3) return true;
 
-    const teamNames = team.reduce((a, { name }) => `${a} ${name}`, '');
+    const teamNames = team.reduce((a, { name }) => (a + name), '');
 
     return `${title} ${longDescription} ${shortDescription} ${teamNames}`.match(new RegExp(q, 'i'));
   },
 };
 
+const buildState = () => ({
+  city: CityStore.getCity(),
+  filters: CityStore.getFilters(),
+  outings: WalkStore.getWalkOutings(),
+});
+
 export default class WalkFilter extends Component {
   state = {
+    ...buildState(),
     dateRange: [],
     typeahead: '',
+    selectedFilters: {},
   };
 
   componentWillMount() {
     CityStore.addChangeListener(this.onChange);
+    WalkStore.addChangeListener(this.onChange);
   }
 
   componentDidMount() {
@@ -67,15 +73,16 @@ export default class WalkFilter extends Component {
 
   componentWillUnmount() {
     CityStore.removeChangeListener(this.onChange);
+    WalkStore.removeChangeListener(this.onChange);
   }
 
-  onChange = () => this.setState({ city: CityStore.getCity(), filters: CityStore.getFilters() });
+  onChange = () => this.setState(buildState);
 
   // Toggle whether or not the filters were showing
   handleToggleFilters = () => this.setState({ displayFilters: !this.state.displayFilters });
 
   // Send the list of walks to the printer
-  printList = () => printElement(ce(WalkList, { outings: this.state.filterMatches }));
+  printList = () => printElement(ce(WalkList, { outings: this.getFiltered() }));
 
   // Set our date range filter
   handleStartDate = (from) => {
@@ -107,6 +114,29 @@ export default class WalkFilter extends Component {
   // Typeahead search in the walks
   handleTypeahead = ({ target: { value: typeahead } }) => this.setState({ typeahead });
 
+  setFilter = (key, option) => this.setState({
+    selectedFilters: {
+      ...this.state.selectedFilters,
+      [key]: option,
+    },
+  });
+
+  getFiltered = () => {
+    const { outings = [], selectedFilters, dateRange, typeahead } = this.state;
+    // Only apply filters that are set
+    const appliedFilters = Object.entries(selectedFilters).filter(([, v]) => v);
+
+    return outings.filter(({ walk, slot }) => {
+      for (const [k, selected] of appliedFilters) {
+        if (!filterMethods[k](walk, selected)) return false;
+      }
+      if (!filterMethods.dateRange(slot, dateRange)) return false;
+      if (!filterMethods.typeahead(walk, typeahead)) return false;
+
+      return true;
+    });
+  };
+
   render() {
     const {
       displayFilters,
@@ -114,6 +144,7 @@ export default class WalkFilter extends Component {
       typeahead,
       city: { latlng: [lat, lng] = [] } = {},
       filters = {},
+      outings,
     } = this.state;
 
     const {
@@ -125,8 +156,7 @@ export default class WalkFilter extends Component {
     } = this;
 
     let locationMapSection;
-// FIXME
-    const filterMatches = [];
+    const filterMatches = this.getFiltered(outings);
 
     // See if this city has a location set
     if (lat && lng) {
@@ -141,7 +171,7 @@ export default class WalkFilter extends Component {
       ce('section', { className: 'ccm-block-page-list-walk-filters' },
         ce('div', { className: 'walk-filters' },
           ce('a', { className: 'filter-header', onClick: this.handleToggleFilters },
-            ce('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }, 'Filters'),
+            ce('i', { className: `fa fa-chevron-${displayFilters ? 'down' : 'right'}` }, 'Filters'),
           ),
           ce('a', { className: 'print-button', onClick: this.printList },
             ce('i', { className: 'fa fa-print' }, 'Print List'),
