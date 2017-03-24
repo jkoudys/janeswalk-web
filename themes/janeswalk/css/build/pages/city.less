@@ -236,13 +236,11 @@ body.city-page {
     // The meat of the page, with the walk lists and links
     > #city-details {
         .clearfix();
-        //top: -(@grid-gutter-width * 2);
         background: #fff;
         padding: 30px 0 (@grid-gutter-width * 2) 0;
         margin: 0 auto;
         border-bottom: 2px solid fade(@color-darkgrey, 20%);
         position: relative;
-        // max-width: @screen-lg-min;
 
         hr {
             border-top: none;
@@ -264,8 +262,6 @@ body.city-page {
                 content: " >>";
             }
         }
-
-
 
         .create-walk:extend(.btn all, .btn-primary all, .btn-large all) {
             padding: 5px 10px;
@@ -326,7 +322,7 @@ body.city-page {
             }
             .walk-filters {
                 margin-left: @grid-gutter-width;
-                margin-bottom: 2.2em;
+                margin-bottom: 0.4em;
                 a {
                     display: inline-block;
                     &:first-child {
@@ -349,7 +345,8 @@ body.city-page {
                 list-style: none;
                 margin: 14px auto 0px 12px;
                 li {
-                    .make-md-column(3);
+                    display: inline-block;
+                    width: 30%;
                     margin: 0px 10px 15px 0px;
                     padding: 0;
                     label {

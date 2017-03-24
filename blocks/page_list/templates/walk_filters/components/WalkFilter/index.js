@@ -7,6 +7,7 @@ import t from 'es2015-i18n-tag';
 import { thirdRecentDateRange } from 'janeswalk/utils/recentdates';
 import { printElement } from 'janeswalk/utils/print';
 import { Set as iSet } from 'immutable';
+import moment from 'moment';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -32,8 +33,8 @@ const filterMethods = {
 
   dateRange([nextInSeconds], [start, end]) {
     const time = nextInSeconds && nextInSeconds * 1000;
-    const afterStart = !start || start <= nextInSeconds;
-    const beforeEnd = !end || nextInSeconds <= end;
+    const afterStart = !start || start <= time;
+    const beforeEnd = !end || time <= end;
 
     return afterStart && beforeEnd;
   },
@@ -57,9 +58,11 @@ const buildState = () => ({
 export default class WalkFilter extends Component {
   state = {
     ...buildState(),
-    dateRange: [],
+    // Start date at 3 days ago
+    dateRange: [moment.utc().subtract(3, 'days')],
     typeahead: '',
     selectedFilters: {},
+    displayFilters: true,
   };
 
   componentWillMount() {

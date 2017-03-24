@@ -15,9 +15,8 @@ const FilterList = ({
 }) => (
   ce('section', null,
     ce('ul', { className: 'filters' },
-      filters.map(([key, v]) => ce(Filter, { key, ...v, onChange: (option) => setFilter(key, option) })),
       ce('li', null,
-        ce('label', null, 'Dates'),
+        ce('label', null, t`Dates & Times`),
         ce(DatePicker, {
           disabledDate: disabledStartDate,
           showTime: true,
@@ -34,7 +33,8 @@ const FilterList = ({
           placeholder: t`Before`,
           onChange: handleEndDate,
         }),
-      )
+      ),
+      filters.map(([key, v]) => ce(Filter, { key, ...v, onChange: (option) => setFilter(key, option) })),
     )
   )
 );

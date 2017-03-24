@@ -45,6 +45,7 @@ const Welcome = ({ name, title, time, handlers }) => (
       ce(Col),
     ),
     ce(Row, { className: 'Lead__Welcome--Foot' },
+      ce('p', {}, t`The Walk will save as you go - no need to click 'save'.`),
       ce('p', {},
         t`If you're having technical problems setting up your walk, reach out to our Project Office at `,
         ce('a', { href: `mailto:${techEmail}` }, techEmail)

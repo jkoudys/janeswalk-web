@@ -53,54 +53,56 @@ export default class WalkMap extends Component {
   componentDidMount() {
     const { features } = this.props;
     const markers = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
-    const route = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString') || { geometry: { coordinates: [] } };
-    const [{ geometry: { coordinates: meetingPlace } = {} } = {}] = markers;
-    const locationLatLng = new google.maps.LatLng(meetingPlace[0], meetingPlace[1]);
-    const gmarkers = [];
+    if (markers.length) {
+      const route = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString') || { geometry: { coordinates: [] } };
+      const [{ geometry: { coordinates: meetingPlace } = {} } = {}] = markers;
+      const locationLatLng = new google.maps.LatLng(...meetingPlace);
+      const gmarkers = [];
 
-    const mapOptions = {
-      center: locationLatLng,
-      scrollwheel: false,
-      backgroundColor: '#d7f0fa',
-    };
+      const mapOptions = {
+        center: locationLatLng,
+        scrollwheel: false,
+        backgroundColor: '#d7f0fa',
+      };
 
-    const googleMap = new google.maps.Map(this.domRoot, mapOptions);
+      const googleMap = new google.maps.Map(this.domRoot, mapOptions);
 
-    gmarkers.push(...markers.map(({ geometry: { coordinates: [lng, lat] } }, i) => {
-      const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        style: 'stop',
-        icon: stopMarker,
+      gmarkers.push(...markers.map(({ geometry: { coordinates: [lng, lat] } }, i) => {
+        const marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
+          style: 'stop',
+          icon: stopMarker,
+          map: googleMap,
+          label: {
+            text: String.fromCharCode(i + 65),
+            fontWeight: '700',
+            fontSize: '16px',
+            color: '#ffffff',
+          },
+        });
+
+        google.maps.event.addListener(marker, 'click', () => {
+          googleMap.panTo(marker.getPosition());
+          // TODO: scroll to list of stops
+        });
+
+        return marker;
+      }));
+
+      // Draw the line
+      const poly = new google.maps.Polyline({
+        strokeColor: '#F16725',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        editable: false,
         map: googleMap,
-        label: {
-          text: String.fromCharCode(i + 65),
-          fontWeight: '700',
-          fontSize: '16px',
-          color: '#ffffff',
-        },
       });
+      poly.setPath(route.geometry.coordinates.map(([lng, lat]) => new google.maps.LatLng(lat, lng)));
 
-      google.maps.event.addListener(marker, 'click', () => {
-        googleMap.panTo(marker.getPosition());
-        // TODO: scroll to list of stops
-      });
+      boundMapByMarkers(googleMap, gmarkers);
 
-      return marker;
-    }));
-
-    // Draw the line
-    const poly = new google.maps.Polyline({
-      strokeColor: '#F16725',
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      editable: false,
-      map: googleMap,
-    });
-    poly.setPath(route.geometry.coordinates.map(([lng, lat]) => new google.maps.LatLng(lat, lng)));
-
-    boundMapByMarkers(googleMap, gmarkers);
-
-    this.setState({ googleMap });
+      this.setState({ googleMap });
+    }
   }
 
 
