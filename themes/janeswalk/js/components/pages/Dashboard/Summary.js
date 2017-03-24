@@ -8,10 +8,10 @@ export default function DashboardSummary({ city = { name: 'your city' }, walks }
     firstOuting,
   }, {
     team = [],
-    time: { slots = [], slots: [first] = [] } = {},
+    time: { slots = [], slots: [[first] = []] = [] } = {},
   }) => {
-    for (const { email, role } of team) {
-      if (role === 'leader') leaders.add(email);
+    for (const { email, type } of team) {
+      if (type === 'leader') leaders.add(email);
     }
 
     walkCount += slots.length;
@@ -26,7 +26,7 @@ export default function DashboardSummary({ city = { name: 'your city' }, walks }
   return (
     ce('section', { className: 'dashboardRecap' },
       ce('h2', {}, t`Recap`),
-      ce('h4', {}, t`In ${city.name}, ${leaders.size} Walk Leaders led ${walkCount} walks since its first Jane's Walk in ${(new Date(firstOuting)).getUTCYear()}.`),
+      ce('h4', {}, t`In ${city.name}, ${leaders.size} Walk Leaders led ${walkCount} walks since its first Jane's Walk in ${'' + (new Date(firstOuting * 1000)).getUTCFullYear()}.`),
     )
   );
 }
