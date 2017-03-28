@@ -128,7 +128,7 @@ export default class WalkPage extends Component {
           ce(Route, { key: 'walkRoute', markers }),
           ce(Start, { key: 'walkStart', ...walk }),
         ] : null,
-        ce(Accessibility, { flags: accessibles }),
+        ce(Accessibility, { flags: accessibles, accessibleInfo: walk.accessibleInfo }),
         ce(PublicTransit, walk),
         ce(Parking, walk),
         ce(Team, walk),

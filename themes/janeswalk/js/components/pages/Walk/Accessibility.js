@@ -34,7 +34,7 @@ function getNotes(checkboxes, tuples) {
 
 const lis = v => ce('li', { key: `accessItem${v}` }, v);
 
-export default function WalkAccessibility({ flags = [] }) {
+export default function WalkAccessibility({ flags = [], accessibleInfo }) {
   const notes = getNotes(flags, pleaseNote);
   const may = getNotes(flags, mayContain);
   const other = getNotes(flags, otherNotes);
@@ -42,6 +42,7 @@ export default function WalkAccessibility({ flags = [] }) {
   return (
     ce('section', { className: 'walkAccessibility' },
       ce('h2', {}, t`Accessibility`),
+      accessibleInfo ? ce('p', { key: 'pleaseNoteP' }, accessibleInfo) : null,
       notes.length ? [
         ce('h5', { key: 'pleaseNote' }, t`Please Note`),
         ce('ul', { key: 'pleaseNoteList' }, notes.map(lis)),
