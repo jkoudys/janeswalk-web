@@ -14,19 +14,29 @@ import Store from './Store';
 // The Walk objects, keyed by walk ID (ie collection ID)
 let _walks = iMap();
 
+let cacheOutings;
+let cacheWalks;
 // Get the "outings", or scheduled dates, for our walks
-const getWalkOutings = () => _walks
-.reduce((a, walk) => {
-  const { time: { slots } = {} } = walk;
-  if (slots && slots.length) a.push(
-    ...slots.map((slot) => ({
-      walk,
-      slot,
-    }))
-  );
-  return a;
-}, [])
-.sort(({ slot: [a], slot: [b] }) => b - a);
+const getWalkOutings = () => {
+  if (cacheWalks === _walks) return cacheOutings;
+
+  // Cache, so we don't need to rebuild if it's the same walks.
+  cacheWalks = _walks;
+  cacheOutings = _walks
+  .reduce((a, walk) => {
+    const { time: { slots } = {} } = walk;
+    if (slots && slots.length) a.push(
+      ...slots.map((slot) => ({
+        walk,
+        slot,
+      }))
+    );
+    return a;
+  }, [])
+  .sort(({ slot: [a] }, { slot: [b] }) => a - b);
+
+  return cacheOutings;
+};
 
 const WalkStore = {
   ...Store,

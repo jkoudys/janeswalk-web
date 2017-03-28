@@ -40,7 +40,6 @@
   "dependencies": {
     "antd": "^2.8.2",
     "babel-plugin-import": "^1.1.1",
-    "babel-polyfill": "^6.23.0",
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
     "closest": "0.0.1",

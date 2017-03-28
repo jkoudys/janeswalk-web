@@ -1,0 +1,492 @@
+# Translators:
+# Andreas Lindinger <andreas@janeswalk.at>, 2017
+msgid ""
+msgstr ""
+"Last-Translator: Andreas Lindinger <andreas@janeswalk.at>, 2017\n"
+"Language-Team: German (https://www.transifex.com/janes-walk/teams/9744/de/)\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+" to create a stop. Make sure your walk has a clear description for the "
+"meeting place."
+msgstr ""
+"um einen Halt zu erstellen. Stelle sicher, dass dein Walk eine Beschreibung "
+"des Treffpunktes hat."
+
+msgid "${0} Hours"
+msgstr "${0} Stunden"
+
+msgid "${0} from ${1}: ${2}"
+msgstr "${0} von ${1}: ${2}"
+
+msgid "${0} will happen on the following dates"
+msgstr "${0} findet an folgenden Tagen statt"
+
+msgid "1 Hour"
+msgstr "1 Stunde"
+
+msgid ""
+"A person presenting information, telling stories, and fostering discussion "
+"during the Jane's Walk."
+msgstr ""
+"Diese Person organisiert und leitet den Walk, gibt die Route vor und regt zu"
+" Gesprächen im Gehen an."
+
+msgid ""
+"A person responsible for outreach to new and returning Walk Leaders and "
+"Community Voices."
+msgstr ""
+"Diese Person spricht neue und alte Walk Leader sowie Menschen in der "
+"Community an."
+
+msgid "About This Walk"
+msgstr "Über diesen Walk"
+
+msgid "About the Walk Team"
+msgstr "Über das Walk Team"
+
+msgid "Accessibility"
+msgstr "Erreichbarkeit"
+
+msgid "Add ${0} to Jane's Walk"
+msgstr "Füge ${0} zu Jane's Walk hinzu"
+
+msgid "Add Additional Dates"
+msgstr "Datum"
+
+msgid "Add a stop"
+msgstr "Füge einen Halt hinzu"
+
+msgid "Add another date"
+msgstr "Füge ein weiteres Datum hinzu"
+
+msgid "Add members to your team"
+msgstr "Füge weitere Personen zu deinem Team hinzu"
+
+msgid "After"
+msgstr "Nach"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Before"
+msgstr "Vor"
+
+msgid "Bicycles welcome"
+msgstr "Fahrräder möglich"
+
+msgid "Bio"
+msgstr "Kurzbeschreibung"
+
+msgid "Build Your Walk"
+msgstr "Erstelle deinen Walk"
+
+msgid ""
+"Build intrigue! This is what people see when browsing our Walk listings."
+msgstr ""
+"Erzeuge Neugierde! Dies sehen andere Personen wenn sie die Walks "
+"durchstöbern."
+
+msgid "Busy sidewalks"
+msgstr "Belebte Gehsteige"
+
+msgid "Choose up to ${0}"
+msgstr "Wähle maximal ${0} aus"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Coming soon!"
+msgstr "Folgt!"
+
+msgid "Community Voice"
+msgstr "Stimme aus der Nachbarschaft"
+
+msgid "Connect with Fellow organizers"
+msgstr "Verbinde dich mit anderen Organisatoren"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Create Your Team"
+msgstr "Team"
+
+msgid "Curbs and steps"
+msgstr "Kanten und Stufen"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Describe Your Walk"
+msgstr "Beschreibung"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Dogs welcome"
+msgstr "Hunde möglich"
+
+msgid ""
+"Don't know what kind of walk to lead? Here are some fun ones from around the"
+" world."
+msgstr ""
+"Du brauchst noch eine Anregung für deinen Walk? Hier sind einige Ideen aus "
+"der ganzen Welt."
+
+msgid "Drag or click here to replace your Walk's image."
+msgstr ""
+"Klicke hier oder ziehe ein Bild hinein um das Bild deines Walks zu ändern."
+
+msgid "Drag your Walk's preview image here, or click to upload."
+msgstr ""
+"Ziehe das Vorschaubild für deinen Walk hierher oder klicke für das "
+"Uploadmenü."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
+
+msgid "Ended"
+msgstr "Beendet"
+
+msgid "Export Spreadsheet"
+msgstr "Tabelle exportieren"
+
+msgid "Extra info"
+msgstr "Zusätzliche Informationen"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "Find citizen-led walks in your city"
+msgstr "Finde Walks in deiner Stadt"
+
+msgid "Finish"
+msgstr "Fertigstellen"
+
+msgid "Got a question? Reach out to a fellow City Organizer for help."
+msgstr ""
+"Du hast eine Frage? Kontaktiere deinen City Organizer für Unterstützung."
+
+msgid "Header Image"
+msgstr "Titelbild"
+
+msgid "Hi, ${0}!"
+msgstr "Hallo ${0}!"
+
+msgid "Hit enter to go to next field, or shift+enter to add a line break."
+msgstr ""
+"Drücke Enter um zum nächsten Feld zu gelangen oder Umschalt+Enter für einen "
+"Zeilenumbruch."
+
+msgid "How can people get to the meeting spot by public transit?"
+msgstr "Wie erreicht man deinen Treffpunkt mit Öffentlichen Verkehrsmitteln?"
+
+msgid "How long is your walk, approximately?"
+msgstr "Wie lange dauert dein Walk ungefähr?"
+
+msgid "How to find us"
+msgstr "Wo man uns findet"
+
+msgid "How will people find you?"
+msgstr "Woran kann man dich erkennen?"
+
+msgid ""
+"If you're having technical problems setting up your walk, reach out to our "
+"Project Office at "
+msgstr ""
+"Wenn du technische Probleme bei der Erstellung deines Walks hast, wende dich"
+" an unser Project Office unter"
+
+msgid ""
+"In ${0}, ${1} Walk Leaders led ${2} walks since its first Jane's Walk in "
+"${3}."
+msgstr ""
+"In ${0}, haben ${1} Walk Leader insgesamt ${2} Walks seit dem ersten Jane's "
+"Walk in ${3} geleitet."
+
+msgid "Information about stop"
+msgstr "Informationen zum Halt"
+
+msgid "Keep looking."
+msgstr "Schaue weiter."
+
+msgid "Last stop"
+msgstr "Letzter Halt"
+
+msgid "Lead a Walk"
+msgstr "Mach einen Walk!"
+
+msgid ""
+"Leading your first or fifth walk? Here are some tips from the Jane's Walk "
+"crew!"
+msgstr ""
+"Egal ob du deinen ersten oder fünften Walk leitest: Hier sind ein paar Tipps"
+" vom Jane's Walk Team!"
+
+msgid "Led by ${0}"
+msgstr "Geleitet von ${0}"
+
+msgid "Leisurely pace"
+msgstr "Angenehme Geschwindigkeit"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Location of stop"
+msgstr "Zwischenhalt"
+
+msgid "Looks like there are a few things your Walk is missing."
+msgstr "Scheinbar fehlen noch wichtige Informationen zu deinem Walk."
+
+msgid "Lowlight conditions"
+msgstr "Schlechtes Licht"
+
+msgid "Map"
+msgstr "Landkarte"
+
+msgid "Meet at ${0}"
+msgstr "Treffpunkt: ${0}"
+
+msgid "Meeting Place"
+msgstr "Treffpunkt"
+
+msgid "Meeting at ${0}"
+msgstr "Treffpunkt bei ${0}"
+
+msgid "Meeting place"
+msgstr "Treffpunkt"
+
+msgid "Move the map"
+msgstr "Landkarte bewegen"
+
+msgid "My Walks"
+msgstr "Meine Walks"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Optional"
+msgstr "Optional"
+
+msgid "Organizer"
+msgstr "Organisator"
+
+msgid "Other Notes"
+msgstr "Weitere Notizen"
+
+msgid "Parking Availability"
+msgstr "Parkmöglichkeiten"
+
+msgid ""
+"People who are helping out on your Walk. They could be there to help take "
+"photos, set up and coordinate the Walk, or share stories and/or personal "
+"experiences."
+msgstr ""
+"Diese Personen unterstützen dich auf deinem Walk. Sie machen Fotos, erzählen"
+" Geschichten, helfen dir bei der Organisation oder bringen sich anders ein."
+
+msgid ""
+"Perhaps you will be holding a sign, wearing a special t-shirt, or holding up"
+" an object that relates to the theme of your walk. Whatever it is, let "
+"people know how to identify you."
+msgstr ""
+"Vielleicht hältst du ein Schild, trägst ein bestimmtes T-Shirt oder hältst "
+"einen Gegenstand in die Höhe, der zum Thema deines Walks passt. Teile den "
+"Mitspazierenden mit wie sie dich finden! "
+
+msgid "Please Note"
+msgstr "Bitte notieren"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Promote"
+msgstr "Bekanntmachen"
+
+msgid "Publish Walk"
+msgstr "Walk veröffentlichen"
+
+msgid "Publishing..."
+msgstr "Veröffentlichen..."
+
+msgid "Recap"
+msgstr "Zusammenfassung"
+
+msgid "Region"
+msgstr "Region"
+
+msgid ""
+"Remember to come back and update this section after you've walked your route"
+" once or twice. We strongly encourage you to eliminate accessibility "
+"barriers as much as possible, especially those that might limit mobility."
+msgstr ""
+"Wir freuen uns wenn du möglichst vielen Menschen ermöglichst, bei deinem "
+"Walk mitzuspazieren!"
+
+msgid "Role"
+msgstr "Rolle"
+
+msgid "Route May Contain"
+msgstr "Hinweise zur Route"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Save the Date!"
+msgstr "Das Wichtigste zuerst!"
+
+msgid "Search in Walks below"
+msgstr "Durchsuche die Walks"
+
+msgid "Seated areas available along route"
+msgstr "Sitzgelegenheiten entlang der Route"
+
+msgid "Share Your Route"
+msgstr "Teile deine Route"
+
+msgid "Something short and memorable"
+msgstr "Ein kurzer, prägnanter Titel"
+
+msgid "Start building your Walk route by choosing "
+msgstr "Beginne deine Route mit "
+
+msgid "Start by picking a name and meeting time for your Walk."
+msgstr "Gib deinem Walk einen Titel und lege Datum und Uhrzeit fest."
+
+msgid "Steep hills"
+msgstr "Steiles Gelände"
+
+msgid "Taking Public Transit"
+msgstr "Öffentliche Verkehrsmittel"
+
+msgid "That's everything."
+msgstr "Das ist alles!"
+
+msgid "The name of my walk"
+msgstr "Der Titel deines Walks"
+
+msgid "Themes"
+msgstr "Themen"
+
+msgid "This is a bicycle tour, you must bring a bicycle"
+msgstr "Das ist eine Radtour, du musst ein Fahrrad mitbringen"
+
+msgid "Time"
+msgstr "Uhrzeit"
+
+msgid "Tips on leading a walk"
+msgstr "Tipps zur Durchführung eines Walks"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Uneven terrain"
+msgstr "Unebenes Gelände"
+
+msgid "Use these files to promote Jane's Walk in your city"
+msgstr "Mache Jane's Walk in deiner Stadt bekannt"
+
+msgid "Volunteers"
+msgstr "Freiwillige"
+
+msgid "Walk Description"
+msgstr "Ausführliche Beschreibung"
+
+msgid "Walk Leader"
+msgstr "Walk Leader"
+
+msgid "Walk Leader: ${0}"
+msgstr "Walk Leader: ${0}"
+
+msgid "Walk Route"
+msgstr "Route"
+
+msgid "Walk Title"
+msgstr "Titel"
+
+msgid "Walk Volunteer"
+msgstr "Freiwillige(r)"
+
+msgid "Walk led by ${0}"
+msgstr "Walk geleitet von ${0}"
+
+msgid "Walks from around the world"
+msgstr "Walks aus der ganzen Welt"
+
+msgid "Walks in My City"
+msgstr "Walks in meiner Stadt"
+
+msgid "Want help promoting Jane's Walk?"
+msgstr "Brauchst du Hilfe um Jane's Walk bekannt zu machen?"
+
+msgid "We couldn't find any matching walks."
+msgstr "Keine passenden Walks gefunden."
+
+msgid ""
+"We recommend wider images, around 600 pixels wide, over taller ones. They "
+"will look better at the top of your Walk page."
+msgstr ""
+"Wir empfehlen breite Bilder (ca. 600 Pixel breit) gegenüber hohen. Diese "
+"schauen auf der Seite deines Walks besser aus."
+
+msgid "Website"
+msgstr "Website"
+
+msgid ""
+"What bus, streetcar, subway, etc. routes would you recommend? How can they "
+"walk to you from the nearest stop?"
+msgstr ""
+"Welche Anreise mit U-Bahn, Straßenbahn, Bus, etc. empfiehlst du? Wie "
+"gelangen die Mitspazierenden von der Haltestelle zu Fuß zum Treffpunkt?"
+
+msgid "What can you tell people about the accessibility of this Walk?"
+msgstr "Was sollten die Menschen über deinen Walk wissen?"
+
+msgid ""
+"What is this Walk about? What questions and issues will you be exploring? "
+"Jump-start the discussion by getting people thinking about how they can "
+"contribute to your Walking Conversation."
+msgstr ""
+"Worum geht es bei deinem Walk? Welche Fragen und Themen werden gemeinsam "
+"erkundet? Starte die Diskussion indem du Menschen zum denken anregst, was "
+"sie in den Gesprächen auf deinem Walk einbringen können."
+
+msgid "Why did you describe this walk as having: "
+msgstr "Warum hast du diesen Walk folgendermaßen beschrieben:"
+
+msgid "With Past Walks"
+msgstr "Inklusive früheren Walks"
+
+msgid "Without Past Walks"
+msgstr "Ohne frühere Walks"
+
+msgid "You're all set."
+msgstr "Dein Walk ist bereit zur Veröffentlichung."
+
+msgid "Your walk in a nutshell"
+msgstr "Eine Kurzbeschreibung deines Walks"
+
+msgid "email address"
+msgstr "E-Mail Adresse"
+
+msgid "facebook"
+msgstr "Faceboo"
+
+msgid "phone number"
+msgstr "Telefonnummer"
+
+msgid "twitter"
+msgstr "Twitter"
+
+msgid "website url"
+msgstr "Website"
