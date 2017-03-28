@@ -35,7 +35,9 @@ getFiles('./languages')
       .split(/%[ds]/)
       .reduce(tokenFormat, '');
 
-      flat[key] = msgstr.join('').split(/%[ds]/).reduce(tokenFormat, '');
+      const message = msgstr.join('').split(/%[ds]/).reduce(tokenFormat, '');
+
+      if (message) flat[key] = message;
     }
   }
 
