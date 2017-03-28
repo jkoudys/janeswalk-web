@@ -25,8 +25,7 @@ getFiles('./languages')
 })))
 .then((files) => files.reduce((a, { dir, file, contents }) => {
   const type = file.match(/\.mo$/) ? gettextParser.mo : gettextParser.po;
-  const { translations } = type.parse(contents);
-
+  const { translations } = type.parse(contents, 'utf-8');
   const flat = {};
 
   // Remove redundant ID, as that's the key already
@@ -44,7 +43,7 @@ getFiles('./languages')
 }, {}))
 .then((dirs) => {
   for (const [dir, translations] of Object.entries(dirs)) {
-    fsp.writeFile(`${dir}/messages.json`, JSON.stringify(translations, null, ' '));
+    fsp.writeFile(`${dir}/messages.json`, JSON.stringify(translations, null, ' '), 'utf-8');
   }
 })
 .catch(console.error);
