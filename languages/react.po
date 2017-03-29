@@ -1,0 +1,423 @@
+msgid " to create a stop. Make sure your walk has a clear description for the meeting place."
+msgstr " to create a stop. Make sure your walk has a clear description for the meeting place."
+
+msgid "${0} Hours"
+msgstr "${0} Hours"
+
+msgid "${0} from ${1}: ${2}"
+msgstr "${0} from ${1}: ${2}"
+
+msgid "${0} will happen on the following dates"
+msgstr "${0} will happen on the following dates"
+
+msgid "1 Hour"
+msgstr "1 Hour"
+
+msgid "A person presenting information, telling stories, and fostering discussion during the Jane's Walk."
+msgstr "A person presenting information, telling stories, and fostering discussion during the Jane's Walk."
+
+msgid "A person responsible for outreach to new and returning Walk Leaders and Community Voices."
+msgstr "A person responsible for outreach to new and returning Walk Leaders and Community Voices."
+
+msgid "About This Walk"
+msgstr "About This Walk"
+
+msgid "About the Walk Team"
+msgstr "About the Walk Team"
+
+msgid "Accessibility"
+msgstr "Accessibility"
+
+msgid "Add ${0} to Jane's Walk"
+msgstr "Add ${0} to Jane's Walk"
+
+msgid "Add Additional Dates"
+msgstr "Add Additional Dates"
+
+msgid "Add a stop"
+msgstr "Add a stop"
+
+msgid "Add another date"
+msgstr "Add another date"
+
+msgid "Add members to your team"
+msgstr "Add members to your team"
+
+msgid "After"
+msgstr "After"
+
+msgid "All"
+msgstr "All"
+
+msgid "Before"
+msgstr "Before"
+
+msgid "Bicycles welcome"
+msgstr "Bicycles welcome"
+
+msgid "Bio"
+msgstr "Bio"
+
+msgid "Build Your Walk"
+msgstr "Build Your Walk"
+
+msgid "Build intrigue! This is what people see when browsing our Walk listings."
+msgstr "Build intrigue! This is what people see when browsing our Walk listings."
+
+msgid "Busy sidewalks"
+msgstr "Busy sidewalks"
+
+msgid "Choose up to ${0}"
+msgstr "Choose up to ${0}"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Coming soon!"
+msgstr "Coming soon!"
+
+msgid "Community Voice"
+msgstr "Community Voice"
+
+msgid "Connect with Fellow organizers"
+msgstr "Connect with Fellow organizers"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Create Your Team"
+msgstr "Create Your Team"
+
+msgid "Curbs and steps"
+msgstr "Curbs and steps"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Dates & Times"
+msgstr "Dates & Times"
+
+msgid "Describe Your Walk"
+msgstr "Describe Your Walk"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Dogs welcome"
+msgstr "Dogs welcome"
+
+msgid "Don't know what kind of walk to lead? Here are some fun ones from around the world."
+msgstr "Don't know what kind of walk to lead? Here are some fun ones from around the world."
+
+msgid "Drag or click here to replace your Walk's image."
+msgstr "Drag or click here to replace your Walk's image."
+
+msgid "Drag your Walk's preview image here, or click to upload."
+msgstr "Drag your Walk's preview image here, or click to upload."
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
+msgid "Ended"
+msgstr "Ended"
+
+msgid "Export Spreadsheet"
+msgstr "Export Spreadsheet"
+
+msgid "Extra info"
+msgstr "Extra info"
+
+msgid "Files"
+msgstr "Files"
+
+msgid "Find citizen-led walks in your city"
+msgstr "Find citizen-led walks in your city"
+
+msgid "Finish"
+msgstr "Finish"
+
+msgid "Got a question? Reach out to a fellow City Organizer for help."
+msgstr "Got a question? Reach out to a fellow City Organizer for help."
+
+msgid "Header Image"
+msgstr "Header Image"
+
+msgid "Hi, ${0}!"
+msgstr "Hi, ${0}!"
+
+msgid "Hit enter to go to next field, or shift+enter to add a line break."
+msgstr "Hit enter to go to next field, or shift+enter to add a line break."
+
+msgid "How can people get to the meeting spot by public transit?"
+msgstr "How can people get to the meeting spot by public transit?"
+
+msgid "How long is your walk, approximately?"
+msgstr "How long is your walk, approximately?"
+
+msgid "How to find us"
+msgstr "How to find us"
+
+msgid "How will people find you?"
+msgstr "How will people find you?"
+
+msgid "If you're having technical problems setting up your walk, reach out to our Project Office at "
+msgstr "If you're having technical problems setting up your walk, reach out to our Project Office at "
+
+msgid "In ${0}, ${1} Walk Leaders led ${2} walks since its first Jane's Walk in ${3}."
+msgstr "In ${0}, ${1} Walk Leaders led ${2} walks since its first Jane's Walk in ${3}."
+
+msgid "Information about stop"
+msgstr "Information about stop"
+
+msgid "Keep looking."
+msgstr "Keep looking."
+
+msgid "Last stop"
+msgstr "Last stop"
+
+msgid "Lead a Walk"
+msgstr "Lead a Walk"
+
+msgid "Leading your first or fifth walk? Here are some tips from the Jane's Walk crew!"
+msgstr "Leading your first or fifth walk? Here are some tips from the Jane's Walk crew!"
+
+msgid "Led by ${0}"
+msgstr "Led by ${0}"
+
+msgid "Leisurely pace"
+msgstr "Leisurely pace"
+
+msgid "List"
+msgstr "List"
+
+msgid "Location of stop"
+msgstr "Location of stop"
+
+msgid "Looks like there are a few things your Walk is missing."
+msgstr "Looks like there are a few things your Walk is missing."
+
+msgid "Lowlight conditions"
+msgstr "Lowlight conditions"
+
+msgid "Map"
+msgstr "Map"
+
+msgid "Meet at ${0}"
+msgstr "Meet at ${0}"
+
+msgid "Meeting Place"
+msgstr "Meeting Place"
+
+msgid "Meeting at ${0}"
+msgstr "Meeting at ${0}"
+
+msgid "Meeting place"
+msgstr "Meeting place"
+
+msgid "Move the map"
+msgstr "Move the map"
+
+msgid "My Walks"
+msgstr "My Walks"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Optional"
+msgstr "Optional"
+
+msgid "Organizer"
+msgstr "Organizer"
+
+msgid "Other Notes"
+msgstr "Other Notes"
+
+msgid "Parking Availability"
+msgstr "Parking Availability"
+
+msgid "People who are helping out on your Walk. They could be there to help take photos, set up and coordinate the Walk, or share stories and/or personal experiences."
+msgstr "People who are helping out on your Walk. They could be there to help take photos, set up and coordinate the Walk, or share stories and/or personal experiences."
+
+msgid "Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
+msgstr "Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
+
+msgid "Please Note"
+msgstr "Please Note"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Promote"
+msgstr "Promote"
+
+msgid "Publish Walk"
+msgstr "Publish Walk"
+
+msgid "Publishing..."
+msgstr "Publishing..."
+
+msgid "Recap"
+msgstr "Recap"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "Remember to come back and update this section after you've walked your route once or twice. We strongly encourage you to eliminate accessibility barriers as much as possible, especially those that might limit mobility."
+msgstr "Remember to come back and update this section after you've walked your route once or twice. We strongly encourage you to eliminate accessibility barriers as much as possible, especially those that might limit mobility."
+
+msgid "Role"
+msgstr "Role"
+
+msgid "Route May Contain"
+msgstr "Route May Contain"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Save the Date!"
+msgstr "Save the Date!"
+
+msgid "Search in Walks below"
+msgstr "Search in Walks below"
+
+msgid "Seated areas available along route"
+msgstr "Seated areas available along route"
+
+msgid "Share Your Route"
+msgstr "Share Your Route"
+
+msgid "Something short and memorable"
+msgstr "Something short and memorable"
+
+msgid "Start building your Walk route by choosing "
+msgstr "Start building your Walk route by choosing "
+
+msgid "Start by picking a name and meeting time for your Walk."
+msgstr "Start by picking a name and meeting time for your Walk."
+
+msgid "Steep hills"
+msgstr "Steep hills"
+
+msgid "Taking Public Transit"
+msgstr "Taking Public Transit"
+
+msgid "That's everything."
+msgstr "That's everything."
+
+msgid "The Walk will save as you go - no need to click 'save'."
+msgstr "The Walk will save as you go - no need to click 'save'."
+
+msgid "The name of my walk"
+msgstr "The name of my walk"
+
+msgid "Themes"
+msgstr "Themes"
+
+msgid "This is a bicycle tour, you must bring a bicycle"
+msgstr "This is a bicycle tour, you must bring a bicycle"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "Tips on leading a walk"
+msgstr "Tips on leading a walk"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Undo"
+msgstr "Undo"
+
+msgid "Uneven terrain"
+msgstr "Uneven terrain"
+
+msgid "Use these files to promote Jane's Walk in your city"
+msgstr "Use these files to promote Jane's Walk in your city"
+
+msgid "Volunteers"
+msgstr "Volunteers"
+
+msgid "Walk Description"
+msgstr "Walk Description"
+
+msgid "Walk Leader"
+msgstr "Walk Leader"
+
+msgid "Walk Leader: ${0}"
+msgstr "Walk Leader: ${0}"
+
+msgid "Walk Route"
+msgstr "Walk Route"
+
+msgid "Walk Title"
+msgstr "Walk Title"
+
+msgid "Walk Volunteer"
+msgstr "Walk Volunteer"
+
+msgid "Walk led by ${0}"
+msgstr "Walk led by ${0}"
+
+msgid "Walks from around the world"
+msgstr "Walks from around the world"
+
+msgid "Walks in My City"
+msgstr "Walks in My City"
+
+msgid "Want help promoting Jane's Walk?"
+msgstr "Want help promoting Jane's Walk?"
+
+msgid "We couldn't find any matching walks."
+msgstr "We couldn't find any matching walks."
+
+msgid "We recommend wider images, around 600 pixels wide, over taller ones. They will look better at the top of your Walk page."
+msgstr "We recommend wider images, around 600 pixels wide, over taller ones. They will look better at the top of your Walk page."
+
+msgid "Website"
+msgstr "Website"
+
+msgid "What bus, streetcar, subway, etc. routes would you recommend? How can they walk to you from the nearest stop?"
+msgstr "What bus, streetcar, subway, etc. routes would you recommend? How can they walk to you from the nearest stop?"
+
+msgid "What can you tell people about the accessibility of this Walk?"
+msgstr "What can you tell people about the accessibility of this Walk?"
+
+msgid "What is this Walk about? What questions and issues will you be exploring? Jump-start the discussion by getting people thinking about how they can contribute to your Walking Conversation."
+msgstr "What is this Walk about? What questions and issues will you be exploring? Jump-start the discussion by getting people thinking about how they can contribute to your Walking Conversation."
+
+msgid "Why did you describe this walk as having: "
+msgstr "Why did you describe this walk as having: "
+
+msgid "With Past Walks"
+msgstr "With Past Walks"
+
+msgid "Without Past Walks"
+msgstr "Without Past Walks"
+
+msgid "You're all set."
+msgstr "You're all set."
+
+msgid "Your walk in a nutshell"
+msgstr "Your walk in a nutshell"
+
+msgid "email address"
+msgstr "email address"
+
+msgid "facebook"
+msgstr "facebook"
+
+msgid "phone number"
+msgstr "phone number"
+
+msgid "twitter"
+msgstr "twitter"
+
+msgid "website url"
+msgstr "website url"
+
