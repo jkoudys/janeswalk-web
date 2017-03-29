@@ -33,7 +33,9 @@ const buttonStyle = {
 
 const Team = ({ id, name, team, handlers }) => ce('section', { id, className: 'Lead__Option' },
   ce('h1', {}, name),
-  team.map((member, i) => ce(typeMap[member.type], {
+  team
+  .filter(({ type }) => typeMap[type])
+  .map((member, i) => ce(typeMap[member.type], {
     key: `${member.type}${i}`,
     member,
     handler: handlers.teamMember(member),
