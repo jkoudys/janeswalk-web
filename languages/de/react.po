@@ -121,6 +121,9 @@ msgstr "Dashboard"
 msgid "Date"
 msgstr "Datum"
 
+msgid "Dates & Times"
+msgstr "Datum und Uhrzeit"
+
 msgid "Describe Your Walk"
 msgstr "Beschreibung"
 
@@ -368,6 +371,11 @@ msgstr "Öffentliche Verkehrsmittel"
 
 msgid "That's everything."
 msgstr "Das ist alles!"
+
+msgid "The Walk will save as you go - no need to click 'save'."
+msgstr ""
+"Der Walk wird automatisch während der Eingabe gespeichert - du musst nicht "
+"auf \"Speichern\" klicken."
 
 msgid "The name of my walk"
 msgstr "Der Titel deines Walks"
