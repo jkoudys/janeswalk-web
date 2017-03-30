@@ -125,7 +125,7 @@ Promise.all(Object.values(startups)).then(() => {
   const { locale: { name: chosenLocale, translation: localeUrl } = {} } = JanesWalk;
 
   // Load our translations upfront
-  if (chosenLocale) getTranslations({ locale: chosenLocale, url: localeUrl });
+  if (chosenLocale && url) getTranslations({ locale: chosenLocale, url: localeUrl });
 
   renderGlobal();
   addFluxListeners();
