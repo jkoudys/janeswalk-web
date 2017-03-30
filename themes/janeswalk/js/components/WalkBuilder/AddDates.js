@@ -34,6 +34,7 @@ const AddDates = ({
 }) => {
   // Config the available durations we can choose
   const durations = [
+    [halfHour, t`${0.5} Hours`],
     [2 * halfHour, t`1 Hour`],
     ...Array.from({ length: 5 }).map((_, i) => [(i + 3) * halfHour, t`${0.5 * i + 1.5} Hours`]),
   ];

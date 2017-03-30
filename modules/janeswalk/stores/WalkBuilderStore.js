@@ -104,6 +104,7 @@ const getSchema = (props = [
   'accessibleFind',
   'accessibleInfo',
   'accessibleTransit',
+  'duration',
   'features',
   'points',
   'route',
@@ -128,7 +129,7 @@ const getSchema = (props = [
     case 'images': {
       // Get the IDs from the image
       const imgIDs = images
-      .map(({ response: { id } = {} }) => ({ id }))
+      .map(({ id, url, response: { id: rId, url: rUrl } = {} }) => ({ id: id || rId, url: url || rUrl }))
       .filter(({ id }) => !!id);
       return { ...a, images: imgIDs };
     }
@@ -136,7 +137,9 @@ const getSchema = (props = [
     case 'shortDescription': return { ...a, shortDescription };
     case 'team': return { ...a, team };
     case 'themes': return { ...a, themes: [...themes] };
-    case 'times': return { ...a, time: getTimeSchema() };
+    case 'duration':
+    case 'times':
+      return { ...a, time: getTimeSchema() };
     case 'title': return { ...a, title };
     case 'ward': return { ...a, wards: ward };
     default: return a;
@@ -204,7 +207,7 @@ const WalkBuilderStore = {
     [AT.WB_SET_SHORT_DESCRIPTION]: ({ value }) => { shortDescription = value; },
     [AT.WB_SET_LONG_DESCRIPTION]: ({ value }) => { longDescription = value; },
     [AT.WB_SET_WARD]: ({ value }) => { ward = value; },
-    [AT.WB_SET_DURATION]: ({ value }) => { duration = value; },
+    [AT.WB_SET_DURATION]: ({ value }) => { duration = +value; },
     // TODO: allow multiple images in a Walk
     [AT.WB_SET_IMAGE]: ({ value }) => {
       const saved = { ...value };
