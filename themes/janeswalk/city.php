@@ -162,6 +162,9 @@ echo <<< EOT
  </div>
 </section>
 {$Blog}
+<section class="sponsors">
+    {$area('Sponsors')}
+</section>
 {$scripts}
 EOT;
 

@@ -7,7 +7,7 @@ import { i18nConfig } from 'es2015-i18n-tag';
 
 export async function getTranslations({ locale, url } = {}) {
   // Check that we have a translations file set
-  if (locale) {
+  if (locale && url) {
     // Grab from either local session, or fetch from server
     const translations = JSON.parse(sessionStorage.getItem(`i18n_${locale}`)) ||
       await fetch(url).then(r => r.json());
