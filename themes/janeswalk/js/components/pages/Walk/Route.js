@@ -1,5 +1,5 @@
 import { createElement as ce } from 'react';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 
 const WalkRoute = ({ markers }) => (
   ce('section', { className: 'walkRoute' },

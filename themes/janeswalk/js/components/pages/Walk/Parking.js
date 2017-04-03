@@ -1,4 +1,4 @@
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 import { PropTypes, createElement as ce } from 'react';
 
 const WalkParking = ({ accessibleParking = [], style }) => {
