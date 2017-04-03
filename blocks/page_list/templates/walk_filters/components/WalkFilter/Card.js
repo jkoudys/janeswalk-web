@@ -48,10 +48,8 @@ const Card = ({
     shortDescription = '',
     themes = [],
     team = [],
-    time: {
-      slots: [[startTime] = []] = [],
-    } = {},
   },
+  slot: [startTime],
 }) => {
   const past = startTime * 1000 < yesterday.getTime();
   const placeholder = `placeholder${id % 3}`;
