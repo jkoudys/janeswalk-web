@@ -15,9 +15,9 @@ const { Option } = Select;
 const WalkDetails = ({
   id,
   name,
-  title,
-  shortDescription,
-  longDescription,
+  title = '',
+  shortDescription = '',
+  longDescription = '',
   images,
   handlers,
   ward,

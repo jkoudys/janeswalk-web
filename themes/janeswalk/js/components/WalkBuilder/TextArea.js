@@ -11,7 +11,7 @@ import { Input } from 'antd';
 const TextArea = ({ maxLength, value = '', ...props }) => (
   ce('div', { className: 'TextArea' },
     ce(Input, { type: 'textarea', maxLength, value, ...props }),
-    ce('span', { className: 'TextArea__count' }, maxLength - value.length)
+    ce('span', { className: 'TextArea__count' }, maxLength - (value || '').length)
   )
 );
 
