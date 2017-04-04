@@ -2,7 +2,7 @@ import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
 import { getThemeName } from 'janeswalk/utils/lookups/Theme';
 import t from 'es2015-i18n-tag';
 
-import { createElement as ce, PropTypes } from 'react';
+import { createElement as ce } from 'react';
 
 const WalkMenu = ({
   title = '',
@@ -59,10 +59,6 @@ const WalkMenu = ({
       )))
     )
   );
-};
-
-WalkMenu.propTypes = {
-  walk: PropTypes.object.isRequired,
 };
 
 export default WalkMenu;

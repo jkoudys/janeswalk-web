@@ -26,6 +26,7 @@ const getWalk = ({ walk }) => {
     list: firstList,
     isFavourite: ItineraryStore.hasInList(walk),
     schedule: ItineraryStore.getSchedule(),
+    walk,
   };
 };
 

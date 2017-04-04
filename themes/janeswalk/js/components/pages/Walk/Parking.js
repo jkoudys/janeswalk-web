@@ -1,5 +1,5 @@
 import t from 'es2015-i18n-tag';
-import { PropTypes, createElement as ce } from 'react';
+import { createElement as ce } from 'react';
 
 const WalkParking = ({ accessibleParking = [], style }) => {
   if (accessibleParking.length) {
@@ -13,10 +13,6 @@ const WalkParking = ({ accessibleParking = [], style }) => {
     );
   }
   return ce('section');
-};
-
-WalkParking.propTypes = {
-  accessibleParking: PropTypes.string.isRequired,
 };
 
 export default WalkParking;

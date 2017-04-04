@@ -59,13 +59,24 @@ export function startPolling(period = 100) {
   let lastSync = ItineraryStore.getLastChange();
   let syncing = false;
 
-  setInterval(() => {
+  setInterval(async () => {
     const lastChange = ItineraryStore.getLastChange();
     // Poll, to see if we've waited a bit since the last thing you changed
     if (Date.now() - lastChange > period * 3) {
       if (lastChange > lastSync && !syncing) {
         syncing = true;
-        post(() => {lastSync = Date.now(); syncing = false;});
+
+        const { saved } = fetch(endpoint, {
+          method: 'POST',
+          body: getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()),
+          credentials: 'include',
+        })
+        .then(res => res.json());
+
+        if (!saved) console.error('Failed to sync itinerary.');
+
+        lastSync = Date.now();
+        syncing = false;
       }
     }
   }, period);

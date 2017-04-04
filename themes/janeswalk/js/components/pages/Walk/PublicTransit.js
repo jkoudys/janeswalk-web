@@ -1,4 +1,4 @@
-import { createElement as ce, PropTypes } from 'react';
+import { createElement as ce  } from 'react';
 import t from 'es2015-i18n-tag';
 
 const WalkPublicTransit = ({ accessibleTransit = [] }) => {
@@ -12,10 +12,6 @@ const WalkPublicTransit = ({ accessibleTransit = [] }) => {
     );
   }
   return ce('section');
-};
-
-WalkPublicTransit.propTypes = {
-  accessibleTransit: PropTypes.string.isRequired,
 };
 
 export default WalkPublicTransit;
