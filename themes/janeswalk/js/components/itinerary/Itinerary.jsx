@@ -3,6 +3,7 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import * as Actions from 'janeswalk/actions/ItineraryActions';
+import { Modal } from 'antd';
 import t from 'es2015-i18n-tag';
 
 import Walk from './Walk.jsx';
@@ -19,31 +20,36 @@ import { Component, createElement as ce } from 'react';
 
 const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}00`;
 
-
 export default class Itinerary extends Component {
   constructor(props, ...args) {
     super(props, ...args);
-    Object.assign(this, {
-      state: Object.assign({}, getItinerary(), props.itinerary),
-      _onChange: () => this.setState(() => getItinerary(this.state.activeList)),
-      _loadRef: node => Object.assign(this, { $el: jQuery(node) }),
-      handleHide: () => this.$el.modal('hide'),
-      handleChooseItinerary: list => this.setState({ activeList: list }),
-      handleChangeTitle: v => Actions.updateTitle(this.state.activeList, v),
-      handleChangeDescription: v => Actions.updateDescription(this.state.activeList, v),
-      handleICS: () => {
-        const { activeList, schedule } = this.state;
-        const events = [...activeList.walks].map((walk) => {
-          const timeSet = schedule.get(walk) || new Set();
-          const {
-            title,
-            shortDescription,
-            team: [{ email }] = [{}],
-            map: { markers: [{ title: location }] = [{}] } = {},
-          } = walk;
-          return [...timeSet].map(time => {
-            const d = new Date(time);
-            return (
+    // TODO: remove props dependency
+    this.state = {
+      ...getItinerary(),
+      ...props.itinerary,
+      visible: false,
+    };
+  }
+
+  _onChange = () => this.setState(() => getItinerary(this.state.activeList));
+
+  handleChooseItinerary = list => this.setState({ activeList: list });
+  handleChangeTitle = v => Actions.updateTitle(this.state.activeList, v);
+  handleChangeDescription = v => Actions.updateDescription(this.state.activeList, v);
+
+  handleICS = () => {
+    const { activeList, schedule } = this.state;
+    const events = [...activeList.walks].map((walk) => {
+    const timeSet = schedule.get(walk) || new Set();
+    const {
+      title,
+      shortDescription,
+      team: [{ email }] = [{}],
+      map: { markers: [{ title: location }] = [{}] } = {},
+    } = walk;
+    return [...timeSet].map(time => {
+      const d = new Date(time);
+      return (
 `BEGIN:VEVENT
 SUMMARY:${title}
 LOCATION:${location}
@@ -52,11 +58,11 @@ DESCRIPTION:${shortDescription}
 DTSTART:${formatICSDateTime(d)}
 DTSTAMP:${formatICSDateTime(d)}
 END:VEVENT`
-            );
-          }).join('\n');
-        });
-        const link = document.createElement('a');
-        const ics =
+        );
+      }).join('\n');
+    });
+    const link = document.createElement('a');
+    const ics =
 `BEGIN:VCALENDAR
 PRODID:-//JanesWalk//JanesWalk.org//EN
 VERSION:1.0
@@ -64,21 +70,19 @@ METHOD:PUBLISH
 ${events.join('\n')}
 END:VCALENDAR`;
 
-        link.href = `data:application/ics,${encodeURI(ics)}`;
-        link.download = 'JanesWalk.ics';
-        link.click();
-      },
-    });
-  }
+    link.href = `data:application/ics,${encodeURI(ics)}`;
+    link.download = 'JanesWalk.ics';
+    link.click();
+  };
+
+  onCancel = () => {
+    this.props.onClose();
+    this.setState({ visible: false });
+  };
 
   componentWillMount() {
     ItineraryStore.addChangeListener(this._onChange);
     WalkStore.addChangeListener(this._onChange);
-  }
-
-  componentDidMount() {
-    this.$el.modal();
-    this.$el.on('hidden.bs.modal', () => this.props.onClose());
   }
 
   componentWillUnmount() {
@@ -91,7 +95,8 @@ END:VCALENDAR`;
   }
 
   render() {
-    const { activeList, lists, schedule } = this.state;
+    const { activeList = { walks: [] }, lists, schedule } = this.state;
+    const { onCancel, visible } = this.props;
 
     // Lookup the walk data from the walk's ID
     const ItineraryWalks = [...activeList.walks].map((walk) => {
@@ -116,33 +121,33 @@ END:VCALENDAR`;
     });
 
     return (
-      ce('dialog', { ref: this._loadRef, open: true },
-        ce('section', { id: 'itinerary' },
-          ce('i', { className: 'close fa fa-times', onClick: this.handleHide }),
-          ce(ItinerarySelect, {
-            onChoose: this.handleChooseItinerary,
-            onCreate: this.handleCreateItinerary,
-            lists,
-            activeList,
+      ce(Modal, {
+        visible,
+        onCancel,
+        className: 'Itinerary',
+        width: 700,
+        footer: ce('p', { className: 'knightFdn-itinerary' }, t`Powered by the Knight Foundation`),
+      },
+        ce(ItinerarySelect, {
+          onChoose: this.handleChooseItinerary,
+          onCreate: this.handleCreateItinerary,
+          lists,
+          activeList,
+        }),
+        ce('section', {},
+          ce(ItineraryHeader, {
+            onChangeDescription: this.handleChangeDescription,
+            onChangeTitle: this.handleChangeTitle,
+            list: activeList,
           }),
-          ce('div', { className: 'itinerary' },
-            ce('section', {},
-              ce(ItineraryHeader, {
-                onChangeDescription: this.handleChangeDescription,
-                onChangeTitle: this.handleChangeTitle,
-                list: activeList,
-              }),
-            ),
-            ce('ul', {},
-              ce('a', { onClick: this.handleICS },
-                ce('i', { className: 'fa fa-calendar' }),
-                ' ',
-                t`Add to Calendar`,
-              ),
-              ItineraryWalks
-            ),
+        ),
+        ce('ul', {},
+          ce('a', { onClick: this.handleICS },
+            ce('i', { className: 'fa fa-calendar' }),
+            ' ',
+            t`Add to Calendar`,
           ),
-          ce('p', { className: 'knightFdn-itinerary' }, t`Powered by the Knight Foundation`),
+          ItineraryWalks
         ),
       )
     );

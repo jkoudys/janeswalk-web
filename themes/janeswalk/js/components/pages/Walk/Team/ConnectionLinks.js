@@ -31,7 +31,7 @@ function getLink({ connections, match, name, prefix }) {
   return '';
 }
 
-const ConnectionLinks = ({ name: memberName, connections }) => { debugger; return (
+const ConnectionLinks = ({ name: memberName, connections }) => (
   ce('div', { className: 'btn-toolbar' },
     connectTypes
     .filter(c => connections[c.name])
@@ -46,6 +46,6 @@ const ConnectionLinks = ({ name: memberName, connections }) => { debugger; retur
       )
     )
   ))
-); };
+);
 
 export default ConnectionLinks;

@@ -1,15 +1,17 @@
-/* global $ CCM_EDIT_MODE */
-import Itinerary from './itinerary/Itinerary.jsx';
+import { createElement as ce, Component } from 'react';
+import ReactDOM from 'react-dom';
+import t from 'es2015-i18n-tag';
+
 import AreaStore from 'janeswalk/stores/AreaStore';
 import UserStore from 'janeswalk/stores/UserStore';
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import { makeSticky } from 'janeswalk/utils/dom';
 
+import Itinerary from './itinerary/Itinerary.jsx';
+
 import loggedInOptions from './Navbar/LoggedInOptions.jsx';
 import loggedOutOptions from './Navbar/LoggedOutOptions.jsx';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 
 function getNavbar() {
   return {
@@ -32,18 +34,16 @@ function appendSiblings(html, refNode) {
 }
 
 // The header menu
-export default class Navbar extends React.Component {
-  constructor(...args) {
-    super(...args);
+export default class Navbar extends Component {
+  state = {
+    lastSize: ItineraryStore.totalWalks(),
+    ...getNavbar(),
+  };
 
-    Object.assign(this, {
-      state: {
-        lastSize: ItineraryStore.totalWalks(),
-        ...getNavbar(),
-      },
-      _onChange: () => this.setState(getNavbar),
-    });
-  }
+  _onChange = () => this.setState(getNavbar);
+
+  handleCloseItinerary = () => this.setState({ profiling: false });
+  handleOpenItinerary = () => this.setState({ profiling: true });
 
   componentWillMount() {
     AreaStore.addChangeListener(this._onChange);
@@ -74,15 +74,9 @@ export default class Navbar extends React.Component {
     UserStore.removeChangeListener(this._onChage);
   }
 
-  openSearch() {
-    $('html, body').animate({
-      scrollTop: 0,
-    }, 300);
-  }
-
   render() {
-    const { editMode } = this.props;
     const { user, searching, profiling, totalWalks } = this.state;
+    const { handleCloseItinerary, handleOpenItinerary } = this;
     let userOptions;
     const defaultOptions = {
       searching,
@@ -94,7 +88,7 @@ export default class Navbar extends React.Component {
       userOptions = loggedInOptions({
         ...defaultOptions,
         unseenUpdates: this.state.lastSize !== totalWalks,
-        toggleProfile: () => this.setState({ profiling: !this.state.profiling, lastSize: totalWalks }),
+        toggleProfile: profiling ? handleCloseItinerary : handleOpenItinerary,
         user,
         profiling,
       });
@@ -103,29 +97,19 @@ export default class Navbar extends React.Component {
     }
 
     return (
-      <div>
-        <header ref="header" className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
-          <nav role="navigation">
-            <a href="/" className="logo">
-              <span />
-            </a>
-            <ul className="nav" ref="topnav">
-              {userOptions}
-              <li>
-                <a href="/donate" id="donate">Donate</a>
-              </li>
-            </ul>
-          </nav>
-          <div className="navbar-outer" dangerouslySetInnerHTML={{ __html: this.state.dropdown }} />
-        </header>
-        <div id="modals">
-          {profiling ? <Itinerary onClose={() => this.setState({ profiling: !this.state.profiling })} /> : null}
-        </div>
-      </div>
+      ce('div', {},
+        ce('header', { ref: 'header' },
+          ce('nav', { role: 'navigation' },
+            ce('a', { href: '/', className: 'logo' }, ce('span')),
+            ce('ul', { className: 'nav', ref: 'topnav' },
+              userOptions,
+              ce('li', {}, ce('a', { href: '/donate', id: 'donate' }, t`Donate`)),
+            ),
+          ),
+          ce('div', { className: 'navbar-outer', dangerouslySetInnerHTML: { __html: this.state.dropdown } }),
+        ),
+        ce(Itinerary, { onCancel: handleCloseItinerary, visible: profiling }),
+      )
     );
   }
 }
-
-Navbar.defaultProps = {
-  editMode: CCM_EDIT_MODE,
-};

@@ -1,23 +1,90 @@
-#itinerary {
-  .make-md-column(8);
-  .clearfix();
+.ant-modal-wrap {
+  z-index: @zindex-modal;
+}
+.Itinerary {
+  margin: 0 0 0 auto;
+  padding: 0;
   min-height: 100vh;
-  position: absolute;
-  right: 0;
   top: 0;
-  margin-right: 0;
-  box-shadow: -1px -4px 33px rgba(0, 0, 50, 0.85);
-  border-color: #fff;
-  background: #fff;
-  padding: 2.25rem 5.5rem;
-  overflow-y: auto;
-  z-index: -1;
+  right: 0;
+
+  ul {
+    list-style: none; 
+  }
+
+  li.walklistItem {
+    overflow: auto; //need to use .clearfix() mixin
+    border-top: 2px solid #e0e0e0;
+    padding: 30px 0;
+  }
+
+  .walk {
+    .clearfix();
+    max-width: 70%;
+    float: left;
+    h3, h4 {
+      font-weight: 300;
+    }
+    h3 {
+      margin-top: 0;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    h4 {
+      margin: 10px auto 3px;
+    }
+    &~button {
+      font-size: 2.2rem;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .action {
+    float: right;
+    max-width: 30%;
+    position: relative;
+    transform: translateY(100%);
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+    color: #959595;
+    outline: none;
+    text-align: right;
+    transition-duration: 0.2s;
+    padding: 0.8rem;
+    top: -4.4rem;
+
+    &:hover {
+      color: black;
+    }
+    &.selected {
+      background: @color-orange;
+      color: #fff;
+      opacity: 1;
+    }
+  }
+
+  .removeWalk {
+    .glyphicon;
+    .glyphicon-remove;
+    top: -4.4rem;
+  }
+
+  .addWalk {
+    .glyphicon;
+    .glyphicon-new-window;
+    top: -4.4rem;
+  }
 
   ul {
     list-style: none;
     padding-left: 0;
     clear: both;
   }
+
   #itinerary-select {
     ul {
       font-size: 12px;
@@ -102,86 +169,7 @@
     font-weight: 600;
     text-align: center;
     opacity: 0.8;
-    position: absolute;
-    left: 0;
-    bottom: 5px;
-    width: 100%;
   }
-}
-
-.itinerary {
-  margin: 30px auto 5rem;
-  ul {
-    list-style: none; 
-  }
-
-  li.walklistItem {
-    overflow: auto; //need to use .clearfix() mixin
-    border-top: 2px solid #e0e0e0;
-    padding: 30px 0;
-  }
-
-  .walk {
-    .clearfix();
-    max-width: 70%;
-    float: left;
-    h3, h4 {
-      font-weight: 300;
-    }
-    h3 {
-      margin-top: 0;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    h4 {
-      margin: 10px auto 3px;
-    }
-    &~button {
-      font-size: 2.2rem;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-
-  .action {
-    float: right;
-    max-width: 30%;
-    position: relative;
-    transform: translateY(100%);
-    border: none;
-    border-radius: 100%;
-    background-color: transparent;
-    color: #959595;
-    outline: none;
-    text-align: right;
-    transition-duration: 0.2s;
-    padding: 0.8rem;
-    top: -4.4rem;
-
-    &:hover {
-      color: black;
-    }
-    &.selected {
-      background: @color-orange;
-      color: #fff;
-      opacity: 1;
-    }
-  }
-
-  .removeWalk {
-    .glyphicon;
-    .glyphicon-remove;
-    top: -4.4rem;
-  }
-
-  .addWalk {
-    .glyphicon;
-    .glyphicon-new-window;
-    top: -4.4rem;
-  }
-
 }
 
 .itineraryHeader {

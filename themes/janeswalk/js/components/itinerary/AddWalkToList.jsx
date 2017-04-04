@@ -2,7 +2,7 @@ import { PropTypes, createElement as ce } from 'react';
 
 const AddWalkToList = ({ lists, walk, list, onAdd, onRemove }) => {
   // selectedWalk comes from where
-  const allLists = lists.reduce((a, otherList) => {
+  const allLists = [...lists].reduce((a, otherList) => {
     if (list !== otherList) {
       const { id, title, walks } = otherList;
       const walkFound = walks.has(walk);
