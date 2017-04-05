@@ -22,7 +22,7 @@ const Leader = ({ member: { name, bio, email, twitter, facebook, website, phone 
     ce(Input, { onKeyPress: kbJump, onChange: handler('name'), value: name })
   ),
   ce(Form.Item, { label: t`Bio` },
-    ce(TextArea, { onKeyPress: kbJump, onChange: handler('bio'), value: bio, rows: 4, maxLength: 450 })
+    ce(TextArea, { onKeyPress: kbJump, onChange: handler('bio'), value: bio, rows: 5, maxLength: 800 })
   ),
   ce(Form.Item, { label: t`Contact` },
     ce(Input.Group, {},
