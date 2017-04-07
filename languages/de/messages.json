@@ -355,6 +355,7 @@
  "Create Your Team": "Team",
  "Curbs and steps": "Kanten und Stufen",
  "Dashboard": "Dashboard",
+ "Dates & Times": "Datum und Uhrzeit",
  "Don't know what kind of walk to lead? Here are some fun ones from around the world.": "Du brauchst noch eine Anregung für deinen Walk? Hier sind einige Ideen aus der ganzen Welt.",
  "Drag or click here to replace your Walk's image.": "Klicke hier oder ziehe ein Bild hinein um das Bild deines Walks zu ändern.",
  "Drag your Walk's preview image here, or click to upload.": "Ziehe das Vorschaubild für deinen Walk hierher oder klicke für das Uploadmenü.",
@@ -408,6 +409,7 @@
  "Start building your Walk route by choosing ": "Beginne deine Route mit ",
  "Start by picking a name and meeting time for your Walk.": "Gib deinem Walk einen Titel und lege Datum und Uhrzeit fest.",
  "That's everything.": "Das ist alles!",
+ "The Walk will save as you go - no need to click 'save'.": "Der Walk wird automatisch während der Eingabe gespeichert - du musst nicht auf \"Speichern\" klicken.",
  "The name of my walk": "Der Titel deines Walks",
  "This is a bicycle tour, you must bring a bicycle": "Das ist eine Radtour, du musst ein Fahrrad mitbringen",
  "Tips on leading a walk": "Tipps zur Durchführung eines Walks",
@@ -434,7 +436,5 @@
  "facebook": "Faceboo",
  "phone number": "Telefonnummer",
  "twitter": "Twitter",
- "website url": "Website",
- "Dates & Times": "Datum und Uhrzeit",
- "The Walk will save as you go - no need to click 'save'.": "Der Walk wird automatisch während der Eingabe gespeichert - du musst nicht auf \"Speichern\" klicken."
+ "website url": "Website"
 }

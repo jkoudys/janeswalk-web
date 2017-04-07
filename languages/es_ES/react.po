@@ -1,8 +1,9 @@
 # Translators:
 # Samridhi Kundra <samridhi@qaribou.com>, 2017
+# Jane's Walk Palma <janeswalkpalma@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Last-Translator: Samridhi Kundra <samridhi@qaribou.com>, 2017\n"
+"Last-Translator: Jane's Walk Palma <janeswalkpalma@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/janes-walk/teams/9744/es/)\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -15,16 +16,16 @@ msgstr ""
 " para el punto de encuentro."
 
 msgid "${0} Hours"
-msgstr ""
+msgstr "${0} Horas"
 
 msgid "${0} from ${1}: ${2}"
-msgstr ""
+msgstr "${0} desde ${1}: ${2}"
 
 msgid "${0} will happen on the following dates"
 msgstr "${0} se celebrará en las siguientes fechas"
 
 msgid "1 Hour"
-msgstr ""
+msgstr "1 Hora"
 
 msgid ""
 "A person presenting information, telling stories, and fostering discussion "
@@ -42,16 +43,16 @@ msgstr ""
 " o colectivo local."
 
 msgid "About This Walk"
-msgstr ""
+msgstr "Sobre este paseo"
 
 msgid "About the Walk Team"
-msgstr ""
+msgstr "Acerca del equipo del paseo"
 
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
 msgid "Add ${0} to Jane's Walk"
-msgstr ""
+msgstr "Añade a ${0} a Jane's Walk"
 
 msgid "Add Additional Dates"
 msgstr "Añade fechas adicionales"
@@ -66,13 +67,13 @@ msgid "Add members to your team"
 msgstr "Añade miembros a tu equipo"
 
 msgid "After"
-msgstr ""
+msgstr "Después"
 
 msgid "All"
-msgstr ""
+msgstr "Todas"
 
 msgid "Before"
-msgstr ""
+msgstr "Antes"
 
 msgid "Bicycles welcome"
 msgstr "Bicicletas bienvenidas"
@@ -96,16 +97,16 @@ msgid "Choose up to ${0}"
 msgstr "Elige hasta ${0}"
 
 msgid "Close"
-msgstr ""
+msgstr "Cerrado"
 
 msgid "Coming soon!"
-msgstr ""
+msgstr "¡Próximamente!"
 
 msgid "Community Voice"
-msgstr ""
+msgstr "Portavoz de la comunidad"
 
 msgid "Connect with Fellow organizers"
-msgstr ""
+msgstr "Contacta con otros organizadores"
 
 msgid "Contact"
 msgstr "Contacto"
@@ -114,13 +115,16 @@ msgid "Create Your Team"
 msgstr "Crea tu equipo"
 
 msgid "Curbs and steps"
-msgstr ""
+msgstr "Bordillos y escalones"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tablero"
 
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
+
+msgid "Dates & Times"
+msgstr "Fechas y horarios"
 
 msgid "Describe Your Walk"
 msgstr "Describe Tu Paseo"
@@ -135,9 +139,11 @@ msgid ""
 "Don't know what kind of walk to lead? Here are some fun ones from around the"
 " world."
 msgstr ""
+"¿No sabes qué tipo de paseo guiar? Aquí hay algunos ejemplos divertidos de "
+"todas partes del mundo."
 
 msgid "Drag or click here to replace your Walk's image."
-msgstr ""
+msgstr "Arrastra o pulsa aquí para reemplazar la imagen de tu paseo."
 
 msgid "Drag your Walk's preview image here, or click to upload."
 msgstr ""
@@ -145,37 +151,38 @@ msgstr ""
 "subirla."
 
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 msgid "Edit Profile"
-msgstr ""
+msgstr "Editar perfil"
 
 msgid "Ended"
-msgstr ""
+msgstr "Finalizado"
 
 msgid "Export Spreadsheet"
-msgstr ""
+msgstr "Exporta Hoja de cálculo"
 
 msgid "Extra info"
 msgstr "Información extra:"
 
 msgid "Files"
-msgstr ""
+msgstr "Archivos"
 
 msgid "Find citizen-led walks in your city"
-msgstr ""
+msgstr "Encuentra paseos guiados por personas que viven en tu ciudad"
 
 msgid "Finish"
 msgstr "Finalizar"
 
 msgid "Got a question? Reach out to a fellow City Organizer for help."
 msgstr ""
+"¿Alguna duda? Comunícate con algún Organizador Local para más información."
 
 msgid "Header Image"
 msgstr "Imagen de cabecera"
 
 msgid "Hi, ${0}!"
-msgstr ""
+msgstr "¡Hola, ${0}!"
 
 msgid "Hit enter to go to next field, or shift+enter to add a line break."
 msgstr ""
@@ -187,10 +194,10 @@ msgstr ""
 "¿Cómo puede llegar la gente al Punto de Encuentro en transporte público?"
 
 msgid "How long is your walk, approximately?"
-msgstr ""
+msgstr "¿Cuál es la duración del paseo aproximadamente?"
 
 msgid "How to find us"
-msgstr ""
+msgstr "Cómo encontrarnos"
 
 msgid "How will people find you?"
 msgstr "¿Cómo te reconocerán?"
@@ -206,32 +213,36 @@ msgid ""
 "In ${0}, ${1} Walk Leaders led ${2} walks since its first Jane's Walk in "
 "${3}."
 msgstr ""
+"En ${0}, los guías de paseos de ${1} realizaron ${2} paseos desde su primer "
+"Jane's Walk en ${3}."
 
 msgid "Information about stop"
 msgstr "Información sobre la parada"
 
 msgid "Keep looking."
-msgstr ""
+msgstr "Sigue buscando"
 
 msgid "Last stop"
 msgstr "Última parada"
 
 msgid "Lead a Walk"
-msgstr ""
+msgstr "Guía un paseo"
 
 msgid ""
 "Leading your first or fifth walk? Here are some tips from the Jane's Walk "
 "crew!"
 msgstr ""
+"¿Guiando tu primer o quinto paseo? Aquí hay algunos consejos del equipo de "
+"Jane's Walk."
 
 msgid "Led by ${0}"
-msgstr ""
+msgstr "Guiado por ${0}"
 
 msgid "Leisurely pace"
-msgstr ""
+msgstr "A paso lento"
 
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 msgid "Location of stop"
 msgstr "Localización de la parada"
@@ -240,19 +251,19 @@ msgid "Looks like there are a few things your Walk is missing."
 msgstr "Parece que a tu paseo le faltan algunas cosas"
 
 msgid "Lowlight conditions"
-msgstr ""
+msgstr "Condiciones de baja visibilidad"
 
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 msgid "Meet at ${0}"
-msgstr ""
+msgstr "Encontrarse en ${0}"
 
 msgid "Meeting Place"
 msgstr "Punto de Encuentro"
 
 msgid "Meeting at ${0}"
-msgstr ""
+msgstr "Encontrarse a las ${0}"
 
 msgid "Meeting place"
 msgstr "Punto de encuentro"
@@ -261,7 +272,7 @@ msgid "Move the map"
 msgstr "Mueve el mapa"
 
 msgid "My Walks"
-msgstr ""
+msgstr "Mis paseos"
 
 msgid "Name"
 msgstr "Nombre"
@@ -273,10 +284,10 @@ msgid "Organizer"
 msgstr "Organizador"
 
 msgid "Other Notes"
-msgstr ""
+msgstr "Otra información"
 
 msgid "Parking Availability"
-msgstr ""
+msgstr "Disponibilidad de aparcamiento"
 
 msgid ""
 "People who are helping out on your Walk. They could be there to help take "
@@ -297,22 +308,22 @@ msgstr ""
 "gente cómo te podrá identificar."
 
 msgid "Please Note"
-msgstr ""
+msgstr "Por favor tener en cuenta"
 
 msgid "Preview"
 msgstr "Previsualizar"
 
 msgid "Promote"
-msgstr ""
+msgstr "Corre la voz"
 
 msgid "Publish Walk"
 msgstr "Publicar Paseo"
 
 msgid "Publishing..."
-msgstr ""
+msgstr "Publicando..."
 
 msgid "Recap"
-msgstr ""
+msgstr "Resumen"
 
 msgid "Region"
 msgstr "Región"
@@ -328,22 +339,22 @@ msgstr ""
 "puedan limitar la movilidad."
 
 msgid "Role"
-msgstr ""
+msgstr "Rol"
 
 msgid "Route May Contain"
-msgstr ""
+msgstr "La ruta puede contener"
 
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 msgid "Save the Date!"
 msgstr "¡Apúntate la fecha!"
 
 msgid "Search in Walks below"
-msgstr ""
+msgstr "Buscar en paseos más abajo"
 
 msgid "Seated areas available along route"
-msgstr ""
+msgstr "Lugares para sentarse disponibles a lo largo de la ruta"
 
 msgid "Share Your Route"
 msgstr "Comparte Tu Ruta"
@@ -361,10 +372,15 @@ msgid "Steep hills"
 msgstr "Pendientes pronunciadas"
 
 msgid "Taking Public Transit"
-msgstr ""
+msgstr "¿Cómo llegar en transporte público?"
 
 msgid "That's everything."
 msgstr "Esto es todo."
+
+msgid "The Walk will save as you go - no need to click 'save'."
+msgstr ""
+"El paseo se guarda a medida que avanzas, no es necesario  pulsar la tecla "
+"'guardar'."
 
 msgid "The name of my walk"
 msgstr "El nombre de mi paseo"
@@ -373,16 +389,16 @@ msgid "Themes"
 msgstr "Temáticas"
 
 msgid "This is a bicycle tour, you must bring a bicycle"
-msgstr ""
+msgstr "Este es un paseo en bici, hay que venir con bicicleta"
 
 msgid "Time"
-msgstr ""
+msgstr "Hora"
 
 msgid "Tips on leading a walk"
-msgstr ""
+msgstr "Consejos para liderar un paseo"
 
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 msgid "Undo"
 msgstr "Deshacer"
@@ -391,7 +407,7 @@ msgid "Uneven terrain"
 msgstr "Terreno irregular"
 
 msgid "Use these files to promote Jane's Walk in your city"
-msgstr ""
+msgstr "Utiliza estos documentos para promocionar Jane's Walk en tu ciudad"
 
 msgid "Volunteers"
 msgstr "Voluntarios"
@@ -406,28 +422,28 @@ msgid "Walk Leader: ${0}"
 msgstr "Walk Leader: ${0}"
 
 msgid "Walk Route"
-msgstr ""
+msgstr "Ruta del paseo"
 
 msgid "Walk Title"
-msgstr ""
+msgstr "Título del paseo"
 
 msgid "Walk Volunteer"
-msgstr ""
+msgstr "Voluntario del paseo"
 
 msgid "Walk led by ${0}"
-msgstr ""
+msgstr "Paseo liderado por ${0}"
 
 msgid "Walks from around the world"
-msgstr ""
+msgstr "Paseos de todas partes del mundo"
 
 msgid "Walks in My City"
-msgstr ""
+msgstr "Paseos en mi ciudad"
 
 msgid "Want help promoting Jane's Walk?"
-msgstr ""
+msgstr "¿Quieres ayuda para promocionar Jane's Walk?"
 
 msgid "We couldn't find any matching walks."
-msgstr ""
+msgstr "No hemos encontrado paseos compatibles."
 
 msgid ""
 "We recommend wider images, around 600 pixels wide, over taller ones. They "
@@ -437,7 +453,7 @@ msgstr ""
 "que altas. Quedarán mejor en la parte superior de la página de tu paseo."
 
 msgid "Website"
-msgstr ""
+msgstr "Página web"
 
 msgid ""
 "What bus, streetcar, subway, etc. routes would you recommend? How can they "
@@ -459,13 +475,13 @@ msgstr ""
 "conversación mientras caminais."
 
 msgid "Why did you describe this walk as having: "
-msgstr ""
+msgstr "Por qué describiste tu paseo como:"
 
 msgid "With Past Walks"
-msgstr ""
+msgstr "Con paseos anteriores"
 
 msgid "Without Past Walks"
-msgstr ""
+msgstr "Sin paseos anteriores"
 
 msgid "You're all set."
 msgstr "Ya está listo."
