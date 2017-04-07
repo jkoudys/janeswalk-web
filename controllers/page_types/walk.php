@@ -271,7 +271,7 @@ EOT;
         // Check for permissions first
         $cp = new Permissions($this->walk->getPage());
         if (!$cp->canEditPageContents()) {
-            Log::addEntry(json_encode($payload), 'Walk update permissions');
+            Log::addEntry(json_encode($payload), 'Walk permissions ' . ($publish ? 'post' : 'update'));
 
             echo json_encode([
                 'error' => 'You do not have permission to edit this walk.',
