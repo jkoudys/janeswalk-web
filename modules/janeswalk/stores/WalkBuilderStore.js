@@ -57,6 +57,9 @@ let times = iList();
 let themes = iSet();
 let accessibles = iSet();
 
+// Error messages
+let error;
+
 export const memberDefaults = {
   leader: {
     type: 'leader',
@@ -153,6 +156,7 @@ const WalkBuilderStore = {
   ...Store,
 
   getAccessibles: () => accessibles,
+  getError: () => error,
   getImages: () => images,
   getLongDescripton: () => longDescription,
   getOpen: () => open,
@@ -321,6 +325,7 @@ const WalkBuilderStore = {
       points = points.insert(i + change, point);
     },
     [AT.WB_POINT_UNDO]: () => { if (pointsHistory.length) points = pointsHistory.pop(); },
+    [AT.WB_ERROR_SET]: ({ value }) => { error = value; },
   }, () => WalkBuilderStore.emitChange()),
 };
 

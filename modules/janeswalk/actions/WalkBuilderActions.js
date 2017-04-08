@@ -109,3 +109,7 @@ export function undoPoint() {
 export function setWard(value) {
   dispatch({ type: AT.WB_SET_WARD, value });
 }
+
+export function setError(value) {
+  dispatch({ type: AT.WB_ERROR_SET, value });
+}

@@ -4,7 +4,7 @@
  * The main walk builder itself. The component for building a walk!
  */
 import { createElement as ce, Component } from 'react';
-import { Button, Form, Modal, Row, Col } from 'antd';
+import { Button, Form, Modal, Row, Col, notification } from 'antd';
 
 import t from 'es2015-i18n-tag';
 import WalkBuilderStore, { memberDefaults } from 'janeswalk/stores/WalkBuilderStore';
@@ -30,6 +30,7 @@ const { assign } = Object;
 
 const buildState = () => ({
   ...WalkBuilderStore.getWalk(),
+  error: WalkBuilderStore.getError(),
   canUndo: !!WalkBuilderStore.getPointsHistory().length,
   empty: WalkBuilderStore.getEmptyRequiredFields(),
 });
@@ -50,6 +51,18 @@ export default class WalkBuilder extends Component {
   }
 
   onChange = () => this.setState(buildState);
+
+  componentWillUpdate(nextProps, { error }) {
+    // If it's a newly received error, and not the one we're currently showing.
+    if (error && this.state.error !== error) {
+      notification.error({
+        message: t`Error`,
+        description: `${error} ` + t`You may need to log in again. Please contact tech@janeswalk.org for help if you repeatedly see this problem.`,
+        duration: 0,
+        placement: 'bottomRight',
+      });
+    }
+  }
 
   // { value, onChange } for each form field
   handlers = {

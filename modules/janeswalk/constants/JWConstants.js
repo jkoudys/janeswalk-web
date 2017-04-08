@@ -38,6 +38,7 @@ const ActionTypes = [
   'WB_POINT_UPDATE',
   'WB_POINT_INDEX',
   'WB_POINT_UNDO',
+  'WB_ERROR_SET',
 
   // City
   'CITY_RECEIVE',
