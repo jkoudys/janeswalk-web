@@ -344,7 +344,7 @@ EOT;
         $this->addHeaderItem($doc->saveHTML());
         $this->addHeaderItem(self::buildPageMap($this->walk));
         $this->addHeaderItem(self::buildTwitterSummary($this->walk));
-
+        $this->addHeaderItem('<script type="application/ld+json">' . json_encode($this->ldJson()) . '</script>');
         // Check edit permissions
         $cp = new Permissions($this->walk->getPage());
         $this->set('canEdit', $cp->canEditPageContents());
@@ -400,5 +400,52 @@ EOT;
         // Clear out the parent full-page cache
         $pageCache = PageCache::getLibrary();
         $pageCache->purge($parent);
+    }
+
+    public function ldJson()
+    {
+        $nh = new NavigationHelper();
+        $im = Loader::helper('image');
+
+        $leaders = join(array_map(function ($leader) {
+            return trim("{$leader['name-first']} {$leader['name-last']}");
+        }, (array) $walk->team), ', ');
+
+        if (count($walk->time['slots'])) {
+            list($start, $end) = $walk->time['slots'][0];
+        } else {
+            $start = time();
+            $end = time();
+        }
+
+        $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+
+        $ld = [
+            '@context' => 'http://schema.org',
+            '@type' => 'Event',
+            'name' => (string) $this->walk,
+            'image' => $thumbnail,
+            'startDate' => date('c', $start),
+            'endDate' => date('c', $end),
+            'description' => $this->walk->shortDescription,
+            'url' => $nh->getCollectionURL($this->c),
+        ];
+
+        list($meeting) = $this->walk->features;
+        if ($meeting) {
+            list($lng, $lat) = $meeting['geometry']['coordinates'];
+            $ld['location'] = [
+                '@type' => 'Place',
+                'geo' => [
+                    '@type' => 'GeoCoordinates',
+                    'latitude' => (string) $lng,
+                    'longitude' => (string) $lat,
+                ],
+                'name' => t('Meeting Place'),
+                'address' => $meeting['properties']['title'] . ' ' . $meeting['properties']['description'],
+            ];
+        }
+
+        return $ld;
     }
 }
