@@ -336,7 +336,7 @@ EOT;
                 'og:url' => $nh->getCollectionURL($c),
                 'og:title' => $c->getCollectionName(),
                 'og:description' => $c->getAttribute('shortdescription'),
-                'description' => $c->getAttribute('shortdescription'),
+                'Description' => $c->getAttribute('shortdescription'),
             ],
             $doc
         );
@@ -350,6 +350,7 @@ EOT;
         $this->set('canEdit', $cp->canEditPageContents());
 
         /* Helpers to use in the view */
+        $this->set('pageDescription', $c->getAttribute('shortDescription'));
         $this->set('im', $im);
         $this->set('th', Loader::helper('theme'));
         $this->set('eid', $c->getAttribute('eventbrite'));
