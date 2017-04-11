@@ -161,10 +161,10 @@ echo <<< EOT
      {$area('All Walks List')}
  </div>
 </section>
-{$Blog}
 <section class="sponsors">
     {$area('Sponsors')}
 </section>
+{$Blog}
 {$scripts}
 EOT;
 
