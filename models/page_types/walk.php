@@ -62,6 +62,9 @@ class Walk extends \Model implements \JsonSerializable
         'wards' => 'walk_wards',
     ];
 
+    // Optimisation cache for the default teams
+    static $defaultTeams = [];
+
     /*
      * __construct
      *
@@ -133,9 +136,17 @@ class Walk extends \Model implements \JsonSerializable
      */
     protected function getDefaultTeam(): array
     {
+        $ownerId = $this->page->getCollectionUserID();
+        $parentPageId = $this->page->getCollectionParentID();
+        $cacheKey = "{$ownerId}-{$parentPageId}";
+
+        if (array_key_exists($cacheKey, self::$defaultTeams)) {
+            return self::$defaultTeams[$cacheKey];
+        }
+
         // Default team is Walk owner, and city organizer
-        $owner = UserInfo::getByID($this->page->getCollectionUserID());
-        $co = UserInfo::getByID(Page::getByID($this->page->getCollectionParentID())->getCollectionUserID());
+        $owner = UserInfo::getByID($ownerId);
+        $co = UserInfo::getByID(Page::getByID($parentPageId)->getCollectionUserID());
 
         $getTeamSchema = function ($ui) {
             return [
@@ -148,10 +159,12 @@ class Walk extends \Model implements \JsonSerializable
             ];
         };
 
-        return [
+        self::$defaultTeams[$cacheKey] = [
             array_merge($getTeamSchema($owner), ['type' => 'leader']),
             array_merge($getTeamSchema($co), ['type' => 'organizer']),
         ];
+
+        return self::$defaultTeams[$cacheKey];
     }
 
     /**

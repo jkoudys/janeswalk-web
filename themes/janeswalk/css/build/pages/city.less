@@ -237,7 +237,7 @@ body.city-page {
     > #city-details {
         .clearfix();
         background: #fff;
-        padding: 30px 0 (@grid-gutter-width * 2) 0;
+        padding: @grid-gutter-width 0;
         margin: 0 auto;
         border-bottom: 2px solid fade(@color-darkgrey, 20%);
         position: relative;
@@ -278,24 +278,6 @@ body.city-page {
             @media (max-width: @screen-md-min) {
                 right: -20px;
                 display: none;
-            }
-
-            &:after {
-                content: " ";
-                position: absolute;
-                width: 0px;
-                height: 0px;
-                bottom: -40px;
-                z-index: -1;
-                right: 0;
-                background-color: transparent;
-                border-style: solid;
-                border-width: 15px 15px 15px 0;
-                border-color: #d54e0e transparent transparent transparent;
-                box-shadow: none;
-                @media (max-width: @screen-md-min) { 
-                    display: none;
-                }
             }
 
             &:hover {
@@ -508,19 +490,14 @@ body.city-page {
     }
 
     > .sponsors {
-        .make-md-column(12);
-        background: #fff;
-        // Sponsors section
-        h3 {
-            display: block;
-            clear: both;
-        }
+        min-height: 1px;
+        padding: @grid-gutter-width;
+        background-color: #fff;
     }
-
 
     // An optional blog at the bottom
     > #blog {
-        margin: -5px auto 0 auto;
+        margin: 0px auto 0 auto;
         padding: 0 @grid-gutter-width @grid-gutter-width*2;
         // max-width: @screen-lg-min;
         width: 100%;

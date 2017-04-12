@@ -72,8 +72,10 @@ class City
         $this->city = $city;
     }
 
-    public function renderWalkCSV()
+    public function renderWalkCSV(array $options = [])
     {
+        $excludePast = $options['excludePast'] ?? true;
+
         $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
         // Check that you have edit permissions on city
         if ((new Permissions($this->city))->canWrite()) {
@@ -86,6 +88,9 @@ class City
             $walks->filterByParentID($this->cityID);
             $walks->filterByCollectionTypeHandle('walk');
             $walks->displayUnapprovedPages();
+            if ($excludePast) {
+                $walks->filterByDateLastModified(date('Y-m-d', strtotime('-6 months')), '>');
+            }
 
             // An 'outing' is one scheduled walk date
             $outings = [];
