@@ -57,7 +57,7 @@ export default class WalkBuilder extends Component {
     if (error && this.state.error !== error) {
       notification.error({
         message: t`Error`,
-        description: `${error} ` + t`You may need to log in again. Please contact tech@janeswalk.org for help if you repeatedly see this problem.`,
+        description: `${error} ` + t`Your changes are not being saved. Try logging in again. Please contact tech@janeswalk.org for help if you repeatedly see this problem.`,
         duration: 0,
         placement: 'bottomRight',
       });
