@@ -28,6 +28,9 @@ msgstr "About the Walk Team"
 msgid "Accessibility"
 msgstr "Accessibility"
 
+msgid "Activism"
+msgstr "Activism"
+
 msgid "Add ${0} to Jane's Walk"
 msgstr "Add ${0} to Jane's Walk"
 
@@ -49,8 +52,20 @@ msgstr "After"
 msgid "All"
 msgstr "All"
 
+msgid "Animals"
+msgstr "Animals"
+
+msgid "Architecture"
+msgstr "Architecture"
+
+msgid "Art"
+msgstr "Art"
+
 msgid "Before"
 msgstr "Before"
+
+msgid "Bicycles only"
+msgstr "Bicycles only"
 
 msgid "Bicycles welcome"
 msgstr "Bicycles welcome"
@@ -70,11 +85,20 @@ msgstr "Busy sidewalks"
 msgid "Choose up to ${0}"
 msgstr "Choose up to ${0}"
 
+msgid "Citizenry"
+msgstr "Citizenry"
+
 msgid "Close"
 msgstr "Close"
 
 msgid "Coming soon!"
 msgstr "Coming soon!"
+
+msgid "Commerce"
+msgstr "Commerce"
+
+msgid "Community"
+msgstr "Community"
 
 msgid "Community Voice"
 msgstr "Community Voice"
@@ -106,6 +130,9 @@ msgstr "Describe Your Walk"
 msgid "Description"
 msgstr "Description"
 
+msgid "Design"
+msgstr "Design"
+
 msgid "Dogs welcome"
 msgstr "Dogs welcome"
 
@@ -127,14 +154,26 @@ msgstr "Edit Profile"
 msgid "Ended"
 msgstr "Ended"
 
+msgid "Error"
+msgstr "Error"
+
 msgid "Export Spreadsheet"
 msgstr "Export Spreadsheet"
 
 msgid "Extra info"
 msgstr "Extra info"
 
+msgid "Family friendly"
+msgstr "Family friendly"
+
 msgid "Files"
 msgstr "Files"
+
+msgid "Film"
+msgstr "Film"
+
+msgid "Filters"
+msgstr "Filters"
 
 msgid "Find citizen-led walks in your city"
 msgstr "Find citizen-led walks in your city"
@@ -142,11 +181,26 @@ msgstr "Find citizen-led walks in your city"
 msgid "Finish"
 msgstr "Finish"
 
+msgid "Food"
+msgstr "Food"
+
+msgid "Gardening"
+msgstr "Gardening"
+
+msgid "Gender"
+msgstr "Gender"
+
 msgid "Got a question? Reach out to a fellow City Organizer for help."
 msgstr "Got a question? Reach out to a fellow City Organizer for help."
 
 msgid "Header Image"
 msgstr "Header Image"
+
+msgid "Health"
+msgstr "Health"
+
+msgid "Heritage"
+msgstr "Heritage"
 
 msgid "Hi, ${0}!"
 msgstr "Hi, ${0}!"
@@ -175,6 +229,9 @@ msgstr "In ${0}, ${1} Walk Leaders led ${2} walks since its first Jane's Walk in
 msgid "Information about stop"
 msgstr "Information about stop"
 
+msgid "International Issues"
+msgstr "International Issues"
+
 msgid "Keep looking."
 msgstr "Keep looking."
 
@@ -196,11 +253,17 @@ msgstr "Leisurely pace"
 msgid "List"
 msgstr "List"
 
+msgid "Literature"
+msgstr "Literature"
+
 msgid "Location of stop"
 msgstr "Location of stop"
 
 msgid "Looks like there are a few things your Walk is missing."
 msgstr "Looks like there are a few things your Walk is missing."
+
+msgid "Low light or nighttime"
+msgstr "Low light or nighttime"
 
 msgid "Lowlight conditions"
 msgstr "Lowlight conditions"
@@ -220,14 +283,29 @@ msgstr "Meeting at ${0}"
 msgid "Meeting place"
 msgstr "Meeting place"
 
+msgid "Military"
+msgstr "Military"
+
 msgid "Move the map"
 msgstr "Move the map"
+
+msgid "Music"
+msgstr "Music"
 
 msgid "My Walks"
 msgstr "My Walks"
 
 msgid "Name"
 msgstr "Name"
+
+msgid "Native Issues"
+msgstr "Native Issues"
+
+msgid "Nature"
+msgstr "Nature"
+
+msgid "Night Life"
+msgstr "Night Life"
 
 msgid "Optional"
 msgstr "Optional"
@@ -247,11 +325,17 @@ msgstr "People who are helping out on your Walk. They could be there to help tak
 msgid "Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
 msgstr "Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
 
+msgid "Play"
+msgstr "Play"
+
 msgid "Please Note"
 msgstr "Please Note"
 
 msgid "Preview"
 msgstr "Preview"
+
+msgid "Print List"
+msgstr "Print List"
 
 msgid "Promote"
 msgstr "Promote"
@@ -267,6 +351,9 @@ msgstr "Recap"
 
 msgid "Region"
 msgstr "Region"
+
+msgid "Religion"
+msgstr "Religion"
 
 msgid "Remember to come back and update this section after you've walked your route once or twice. We strongly encourage you to eliminate accessibility barriers as much as possible, especially those that might limit mobility."
 msgstr "Remember to come back and update this section after you've walked your route once or twice. We strongly encourage you to eliminate accessibility barriers as much as possible, especially those that might limit mobility."
@@ -289,11 +376,17 @@ msgstr "Search in Walks below"
 msgid "Seated areas available along route"
 msgstr "Seated areas available along route"
 
+msgid "Senior Friendly"
+msgstr "Senior Friendly"
+
 msgid "Share Your Route"
 msgstr "Share Your Route"
 
 msgid "Something short and memorable"
 msgstr "Something short and memorable"
+
+msgid "Sports"
+msgstr "Sports"
 
 msgid "Start building your Walk route by choosing "
 msgstr "Start building your Walk route by choosing "
@@ -304,8 +397,20 @@ msgstr "Start by picking a name and meeting time for your Walk."
 msgid "Steep hills"
 msgstr "Steep hills"
 
+msgid "Storytelling"
+msgstr "Storytelling"
+
+msgid "Strollers welcome"
+msgstr "Strollers welcome"
+
+msgid "Suburbs"
+msgstr "Suburbs"
+
 msgid "Taking Public Transit"
 msgstr "Taking Public Transit"
+
+msgid "Technology"
+msgstr "Technology"
 
 msgid "That's everything."
 msgstr "That's everything."
@@ -330,6 +435,9 @@ msgstr "Tips on leading a walk"
 
 msgid "Title"
 msgstr "Title"
+
+msgid "Transportation"
+msgstr "Transportation"
 
 msgid "Undo"
 msgstr "Undo"
@@ -373,6 +481,9 @@ msgstr "Walks in My City"
 msgid "Want help promoting Jane's Walk?"
 msgstr "Want help promoting Jane's Walk?"
 
+msgid "Water"
+msgstr "Water"
+
 msgid "We couldn't find any matching walks."
 msgstr "We couldn't find any matching walks."
 
@@ -391,6 +502,9 @@ msgstr "What can you tell people about the accessibility of this Walk?"
 msgid "What is this Walk about? What questions and issues will you be exploring? Jump-start the discussion by getting people thinking about how they can contribute to your Walking Conversation."
 msgstr "What is this Walk about? What questions and issues will you be exploring? Jump-start the discussion by getting people thinking about how they can contribute to your Walking Conversation."
 
+msgid "Wheelchair accessible"
+msgstr "Wheelchair accessible"
+
 msgid "Why did you describe this walk as having: "
 msgstr "Why did you describe this walk as having: "
 
@@ -403,8 +517,14 @@ msgstr "Without Past Walks"
 msgid "You're all set."
 msgstr "You're all set."
 
+msgid "Your changes are not being saved. Try logging in again. Please contact tech@janeswalk.org for help if you repeatedly see this problem."
+msgstr "Your changes are not being saved. Try logging in again. Please contact tech@janeswalk.org for help if you repeatedly see this problem."
+
 msgid "Your walk in a nutshell"
 msgstr "Your walk in a nutshell"
+
+msgid "contact"
+msgstr "contact"
 
 msgid "email address"
 msgstr "email address"
