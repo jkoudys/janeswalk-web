@@ -1,6 +1,6 @@
 import { createElement as ce } from 'react';
 import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
-import { t2 } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 
 const AddToItinerary = ({ schedule, time, walk, onSchedule, onUnschedule }) => {
   const timeSet = schedule.get(walk) || new Set();
@@ -9,7 +9,9 @@ const AddToItinerary = ({ schedule, time, walk, onSchedule, onUnschedule }) => {
   if (time && time.slots) {
     addButtons = [...time.slots].map(([start, end]) => {
       const date = dateFormatted(start);
-      const duration = t2('%s Hour', '%s Hours', (end - start) / 3600);
+      const hours = (end - start) / 3600;
+      // FIXME: not all languages have the same pluralisation rules
+      const duration = (hours === 1) ? t`${hours} Hour` : t`${hours} Hours`;
       if (timeSet.has(+start)) {
         return ce('h4', { key: `active${start}` },
           `${date}, ${duration}`,

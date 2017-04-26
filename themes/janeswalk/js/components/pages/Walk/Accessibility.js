@@ -32,7 +32,7 @@ function getNotes(checkboxes, tuples) {
   return res;
 }
 
-const lis = v => ce('li', { key: `accessItem${v}` }, v);
+const lis = v => ce('li', { key: `accessItem${v}` }, t([v]));
 
 export default function WalkAccessibility({ flags = [], accessibleInfo }) {
   const notes = getNotes(flags, pleaseNote);

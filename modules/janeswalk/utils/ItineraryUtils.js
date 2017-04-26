@@ -3,14 +3,23 @@ let dtfDate;
 
 // Date formatted
 if (typeof(Intl) === 'object') {
-  dtfDate = new Intl.DateTimeFormat('en-US', {
+  const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
     timeZone: 'UTC',
-  });
+  };
+
+  // FIXME: don't rely on this global
+  try {
+    const { locale: { name: locale = 'en-US' } = {} } = window.JanesWalk;
+    debugger;
+    dtfDate = new Intl.DateTimeFormat(locale.replace(/_/g, '-'), options);
+  } catch(e) {
+    dtfDate = new Intl.DateTimeFormat('en-US', options);
+  }
 }
 
 // Cache the parsed dates

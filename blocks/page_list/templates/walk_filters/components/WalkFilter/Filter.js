@@ -6,7 +6,7 @@ const Filter = ({ name, selected, onChange, data }) => (
     ce('label', null, name),
     ce('select', { value: selected, onChange: ({ target: { value } }) => onChange(value) },
       ce('option', { value: '' }, t`All`),
-      Object.entries(data).map(([value, description]) => ce('option', { key: value, value }, description)),
+      Object.entries(data).map(([value, description]) => ce('option', { key: value, value }, t([description]))),
     ),
   )
 );

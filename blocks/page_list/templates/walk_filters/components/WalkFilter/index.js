@@ -174,10 +174,10 @@ export default class WalkFilter extends Component {
       ce('section', { className: 'ccm-block-page-list-walk-filters' },
         ce('div', { className: 'walk-filters' },
           ce('a', { className: 'filter-header', onClick: this.handleToggleFilters },
-            ce('i', { className: `fa fa-chevron-${displayFilters ? 'down' : 'right'}` }, 'Filters'),
+            ce('i', { className: `fa fa-chevron-${displayFilters ? 'down' : 'right'}` }, t`Filters`),
           ),
           ce('a', { className: 'print-button', onClick: this.printList },
-            ce('i', { className: 'fa fa-print' }, 'Print List'),
+            ce('i', { className: 'fa fa-print' }, t`Print List`),
           ),
           displayFilters ? ce(FilterList, {
             disabledStartDate,

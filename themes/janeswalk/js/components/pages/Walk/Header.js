@@ -1,6 +1,6 @@
 import { PropTypes, createElement as ce } from 'react';
 
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 const WalkHeader = ({
@@ -43,7 +43,7 @@ const WalkHeader = ({
             ),
           ),
           ce('li', null,
-            ce('a', { href: cityUrl }, `${cityName} walks`),
+            ce('a', { href: cityUrl }, t`${cityName} walks`),
           ),
           ce('li', { className: 'active' }, title),
         ),

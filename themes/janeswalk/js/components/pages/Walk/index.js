@@ -120,9 +120,7 @@ export default class WalkPage extends Component {
           onAdd: this.handleAdd,
           onRemove: this.handleRemove,
         }),
-//        ce(Affix, { offsetTop: Layout.Nav.height - Layout.Nav.pad },
-          ce(Menu, { ...this.state, title, leaders, themes }),
-//        ),
+        ce(Menu, { ...this.state, title, leaders, themes }),
         ce(Description, walk),
         hasMarkers ? ce(WalkMap, { features }) : null,
         hasMarkers ? [
