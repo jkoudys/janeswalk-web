@@ -77,10 +77,12 @@ class WalkFormController extends Controller
         }
 
         // Load our city
-        $latlng = explode(',', $cityPage->getAttribute('latlng'));
-        // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
+        list($lat, $lng) = explode(',', $cityPage->getAttribute('latlng'));
+        // If you don't have a lat and a lng, final resort is Toronto.
+        // It's at least better than being 400km off the coast of Nigeria.
         if (count((array) $latlng) !== 2) {
-            $latlng = [43.653226,-79.3831843];
+            $lat = 43.653226;
+            $lng = -79.3831843;
         }
 
         // Instantiate as models, for JSON serialization
@@ -120,8 +122,8 @@ class WalkFormController extends Controller
         $this->set('imgHelper', $imgHelper);
         $this->set('wards', $wards);
         $this->set('is_nyc', $is_nyc);
-        $this->set('lat', $latlng[0]);
-        $this->set('lng', $latlng[1]);
+        $this->set('lat', $lat);
+        $this->set('lng', $lng);
         $this->set('bodyData', $this->bodyData);
 
         // Load JS we need in the form

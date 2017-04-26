@@ -105,7 +105,8 @@ EOT;
         }
     );
 
-    $CityOrganizerDetails = <<< EOT
+    if ($city->cityOrganizer) {
+        $CityOrganizerDetails = <<< EOT
 <section class="city-organizer">
     <div class="city-organizer-details">
         {$COAvatar}
@@ -122,6 +123,7 @@ EOT;
     </div>
 </section>
 EOT;
+    }
 }
 
 // Template for JavaScript events

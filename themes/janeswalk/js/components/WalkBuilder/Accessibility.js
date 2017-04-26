@@ -44,7 +44,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
     },
       ce(TextArea, {
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
-        maxLength: 150,
+        maxLength: 300,
         value: accessibleInfo,
         onKeyPress: kbJump,
         onChange: handlers.accessibleInfo,

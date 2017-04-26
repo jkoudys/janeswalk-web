@@ -51,6 +51,9 @@ msgstr "Acerca del equipo del paseo"
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
+msgid "Activism"
+msgstr "Activismo"
+
 msgid "Add ${0} to Jane's Walk"
 msgstr "Añade a ${0} a Jane's Walk"
 
@@ -72,8 +75,20 @@ msgstr "Después"
 msgid "All"
 msgstr "Todas"
 
+msgid "Animals"
+msgstr "Animales"
+
+msgid "Architecture"
+msgstr "Arquitectura"
+
+msgid "Art"
+msgstr "Arte"
+
 msgid "Before"
 msgstr "Antes"
+
+msgid "Bicycles only"
+msgstr "Sólo con bicicletas"
 
 msgid "Bicycles welcome"
 msgstr "Bicicletas bienvenidas"
@@ -96,11 +111,20 @@ msgstr "Aceras muy transitadas"
 msgid "Choose up to ${0}"
 msgstr "Elige hasta ${0}"
 
+msgid "Citizenry"
+msgstr "Ciudadanía"
+
 msgid "Close"
 msgstr "Cerrado"
 
 msgid "Coming soon!"
 msgstr "¡Próximamente!"
+
+msgid "Commerce"
+msgstr "Comercio"
+
+msgid "Community"
+msgstr "Comunidad"
 
 msgid "Community Voice"
 msgstr "Portavoz de la comunidad"
@@ -132,6 +156,9 @@ msgstr "Describe Tu Paseo"
 msgid "Description"
 msgstr "Descripción"
 
+msgid "Design"
+msgstr "Diseño"
+
 msgid "Dogs welcome"
 msgstr "Puedes llevar perros"
 
@@ -159,14 +186,26 @@ msgstr "Editar perfil"
 msgid "Ended"
 msgstr "Finalizado"
 
+msgid "Error"
+msgstr "Error"
+
 msgid "Export Spreadsheet"
 msgstr "Exporta Hoja de cálculo"
 
 msgid "Extra info"
 msgstr "Información extra:"
 
+msgid "Family friendly"
+msgstr "Puede venir toda la familia"
+
 msgid "Files"
 msgstr "Archivos"
+
+msgid "Film"
+msgstr "Cinematografía"
+
+msgid "Filters"
+msgstr "Filtros"
 
 msgid "Find citizen-led walks in your city"
 msgstr "Encuentra paseos guiados por personas que viven en tu ciudad"
@@ -174,12 +213,27 @@ msgstr "Encuentra paseos guiados por personas que viven en tu ciudad"
 msgid "Finish"
 msgstr "Finalizar"
 
+msgid "Food"
+msgstr "Comida"
+
+msgid "Gardening"
+msgstr "Jardinería"
+
+msgid "Gender"
+msgstr "Género"
+
 msgid "Got a question? Reach out to a fellow City Organizer for help."
 msgstr ""
 "¿Alguna duda? Comunícate con algún Organizador Local para más información."
 
 msgid "Header Image"
 msgstr "Imagen de cabecera"
+
+msgid "Health"
+msgstr "Salud"
+
+msgid "Heritage"
+msgstr "Patrimonio"
 
 msgid "Hi, ${0}!"
 msgstr "¡Hola, ${0}!"
@@ -219,6 +273,9 @@ msgstr ""
 msgid "Information about stop"
 msgstr "Información sobre la parada"
 
+msgid "International Issues"
+msgstr "Cuestiones internacionales"
+
 msgid "Keep looking."
 msgstr "Sigue buscando"
 
@@ -244,11 +301,17 @@ msgstr "A paso lento"
 msgid "List"
 msgstr "Lista"
 
+msgid "Literature"
+msgstr "Literatura"
+
 msgid "Location of stop"
 msgstr "Localización de la parada"
 
 msgid "Looks like there are a few things your Walk is missing."
 msgstr "Parece que a tu paseo le faltan algunas cosas"
+
+msgid "Low light or nighttime"
+msgstr "Poca luz o de noche"
 
 msgid "Lowlight conditions"
 msgstr "Condiciones de baja visibilidad"
@@ -268,14 +331,29 @@ msgstr "Encontrarse a las ${0}"
 msgid "Meeting place"
 msgstr "Punto de encuentro"
 
+msgid "Military"
+msgstr "Militar"
+
 msgid "Move the map"
 msgstr "Mueve el mapa"
+
+msgid "Music"
+msgstr "Música"
 
 msgid "My Walks"
 msgstr "Mis paseos"
 
 msgid "Name"
 msgstr "Nombre"
+
+msgid "Native Issues"
+msgstr "Cuestiones locales"
+
+msgid "Nature"
+msgstr "Naturaleza"
+
+msgid "Night Life"
+msgstr "Vida nocturna"
 
 msgid "Optional"
 msgstr "Opcional"
@@ -307,11 +385,17 @@ msgstr ""
 "un objeto relacionado con el tema de tu paseo. En cualquier caso, dile a la "
 "gente cómo te podrá identificar."
 
+msgid "Play"
+msgstr "Juegos"
+
 msgid "Please Note"
 msgstr "Por favor tener en cuenta"
 
 msgid "Preview"
 msgstr "Previsualizar"
+
+msgid "Print List"
+msgstr "Imprime documento"
 
 msgid "Promote"
 msgstr "Corre la voz"
@@ -327,6 +411,9 @@ msgstr "Resumen"
 
 msgid "Region"
 msgstr "Región"
+
+msgid "Religion"
+msgstr "Religión"
 
 msgid ""
 "Remember to come back and update this section after you've walked your route"
@@ -356,11 +443,17 @@ msgstr "Buscar en paseos más abajo"
 msgid "Seated areas available along route"
 msgstr "Lugares para sentarse disponibles a lo largo de la ruta"
 
+msgid "Senior Friendly"
+msgstr "Apto para personas mayores"
+
 msgid "Share Your Route"
 msgstr "Comparte Tu Ruta"
 
 msgid "Something short and memorable"
 msgstr "Algo corto y fácil de recordar"
+
+msgid "Sports"
+msgstr "Deportes"
 
 msgid "Start building your Walk route by choosing "
 msgstr "Comienza a construir la ruta de tu paseo seleccionando"
@@ -371,8 +464,20 @@ msgstr "Comienza eligiendo un nombre y una hora de salida para tu paseo."
 msgid "Steep hills"
 msgstr "Pendientes pronunciadas"
 
+msgid "Storytelling"
+msgstr "Narración de historias"
+
+msgid "Strollers welcome"
+msgstr "Apto para cochecitos de bebé"
+
+msgid "Suburbs"
+msgstr "Afueras"
+
 msgid "Taking Public Transit"
 msgstr "¿Cómo llegar en transporte público?"
+
+msgid "Technology"
+msgstr "Tecnología"
 
 msgid "That's everything."
 msgstr "Esto es todo."
@@ -399,6 +504,9 @@ msgstr "Consejos para liderar un paseo"
 
 msgid "Title"
 msgstr "Título"
+
+msgid "Transportation"
+msgstr "Transporte"
 
 msgid "Undo"
 msgstr "Deshacer"
@@ -442,6 +550,9 @@ msgstr "Paseos en mi ciudad"
 msgid "Want help promoting Jane's Walk?"
 msgstr "¿Quieres ayuda para promocionar Jane's Walk?"
 
+msgid "Water"
+msgstr "Agua"
+
 msgid "We couldn't find any matching walks."
 msgstr "No hemos encontrado paseos compatibles."
 
@@ -474,6 +585,9 @@ msgstr ""
 "debate haciendo a la gente pensar en cómo ellos pueden contribuir a la "
 "conversación mientras caminais."
 
+msgid "Wheelchair accessible"
+msgstr "Accesible para personas en silla de ruedas"
+
 msgid "Why did you describe this walk as having: "
 msgstr "Por qué describiste tu paseo como:"
 
@@ -486,8 +600,19 @@ msgstr "Sin paseos anteriores"
 msgid "You're all set."
 msgstr "Ya está listo."
 
+msgid ""
+"Your changes are not being saved. Try logging in again. Please contact "
+"tech@janeswalk.org for help if you repeatedly see this problem."
+msgstr ""
+"Tus modificaciones no han sido guardadas. Intenta registrarte nuevamente. "
+"Por favor contacta tech@janeswalk.org para ayuda si sigues teniendo el mismo"
+" problema."
+
 msgid "Your walk in a nutshell"
 msgstr "Un resumen de tu paseo"
+
+msgid "contact"
+msgstr "Contacto"
 
 msgid "email address"
 msgstr "correo electrónico"
