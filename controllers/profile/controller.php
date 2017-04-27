@@ -154,8 +154,15 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function exportCity(int $cityID = null)
     {
-        $exporter = new CityExporter(Page::getByID($cityID));
-        $exporter->renderWalkCSV();
+        $city = Page::getByID($cityID);
+
+        // Check that you have edit permissions on city
+        if ((new Permissions($city))->canWrite()) {
+            $exporter = new CityExporter($city);
+            $exporter->renderWalkCSV();
+        } else {
+            throw new \RuntimeException('Attempted to export city walks without sufficient permissions.');
+        }
     }
 
     /**

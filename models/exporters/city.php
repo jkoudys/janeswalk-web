@@ -77,52 +77,47 @@ class City
         $excludePast = $options['excludePast'] ?? true;
 
         $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
-        // Check that you have edit permissions on city
-        if ((new Permissions($this->city))->canWrite()) {
-            // Set header so it d/l's as a CSV file
-            header('Content-Type: text/csv');
-            header('Content-Disposition: attachment;filename=' . preg_replace("/[^A-Za-z0-9 ]/", '', $this->city->getCollectionName()) . ' Walks.csv');
-            echo join(',', $columns);
-            // Load basic data for all the walks
-            $walks = new PageList();
-            $walks->filterByParentID($this->cityID);
-            $walks->filterByCollectionTypeHandle('walk');
-            $walks->displayUnapprovedPages();
-            if ($excludePast) {
-                $walks->filterByDateLastModified(date('Y-m-d', strtotime('-6 months')), '>');
-            }
-
-            // An 'outing' is one scheduled walk date
-            $outings = [];
-            foreach ($walks->get() as $page) {
-                $walk = new Walk($page);
-
-                // If no time set, put it in as-is
-                if (count($walk->time['slots'])) {
-                    foreach ((array) $walk->time['slots'] as $slot) {
-                        $dateWalk = clone $walk;
-                        $dateWalk->time['slots'] = [$slot];
-                        $outings[] = $dateWalk;
-                    }
-                } else {
-                    $outings[] = $walk;
-                }
-            }
-            usort($outings, function ($a, $b) {
-                $ta = $a->time['slots'][0][0];
-                $tb = $b->time['slots'][0][0];
-                return $ta - $tb;
-            });
-
-            foreach ($outings as $outing) {
-                echo PHP_EOL;
-                foreach ($columns as $column) {
-                    echo '"', addslashes(str_replace(["\n", "\r"], '', self::getColumn($column, $outing))), '",';
-                }
-            }
-            exit;
-        } else {
-            throw new \RuntimeException('Attempted to export city walks without sufficient permissions.');
+        // Set header so it d/l's as a CSV file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment;filename=' . preg_replace("/[^A-Za-z0-9 ]/", '', $this->city->getCollectionName()) . ' Walks.csv');
+        echo join(',', $columns);
+        // Load basic data for all the walks
+        $walks = new PageList();
+        $walks->filterByParentID($this->cityID);
+        $walks->filterByCollectionTypeHandle('walk');
+        $walks->displayUnapprovedPages();
+        if ($excludePast) {
+            $walks->filterByDateLastModified(date('Y-m-d', strtotime('-6 months')), '>');
         }
+
+        // An 'outing' is one scheduled walk date
+        $outings = [];
+        foreach ($walks->get() as $page) {
+            $walk = new Walk($page);
+
+            // If no time set, put it in as-is
+            if (count($walk->time['slots'])) {
+                foreach ((array) $walk->time['slots'] as $slot) {
+                    $dateWalk = clone $walk;
+                    $dateWalk->time['slots'] = [$slot];
+                    $outings[] = $dateWalk;
+                }
+            } else {
+                $outings[] = $walk;
+            }
+        }
+        usort($outings, function ($a, $b) {
+            $ta = $a->time['slots'][0][0];
+            $tb = $b->time['slots'][0][0];
+            return $ta - $tb;
+        });
+
+        foreach ($outings as $outing) {
+            echo PHP_EOL;
+            foreach ($columns as $column) {
+                echo '"', addslashes(str_replace(["\n", "\r"], '', self::getColumn($column, $outing))), '",';
+            }
+        }
+        exit;
     }
 }
