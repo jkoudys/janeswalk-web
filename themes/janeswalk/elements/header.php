@@ -43,7 +43,7 @@ $v->addHeaderItem('<script src="' . BASE_URL . '/js/jwglobal.js"></script>');
 >
     <?php // IE warning ?>
     <script type="text/javascript">
-    if (navigator.userAgent.indexOf('MSIE') > -1) {
+    if ((navigator.userAgent.indexOf('MSIE') > -1) || (!!window.MSInputMethodContext && !!document.documentMode)) {
       var message = document.createElement('div');
       message.setAttribute('style', 'position: fixed; top: 0; left: 0; width: 100%; padding: 5px; background: #fff; z-index: 99999999');
       message.innerHTML = '<strong>WARNING:</strong> Internet Explorer may not work on this site. We recommend using <a href="http://mozilla.org/firefox">Firefox</a> or <a href="http://google.com/chrome">Chrome</a> browsers instead';
