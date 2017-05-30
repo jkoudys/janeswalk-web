@@ -23,8 +23,10 @@ $app->get('/canada/whitby[/]', function (Request $req, Response $res) {
 }); 
 
 $app->any('/[{path:.*}]', function(Request $req, Response $res) {
+    ob_start();
     // Loads the c5 Environment and Template
     require_once __DIR__ . '/concrete5/web/router.php';
+    return $res->getBody()->write(ob_get_clean());
 } );
 
 $app->run();
