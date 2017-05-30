@@ -33,7 +33,10 @@ function bigCard($page) {
     $summary = '';
     $blocks = $page->getBlocks('Main');
     if ($blocks) {
-        $summary .= implode(' ', array_slice(explode(' ', strip_tags($blocks[0]->getInstance()->getContent()), 80), 0, -1));
+        $blockInstance = $blocks[0]->getInstance();
+        if (method_exists($blockInstance, 'getContent')) {
+            $summary .= implode(' ', array_slice(explode(' ', strip_tags($blockInstance->getContent()), 80), 0, -1));
+        }
     }
 
     $banner = is_object($mainImage) ? <<<EOT
