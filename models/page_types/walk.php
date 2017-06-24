@@ -13,6 +13,7 @@ use \Loader;
 use \Page;
 use \File;
 use \UserInfo;
+use \VersionList;
 use \UserAttributeKey as UAK;
 
 // concrete5
@@ -61,11 +62,13 @@ class Walk extends \Model implements \JsonSerializable
         'features' => 'gmap',
         'team' => 'team',
         'wards' => 'walk_wards',
+        'exclude_page_list' => 'exclude_page_list',
     ];
 
     // Optimisation cache for the default teams
     static $defaultTeams = [];
     static $stmtTeamMember;
+    static $stmtLastUpdate;
 
     /*
      * __construct
@@ -130,7 +133,19 @@ class Walk extends \Model implements \JsonSerializable
         $this->themes = $checkMap('theme');
         $this->accessibles = $checkMap('accessible');
 
-        $this->published = !($page->getAttribute('exclude_page_list') === '1');
+        $this->published = !($this->exclude_page_list === '1');
+    }
+
+    protected static function getLastUpdateStmt() {
+        if (!self::$stmtLastUpdate) {
+            $db = Loader::db();
+            self::$stmtLastUpdate = $db->Prepare(
+                'SELECT cv.cvDateCreated FROM CollectionVersions cv ' .
+                'WHERE cv.cvIsApproved=1 AND cv.cID = ? ' .
+                'ORDER BY cv.cvDateCreated DESC LIMIT 1'
+            );
+        }
+        return self::$stmtLastUpdate;
     }
 
     protected static function getTeamMemberStmt() {
@@ -318,14 +333,9 @@ EOT
                 }
 
             case 'publishDate':
-                foreach ((new \VersionList($this->page))->getVersionListArray() as $cv) {
-                    if ($cv->getAttribute('exclude_page_list', $this->page)) {
-                        return $lastPublished ?: '';
-                    } else {
-                        $lastPublished = $cv->getVersionDateCreated();
-                    }
-                }
-                return $lastPublished;
+                $db = Loader::db();
+                $stmt = self::getLastUpdateStmt();
+                return $db->Execute($stmt, [$this->page->getCollectionID()])->fetchRow()[0];
 
             case 'initiatives':
                 // Initiatives
