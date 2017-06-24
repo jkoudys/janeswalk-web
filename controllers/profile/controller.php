@@ -50,8 +50,8 @@ class ProfileController extends Concrete5_Controller_Profile
         // Load the home city
         $cityPage = $ui->getAttribute('home_city');
         if ($cityPage) {
-            $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
             $city = new City($cityPage);
+            $cityUsers = $city->getUsers();
             // Build all the walks we need
             $isCO = in_array('City Organizers', $u->getUserGroups());
             foreach ($city->getWalks($isCO) as $w) {
@@ -61,7 +61,7 @@ class ProfileController extends Concrete5_Controller_Profile
         }
 
         // Walks owned by user
-        $pl = new PageList;
+        $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByUserID($u->getUserID());
         // Include the names of draft walks, not last published
@@ -90,35 +90,6 @@ class ProfileController extends Concrete5_Controller_Profile
         // city : all users in city, all walks in a city
         // users: users for city, CO. Each needs their walk ID list. User who you're looking at
         // walks: all the walks owned by the profile user
-    }
-
-    private static function getUsersInCity(int $cID): array
-    {
-        $cityUsers = [];
-
-        // Load the user list for this city
-        $ul = new UserList();
-        $ul->filterByHomeCity($cID);
-        foreach ($ul->get(0xFFFF) as $user) {
-            $cityUsers[] = [
-                'id' => $user->getUserID(),
-                'firstName' => $user->getAttribute('first_name'),
-                'lastName' => $user->getAttribute('last_name')
-            ];
-        }
-
-        // Sort the users by name
-        usort(
-            $cityUsers,
-            function ($a, $b) {
-                return strcmp(
-                    strtoupper($a['firstName']),
-                    strtoupper($b['firstName'])
-                );
-            }
-        );
-
-        return $cityUsers;
     }
 
     /**

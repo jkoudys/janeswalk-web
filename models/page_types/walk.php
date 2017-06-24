@@ -13,6 +13,7 @@ use \Loader;
 use \Page;
 use \File;
 use \UserInfo;
+use \UserAttributeKey as UAK;
 
 // concrete5
 use Concrete\Core\Legacy\NavigationHelper;
@@ -64,6 +65,7 @@ class Walk extends \Model implements \JsonSerializable
 
     // Optimisation cache for the default teams
     static $defaultTeams = [];
+    static $stmtTeamMember;
 
     /*
      * __construct
@@ -131,37 +133,68 @@ class Walk extends \Model implements \JsonSerializable
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
     }
 
+    protected static function getTeamMemberStmt() {
+        if (!self::$stmtTeamMember) {
+            $db = Loader::db();
+            self::$stmtTeamMember = $db->Prepare(<<<EOT
+SELECT
+    u.uID AS id,
+    u.uEmail as email,
+    MAX(fn.value) AS firstName,
+    MAX(ln.value) AS lastName,
+    MAX(fb.value) AS facebook,
+    MAX(tw.value) AS twitter,
+    MAX(ws.value) AS website,
+    MAX(bi.value) AS bio
+FROM Users u 
+INNER JOIN UserAttributeValues uav ON (uav.uID = u.uID AND u.uID = ?) 
+LEFT JOIN atDefault AS fn ON (fn.avID = uav.avID AND uav.akID = ?) 
+LEFT JOIN atDefault AS ln ON (ln.avID = uav.avID AND uav.akID = ?) 
+LEFT JOIN atDefault AS fb ON (fb.avID = uav.avID AND uav.akID = ?) 
+LEFT JOIN atDefault AS tw ON (tw.avID = uav.avID AND uav.akID = ?) 
+LEFT JOIN atDefault AS ws ON (ws.avID = uav.avID AND uav.akID = ?) 
+LEFT JOIN atDefault AS bi ON (bi.avID = uav.avID AND uav.akID = ?) 
+GROUP BY id ORDER BY firstName LIMIT 1
+EOT
+            );
+        }
+        return self::$stmtTeamMember;
+    }
+
     /**
      * Get the default team members for this Walk. Typically used for new Walks.
      */
     protected function getDefaultTeam(): array
     {
+        $db = Loader::db();
         $ownerId = $this->page->getCollectionUserID();
         $parentPageId = $this->page->getCollectionParentID();
+        $coId = Page::getByID($parentPageId)->getCollectionUserID();
         $cacheKey = "{$ownerId}-{$parentPageId}";
+        $stmt = self::getTeamMemberStmt();
 
         if (array_key_exists($cacheKey, self::$defaultTeams)) {
             return self::$defaultTeams[$cacheKey];
         }
 
-        // Default team is Walk owner, and city organizer
-        $owner = UserInfo::getByID($ownerId);
-        $co = UserInfo::getByID(Page::getByID($parentPageId)->getCollectionUserID());
-
-        $getTeamSchema = function ($ui) {
-            return [
-                'name' => trim($ui->getAttribute('first_name') . ' ' . $ui->getAttribute('last_name')),
-                'email' => $ui->getUserEmail(),
-                'facebook' => $ui->getAttribute('facebook'),
-                'twitter' => $ui->getAttribute('twitter'),
-                'website' => $ui->getAttribute('website'),
-                'bio' => $ui->getAttribute('bio'),
-            ];
-        };
+        $handles = [
+            UAK::getByHandle('first_name')->akID,
+            UAK::getByHandle('last_name')->akID,
+            UAK::getByHandle('facebook')->akID,
+            UAK::getByHandle('twitter')->akID,
+            UAK::getByHandle('website')->akID,
+            UAK::getByHandle('bio')->akID,
+        ];
 
         self::$defaultTeams[$cacheKey] = [
-            array_merge($getTeamSchema($owner), ['type' => 'leader']),
-            array_merge($getTeamSchema($co), ['type' => 'organizer']),
+            array_merge(
+                $db->Execute($stmt, array_merge([$ownerId], $handles))->fetchRow(),
+                ['type' => 'leader']
+            ),
+            array_merge(
+                $db->Execute($stmt, array_merge([$coId], $handles))->fetchRow(),
+                ['type' => 'organizer']
+            ),
         ];
 
         return self::$defaultTeams[$cacheKey];

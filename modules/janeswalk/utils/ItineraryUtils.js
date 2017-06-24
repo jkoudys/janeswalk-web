@@ -15,7 +15,6 @@ if (typeof(Intl) === 'object') {
   // FIXME: don't rely on this global
   try {
     const { locale: { name: locale = 'en-US' } = {} } = window.JanesWalk;
-    debugger;
     dtfDate = new Intl.DateTimeFormat(locale.replace(/_/g, '-'), options);
   } catch(e) {
     dtfDate = new Intl.DateTimeFormat('en-US', options);

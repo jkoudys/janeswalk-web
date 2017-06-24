@@ -10,6 +10,7 @@ use \UserInfo;
 use \User;
 use \PageList;
 use \SelectAttributeTypeOptionList;
+use \UserAttributeKey;
 use JanesWalk\Models\PageTypes\Walk;
 
 /*
@@ -241,6 +242,30 @@ class City extends \Model implements \JsonSerializable
                 return new Walk($page);
             },
             $pl->get()
+        );
+    }
+
+    /**
+     * Get user id, first, last names
+     */
+    public function getUsers(): array
+    {
+        $db = Loader::db();
+        $hFirstName = UserAttributeKey::getByHandle('first_name');
+        $hLastName = UserAttributeKey::getByHandle('last_name');
+
+        // Load the user list for this city
+        // FIXME: I feel like the MAX aggregate function is silly. There must be a nicer way.
+        return $db->getAll(
+            'SELECT u.uID AS id, MAX(fn.value) AS firstName, MAX(ln.value) as lastName FROM Users u ' .
+            'INNER JOIN UserSearchIndexAttributes usia ON ( ' .
+            '  usia.uID = u.uID AND usia.ak_home_city = ? AND u.uIsActive = 1 AND u.uIsValidated != 0' .
+            ') ' .
+            'INNER JOIN UserAttributeValues uav ON uav.uID = u.uID ' .
+            'LEFT JOIN atDefault AS fn ON (fn.avID = uav.avID AND uav.akID = ?) ' .
+            'LEFT JOIN atDefault AS ln ON (ln.avID = uav.avID AND uav.akID = ?) ' .
+            'GROUP BY id ORDER BY firstName',
+            [$this->page->getCollectionID(), $hFirstName->akID, $hLastName->akID]
         );
     }
 

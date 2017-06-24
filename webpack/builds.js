@@ -12,7 +12,7 @@ const base = {
       exclude: /(bower_components|node_modules)/,
       loader: 'babel-loader',
       query: {
-        presets: ['es2015', 'react', 'stage-2'],
+        presets: ['env', 'babel-preset-stage-2'],
       },
     }, {
       test: /\.css$/,
