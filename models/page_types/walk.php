@@ -140,8 +140,7 @@ class Walk extends \Model implements \JsonSerializable
 SELECT
     u.uID AS id,
     u.uEmail as email,
-    MAX(fn.value) AS firstName,
-    MAX(ln.value) AS lastName,
+    CONCAT_WS(' ', MAX(fn.value), MAX(ln.value)) AS name,
     MAX(fb.value) AS facebook,
     MAX(tw.value) AS twitter,
     MAX(ws.value) AS website,
@@ -154,9 +153,9 @@ LEFT JOIN atDefault AS fb ON (fb.avID = uav.avID AND uav.akID = ?)
 LEFT JOIN atDefault AS tw ON (tw.avID = uav.avID AND uav.akID = ?) 
 LEFT JOIN atDefault AS ws ON (ws.avID = uav.avID AND uav.akID = ?) 
 LEFT JOIN atDefault AS bi ON (bi.avID = uav.avID AND uav.akID = ?) 
-GROUP BY id ORDER BY firstName LIMIT 1
+GROUP BY id ORDER BY name LIMIT 1
 EOT
-            );
+        );
         }
         return self::$stmtTeamMember;
     }
