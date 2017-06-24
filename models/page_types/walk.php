@@ -335,7 +335,7 @@ EOT
             case 'publishDate':
                 $db = Loader::db();
                 $stmt = self::getLastUpdateStmt();
-                return $db->Execute($stmt, [$this->page->getCollectionID()])->fetchRow()[0];
+                return date($db->Execute($stmt, [$this->page->getCollectionID()])->fetchRow()['cvDateCreated']);
 
             case 'initiatives':
                 // Initiatives
