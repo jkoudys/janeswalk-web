@@ -74,7 +74,7 @@ class City
 
     public function renderWalkCSV(array $options = [])
     {
-        $excludePast = $options['excludePast'] ?? true;
+        $excludePast = $options['excludePast'] ?? false;
 
         $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
         // Set header so it d/l's as a CSV file
@@ -92,7 +92,7 @@ class City
 
         // An 'outing' is one scheduled walk date
         $outings = [];
-        foreach ($walks->get() as $page) {
+        foreach ($walks->get(0xFFFF) as $page) {
             $walk = new Walk($page);
 
             // If no time set, put it in as-is
