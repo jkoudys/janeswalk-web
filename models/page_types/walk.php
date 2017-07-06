@@ -62,7 +62,6 @@ class Walk extends \Model implements \JsonSerializable
         'features' => 'gmap',
         'team' => 'team',
         'wards' => 'walk_wards',
-        'exclude_page_list' => 'exclude_page_list',
     ];
 
     // Optimisation cache for the default teams
@@ -93,7 +92,7 @@ class Walk extends \Model implements \JsonSerializable
         // Consolodated query; runs way faster than a dozen getAttributes
         // FIXME: prepare this stmt.
         foreach ($db->getAll(
-            'select value, ak.akHandle from atDefault atd ' .
+            'SELECT value, ak.akHandle FROM atDefault atd ' .
             'INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) ' .
             'INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) ' .
             'WHERE cav.cID = ? AND cav.cvID = ?',
@@ -132,8 +131,7 @@ class Walk extends \Model implements \JsonSerializable
         };
         $this->themes = $checkMap('theme');
         $this->accessibles = $checkMap('accessible');
-
-        $this->published = !($this->exclude_page_list === '1');
+        $this->published = !$page->getAttribute('exclude_page_list');
     }
 
     protected static function getLastUpdateStmt() {
