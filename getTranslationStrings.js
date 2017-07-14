@@ -1,5 +1,6 @@
 const { parse } = require('babylon');
 const fsp = require('fs-promise');
+const flatten = Array.prototype.concat.bind(Array.prototype);
 
 const excludedFiles = [
   'view.js',
@@ -10,17 +11,19 @@ const excludedFiles = [
 const getTranslateStrings = () => 1;
 
 // Recursively get JS
-const getFiles = (dir) => fsp.readdir(dir)
-.then((files) => Promise.all(files.map((file) => {
-  const path = `${dir}/${file}`;
-  return fsp.stat(path).then((stat) => {
+async function getFiles(dir) {
+  const files = await Promise.all((await fsp.readdir(dir)).map(async (file) => {
+    const path = `${dir}/${file}`;
+    const stat = await fsp.stat(path);
     if (stat.isDirectory()) return getFiles(path);
     if (excludedFiles.includes(file)) return null;
     if (!file.match(/.js$/)) return null;
     return path;
-  });
-})))
-.then((files) => Array.prototype.concat(...files));
+  }));
+
+  // Flatten the return
+  return flatten(...files.filter(v => v));
+}
 
 const findTags = (ob) => Object.values(ob).reduce((a, e) => {
   if (e && typeof e === 'object') {
@@ -37,8 +40,7 @@ const findTags = (ob) => Object.values(ob).reduce((a, e) => {
 }, []);
 
 const uniqueTags = (tags) => Object
-.keys(Array.prototype
-  .concat(...tags)
+.keys(flatten(...tags)
   .reduce((a, e) => (a[e] = true, a), {})
 ).sort();
 
@@ -50,33 +52,32 @@ const insertTokens = ({ quasi: { quasis } }) => quasis
   return a + e + '${' + i + '}';
 }, '');
 
-Promise.all([
-  getFiles('./themes/janeswalk/js'),
-  getFiles('./blocks'),
-]).then((fileSets) => {
+(async () => {
+  const fileSets = await Promise.all([
+    getFiles('./themes/janeswalk/js'),
+    getFiles('./blocks'),
+  ]);
+
   // Flatten and get all the .js
-  return Promise.all(Array.prototype.concat(...fileSets)
-  .filter((v) => v)
-  .map((file) => fsp.readFile(file, 'utf-8')
-    .then((script) => parse(script, {
+  const asts = await Promise.all(flatten(...fileSets)
+  .map(async (file) => {
+    const ast = parse(await fsp.readFile(file, 'utf-8'), {
       sourceType: 'module',
       plugins: [
         'classProperties',
         'objectRestSpread',
       ],
-    }))
-    .catch((err) => console.error(file, err))
-  ));
-})
-.then((asts) => asts.map((ast) => {
-  return findTags(ast)
-  .filter(({ tag: { name } }) => name === 't')
-  .map(insertTokens);
-}))
-.then(uniqueTags)
-.then((tags) => tags.map((tag) => {
-  const escaped = JSON.stringify(tag);
-  return `msgid ${escaped}\nmsgstr ${escaped}\n`;
-}).join('\n'))
-.then(console.log)
-.catch((err) => console.log(err));
+    });
+
+    return findTags(ast)
+    .filter(({ tag: { name } }) => name === 't')
+    .map(insertTokens);
+  }));
+
+  const uniquePo = uniqueTags(asts).map((tag) => {
+    const escaped = JSON.stringify(tag);
+    return `msgid ${escaped}\nmsgstr ${escaped}\n`;
+  }).join('\n');
+
+  console.log(uniquePo);
+})();
