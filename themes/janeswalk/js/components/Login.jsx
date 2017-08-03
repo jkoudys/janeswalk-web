@@ -2,7 +2,7 @@
 
 import { createElement as ce, Component } from 'react';
 import t from 'es2015-i18n-tag';
-import { Modal } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
 
 const { event } = window.JanesWalk;
 
@@ -17,62 +17,59 @@ const Message = ({ success, msg, error }) => (
  * The 'login' modal that comes up on standard login, not to be confused
  * with the login page.
  */
-export default class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-    maintainLogin: false,
-    message: {},
+export default Form.create()(class Login extends Component {
+  state = {};
+
+  // Simply resolve if no error, else reject with same values
+  validFields = (fields) => new Promise((res, rej) => {
+    this.props.form.validateFields(fields, (err, values) => (err ? rej : res)(values));
+  });
+
+  handleReset = async () => {
+    try {
+      const { email } = await this.validFields();
+      const body = new FormData();
+      body.append('uEmail', email);
+      body.append('uName', email);
+      body.append('format', 'JSON');
+
+      // Post a reset request to the c5 endpoint for resets
+      const message = await fetch(`${CCM_REL}/login/forgot_password`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      })
+      .then(res => res.json());
+
+      this.setState({ message });
+    } catch (ex) {
+      console.error(`Error resetting password: ${ex.message}`);
+    }
   };
 
-  handleReset = () => {
-    const body = new FormData();
-    body.append('uEmail', this.state.email);
-    body.append('uName', this.state.email);
-    body.append('format', 'JSON');
-
-    // Post a reset request to the c5 endpoint for resets
-    fetch(`${CCM_REL}/login/forgot_password`, {
-      method: 'POST',
-      credentials: 'include',
-      body,
-    })
-    .then(res => res.json())
-    .then(json => this.setState({ message: json }))
-    .catch(ex => console.error(`Error resetting password: ${ex.message}`));
-  };
-
-  handleChangeEmail = (ev) => {
-    this.setState({ email: ev.target.value });
-  };
-
-  handleChangePassword = (ev) => {
-    this.setState({ password: ev.target.value });
-  };
-
-  handleChangeMaintainLogin = (ev) => {
-    this.setState({ maintainLogin: ev.target.value });
-  };
-
-  handleSubmit = (ev) => {
+  handleSubmit = async (ev) => {
     ev.preventDefault();
-    const body = new FormData();
-    body.append('uEmail', this.state.email);
-    body.append('uName', this.state.email);
-    body.append('uPassword', this.state.password);
-    body.append('uMaintainLogin', this.state.maintainLogin);
-    body.append('format', 'JSON');
+    try {
+      debugger;
+      const { email, password, remember } = await this.validFields();
+      const body = new FormData();
 
-    // Post the login to the c5 endpoint for logins
-    fetch(`${CCM_REL}/login/do_login`, {
-      method: 'POST',
-      credentials: 'include',
-      body,
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({ message: data }, () => {
-        if (data.success === 1) {
+      body.append('uEmail', email);
+      body.append('uName', email);
+      body.append('uPassword', password);
+      body.append('uMaintainLogin', remember);
+      body.append('format', 'JSON');
+
+      // Post the login to the c5 endpoint for logins
+      const { success, ...message } = await fetch(`${CCM_REL}/login/do_login`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      })
+      .then(res => res.json());
+
+      this.setState({ message }, () => {
+        if (success === 1) {
           if (this.props.redirectURL) {
             window.location.replace(this.props.redirectURL);
           } else {
@@ -80,8 +77,9 @@ export default class Login extends Component {
           }
         }
       });
-    })
-    .catch(ex => console.error(`Error logging in: ${ex.message}`));
+    } catch ({ message }) {
+      console.error(`Error logging in: ${message}`);
+    }
   };
 
   onCancel = () => this.setState({ visible: false });
@@ -91,13 +89,24 @@ export default class Login extends Component {
   }
 
   render() {
-    const { socialLogin } = this.props;
-    const { email, password, visible } = this.state;
-    const { onCancel } = this;
+    const {
+      props: {
+        form: {
+          getFieldDecorator,
+        },
+      },
+      state: {
+        visible,
+        message = {},
+      },
+      onCancel,
+    } = this;
 
-    let message;
-    if (Number.isInteger(this.state.message.success)) {
-      message = ce(Message, this.state.message);
+    const { email } = this.props.form.getFieldsValue();
+
+    let notification;
+    if (Number.isInteger(message.success)) {
+      notification = ce(Message, message);
     }
 
     return (
@@ -110,50 +119,36 @@ export default class Login extends Component {
         onCancel,
         onOk: onCancel,
       },
-        ce('form', { rel: 'form', method: 'post', onSubmit: this.handleSubmit },
-          ce('section', { dangerouslySetInnerHTML: { __html: socialLogin } }),
-          ce('section', {},
-            ce('h4', {}, t`'or, log-in using your email & password`),
-            ce('label', { htmlFor: 'uEmail' },
-              t`Email`,
-              ce('input', {
-                type: 'text',
-                name: 'uEmail',
-                id: 'uEmail',
-                ref: 'uEmail',
-                value: email,
-                onChange: this.handleChangeEmail,
-                className: 'ccm-input-text input-large',
-              }),
-            ),
-            ce('label', { htmlFor: 'uPassword' }, t`Password`,
-              ce('input', {
-                type: 'password',
-                name: 'uPassword',
-                id: 'uPassword',
-                value: password,
-                onChange: this.handleChangePassword,
-                className: 'ccm-input-text input-large',
-              }),
-            ),
-            ce('label', {},
-              ce('input', {
-                type: 'checkbox',
-                name: 'uMaintainLogin',
-                checked: this.maintainLogin,
-                onChange: this.handleChangeMaintainLogin,
-              }),
-              ' ', t`Keep me signed in.`,
-            ),
-            ce('a', { onClick: this.handleReset }, t`Request a new password`),
-          ),
-          ce('footer', {},
-            message,
-            ce('a', { href: `${CCM_REL}/register?uEmail=${email}` }, t`Register for a new account.`),
-            ce('input', { type: 'submit', className: 'btn ccm-input-submit', id: 'submit', value: t`Go!` }),
-          ),
+        ce(Form, { method: 'post', onSubmit: this.handleSubmit },
+          notification,
+          ce(Form.Item, {}, getFieldDecorator('email', {
+            rules: [{ required: true, type: 'email', message: t`Please enter your email` }],
+          })(
+            ce(Input, {
+              prefix: ce(Icon, { type: 'user', style: { fontSize: 13 } }),
+              placeholder: 'email',
+            }),
+          )),
+          ce(Form.Item, {}, getFieldDecorator('password', {
+            rules: [{ required: true, message: t`Please enter your password` }],
+          })(
+            ce(Input, {
+              prefix: ce(Icon, { type: 'lock', style: { fontSize: 13 } }),
+              type: 'password',
+              placeholder: 'Password',
+            }),
+          )),
+          ce(Form.Item, {}, getFieldDecorator('remember', {
+            valuePropName: 'checked',
+            initialValue: true,
+          })(
+            ce(Checkbox, {}, t`Keep me signed in.`),
+          )),
+          ce('a', { style: { float: 'right' }, onClick: this.handleReset }, t`Request a new password`),
+          ce(Button, { type: 'primary', htmlType: 'submit', className: 'login-form-button' }, t`Go!`),
+          ce('a', { href: `${CCM_REL}/register?uEmail=${email}` }, t`Register for a new account.`),
         )
       )
     );
   }
-}
+});
