@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const precss = require('precss');
 const paths = require('./paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const ImportPlugin = require('babel-plugin-import');
@@ -8,13 +7,6 @@ const base = {
   entry: [paths.js_app, ...paths.js_blocks],
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      exclude: /(bower_components|node_modules)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['env', 'babel-preset-stage-2'],
-      },
-    }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?-url' }),
     }, {
@@ -32,6 +24,19 @@ const base = {
 };
 
 const prod = Object.assign({}, base, {
+  module: Object.assign({}, base.module, {
+    loaders: base.module.loaders.concat([{
+      test: /\.jsx?$/,
+      exclude: /(bower_components|node_modules)/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['env', 'babel-preset-stage-2'],
+        plugins: [
+          ['import', { libraryName: 'antd' }],
+        ],
+      },
+    }]),
+  }),
   output: {
     path: paths.js,
     filename: 'janeswalk.min.js',
@@ -52,6 +57,19 @@ const dev = Object.assign({}, base, {
     path: paths.js,
     filename: 'janeswalk.js',
   },
+  module: Object.assign({}, base.module, {
+    loaders: base.module.loaders.concat([{
+      test: /\.jsx?$/,
+      exclude: /(bower_components|node_modules)/,
+      loader: 'babel-loader',
+      query: {
+        presets: [['env', { targets: { chrome: 59 } }], 'babel-preset-stage-2'],
+        plugins: [
+          ['import', { libraryName: 'antd' }],
+        ],
+      },
+    }]),
+  }),
 });
 
 module.exports = { prod, dev };
