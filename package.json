@@ -67,6 +67,7 @@
     "react": "^15.4.0",
     "react-date-picker": "^5.3.28",
     "react-dom": "^15.4.0",
+    "react-recaptcha": "^2.3.3",
     "webpack": "^2.3.1"
   }
 }
