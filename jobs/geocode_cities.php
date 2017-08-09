@@ -16,24 +16,29 @@ class GeocodeCities extends Job {
   }
 
   public function run(): string {
-    $js = Loader::helper('json');
     $pl = new PageList();
     $pl->filterByCollectionTypeHandle('city');
     $pages = $pl->get();
     $updated = 0;
     $not = 0;
 
-    foreach($pages as $page) {
-      if(!(trim($page->getAttribute('latlng'))) || trim($page->getAttribute('latlng')) === ',' ) {
+    foreach ($pages as $page) {
+      if (!(trim($page->getAttribute('latlng'))) || trim($page->getAttribute('latlng')) === ',' ) {
         $parent = Page::getByID($page->getCollectionParentID());
         $city = "{$page->getCollectionName()}, {$parent->getCollectionName()}";
-        $cityLocation = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=".urlencode($city)."&sensor=false&key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM");
-        $responseObj = $js->decode($cityLocation);
-        if( $responseObj->status != 'ZERO_RESULTS' ) {
-          $page->setAttribute('latlng', $responseObj->results[0]->geometry->location->lat . "," . $responseObj->results[0]->geometry->location->lng );
-          $updated++;
-        }
-        else {
+        $cityLocation = json_decode(file_get_contents(
+            'https://maps.google.com/maps/api/geocode/json?address=' .
+            urlencode($city) .
+            '&sensor=false&key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM'
+        ), true);
+        if ($cityLocation['status'] === 'OK') {
+            $location = $cityLocation[0]['geometry']['location'];
+            $page->setAttribute(
+                'latlng',
+                "{$location['lat']},{$location['lng']}"
+            );
+            $updated++;
+        } else {
           $not++;
         } 
       }

@@ -12,6 +12,7 @@ const FilterList = ({
   setFilter,
   filters = [],
   dateRange = [],
+  selectedFilters = {},
 }) => (
   ce('section', null,
     ce('ul', { className: 'filters' },
@@ -20,7 +21,7 @@ const FilterList = ({
         ce(DatePicker, {
           disabledDate: disabledStartDate,
           showTime: true,
-          format: 'YYYY-MM-DD HH:mm:ss',
+          format: 'YYYY-MM-DD HH:mm',
           value: dateRange[0],
           placeholder: t`After`,
           onChange: handleStartDate,
@@ -28,13 +29,19 @@ const FilterList = ({
         ce(DatePicker, {
           disabledDate: disabledEndDate,
           showTime: true,
-          format: 'YYYY-MM-DD HH:mm:ss',
+          format: 'YYYY-MM-DD HH:mm',
           value: dateRange[1],
           placeholder: t`Before`,
           onChange: handleEndDate,
         }),
       ),
-      filters.map(([key, v]) => ce(Filter, { key, ...v, onChange: (option) => setFilter(key, option) })),
+      filters.map(([key, { name, data }]) => ce(Filter, {
+        key,
+        name,
+        data,
+        selected: selectedFilters[key],
+        onChange: (option) => setFilter(key, option),
+      })),
     )
   )
 );

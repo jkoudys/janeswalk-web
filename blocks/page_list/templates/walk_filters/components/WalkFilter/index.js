@@ -7,6 +7,7 @@ import t from 'es2015-i18n-tag';
 import { thirdRecentDateRange } from 'janeswalk/utils/recentdates';
 import { printElement } from 'janeswalk/utils/print';
 import { Set as iSet } from 'immutable';
+import { Input } from 'antd';
 import moment from 'moment';
 
 // Flux
@@ -148,6 +149,7 @@ export default class WalkFilter extends Component {
       city: { latlng: [lat, lng] = [] } = {},
       filters = {},
       outings,
+      selectedFilters,
     } = this.state;
 
     const {
@@ -187,14 +189,16 @@ export default class WalkFilter extends Component {
             handleStartDate,
             handleEndDate,
             setFilter,
+            selectedFilters,
           }) : null,
         ),
         ce('div', { className: 'walk-typeahead' },
-          ce('input', {
+          ce(Input, {
             type: 'text',
             value: typeahead,
             placeholder: t`Search in Walks below`,
             onChange: this.handleTypeahead,
+            addonBefore: ce('i', { className: 'fa fa-search' }),
           }),
         ),
         ce('div', { className: 'walks-area' },

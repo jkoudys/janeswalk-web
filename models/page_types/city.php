@@ -175,6 +175,7 @@ class City extends \Model implements \JsonSerializable
             'background' => $this->fullbg ? $this->fullbg->getURL() : null,
             'shortDescription' => $this->shortDescription,
             'longDescription' => $this->longDescription,
+            'publishDate' => strtotime($this->page->getCollectionDatePublic()),
             /* We'll assume Sponsors area's first block is the one with the description */
             'mirrors' =>  array_map(
                 function ($mirror) {
