@@ -18,8 +18,16 @@ if (typeof Intl === 'object') {
   });
 }
 
-export default function ListItem({ walk: { map, url, title }, slot }) {
-  let Meeting;
+export default function ListItem({
+  walk: {
+    features: [{
+      properties: { title: meeting, description: meetingDetails } = {},
+    }] = [],
+    url,
+    title,
+  },
+  slot,
+}) {
   let startDate;
   let startTime;
 
@@ -30,11 +38,6 @@ export default function ListItem({ walk: { map, url, title }, slot }) {
     startTime = dtfTime.format(start);
   }
 
-  /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-  if (map && map.markers && map.markers.length) {
-    Meeting = map.markers[0].title || map.markers[0].description;
-  }
-
   return (
     ce('tr', null,
       ce('td', null, startDate),
@@ -42,7 +45,7 @@ export default function ListItem({ walk: { map, url, title }, slot }) {
       ce('td', null,
         ce('a', { href: url, target: '_blank' }, title),
       ),
-      ce('td', null, Meeting),
+      meeting ? ce('td', null, `${meeting} - ${meetingDetails}`) : null,
     )
   );
 }

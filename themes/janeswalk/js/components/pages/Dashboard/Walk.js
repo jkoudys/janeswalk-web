@@ -19,7 +19,7 @@ class Walk extends Component {
 
   handleUnpublish = async () => {
     try {
-      const status = await unpublish(this.props.id);
+      const status = await unpublish(this.props.walkId);
       console.log(status);
       this.setState({ unpublished: true });
     } catch (error) {
@@ -32,17 +32,18 @@ class Walk extends Component {
       title = 'Walk Title',
       start,
       meeting = '{no meeting place}',
-      id,
+      walkId,
       team: [{ name: ledBy, email: leaderEmail } = {}] = [],
       url,
       published,
       canEdit = false,
     } = this.props;
     const { unpublished } = this.state;
+    const now = Date.now();
 
     return (
       ce('li', {},
-        ce('div', { className: start * 1000 > Date.now() ? 'walk' : 'walk pastWalk' },
+        ce('div', { className: (start * 1000 > now) ? 'walk' : 'walk pastWalk' },
           ce('h3', {},
             (published && !unpublished) ? null : 'DRAFT ',
             ce('a', { href: url }, title || '{untitled}'),
@@ -60,7 +61,7 @@ class Walk extends Component {
             ce('button', {},
               ce('a', { href: '' }, 'Promote')
               ) : null, */
-          canEdit ? ce('a', { className: 'option', href: `/walk/form/${id}` }, 'Edit') : null,
+          canEdit ? ce('a', { className: 'option', href: `/walk/form/${walkId}` }, 'Edit') : null,
           (published && canEdit && !unpublished) ?
             ce('a', { onClick: this.handleUnpublish, className: 'option' }, 'Unpublish') :
             null,
@@ -74,7 +75,7 @@ Walk.propTypes = {
   title: PropTypes.string,
   start: PropTypes.number,
   meeting: PropTypes.string,
-  id: PropTypes.string.isRequired,
+  walkId: PropTypes.string.isRequired,
 };
 
 export default Walk;

@@ -31,6 +31,7 @@ export default class Walks extends Component {
   render() {
     const { currentView, filterPast, filters } = this.state;
     const { walks, city, user, show, currentUser } = this.props;
+    const { handleToggleFilterPast } = this;
 
     // How we're presenting the walks (map or list)
     let WalkList;
@@ -60,28 +61,31 @@ export default class Walks extends Component {
       })
       .map(id => {
         const {
-          title,
-          team,
-          url,
-          published,
-          features: [{ properties: { title: meeting } = {} }] = [{}],
-          time: { slots } = {},
           attendees,
+          features: [{ properties: { title: meeting } = {} }] = [{}],
+          id: walkId,
+          published,
+          team,
+          time: { slots: [[start] = []] = [] } = {},
+          title,
+          url,
         } = walks.get(id);
-        let start;
-        if (slots && slots.length) start = +slots[0][0];
-        return ce(Walk, { title, id, key: `walk${id}`, team, url, published, meeting, start, canEdit, attendees });
+        return ce(Walk, {
+          attendees,
+          canEdit,
+          key: `walk${id}`,
+          meeting,
+          published,
+          start,
+          team,
+          title,
+          url,
+          walkId,
+        });
       });
     } else if (currentView === 'map') {
       WalkList = ce(WalksMap, { walks: user.walks.map(wID => walks.get(wID)), city });
     }
-
-    // The toggle for the past walks
-    const DateToggle = (
-      ce(Tag.CheckableTag, { checked: filterPast, onClick: this.handleToggleFilterPast },
-        filterPast ? t`Without Past Walks` : t`With Past Walks`
-      )
-    );
 
     // TODO: Place buttons in WalksFilterOptions (should be a generic FilterOptions)
     return (
@@ -96,7 +100,9 @@ export default class Walks extends Component {
           checked: currentView === 'map',
           onChange: () => this.setState({ currentView: 'map' }),
         }, t`Map`),
-        DateToggle,
+        ce(Tag.CheckableTag, { checked: filterPast, onChange: handleToggleFilterPast },
+          filterPast ? t`Without Past Walks` : t`With Past Walks`
+        ),
         city ? ce('a', { target: '_blank', href: `/profile/exportCity/${city.id}` },
           ce(Button, {}, t`Export Spreadsheet`)
         ) : null,
