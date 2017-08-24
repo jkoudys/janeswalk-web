@@ -50,7 +50,6 @@ export default Form.create()(class Login extends Component {
   handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      debugger;
       const { email, password, remember } = await this.validFields();
       const body = new FormData();
 
@@ -61,7 +60,7 @@ export default Form.create()(class Login extends Component {
       body.append('format', 'JSON');
 
       // Post the login to the c5 endpoint for logins
-      const { success, ...message } = await fetch(`${CCM_REL}/login/do_login`, {
+      const message = await fetch(`${CCM_REL}/login/do_login`, {
         method: 'POST',
         credentials: 'include',
         body,
@@ -69,7 +68,7 @@ export default Form.create()(class Login extends Component {
       .then(res => res.json());
 
       this.setState({ message }, () => {
-        if (success === 1) {
+        if (+message.success === 1) {
           if (this.props.redirectURL) {
             window.location.replace(this.props.redirectURL);
           } else {
