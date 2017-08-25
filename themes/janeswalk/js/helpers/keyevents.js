@@ -15,7 +15,7 @@ const buttonActions = {
  */
 export default function initKeyEvents() {
   // Init keyboard shortcuts
-  if (toolbar) {
+  if (window.toolbar) {
     window.addEventListener('keyup', ({ key, keyCode, target: { tagName } }) => {
       const keyPressed = String(key || (keyCode && String.fromCharCode(keyCode))).toUpperCase();
       /* Don't capture inputs going into a form */

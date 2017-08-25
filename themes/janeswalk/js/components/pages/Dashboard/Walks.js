@@ -31,58 +31,61 @@ export default class Walks extends Component {
   render() {
     const { currentView, filterPast, filters } = this.state;
     const { walks, city, user, show, currentUser } = this.props;
+    const { handleToggleFilterPast } = this;
 
     // How we're presenting the walks (map or list)
     let WalkList;
 
-    if (currentView === 'list') {
-      const now = Date.now();
-      let walkIDs = [];
-      let canEdit = false;
-      if (show === 'city') {
-        walkIDs = city.walks;
-        // If this is a CO, who can edit
-        canEdit = currentUser.groups.includes('City Organizers');
-      } else {
-        walkIDs = user.walks;
-        // Walk owner
-        canEdit = user.id === currentUser.id;
-      }
-
-      WalkList = walkIDs
-      .filter(wID => {
-        const { time, title } = walks.get(wID);
-        // Don't show empty-titled walks
-        if (!(title && title.trim())) return false;
-        // Always show unset times, or if we're not filtering
-        if (!(filterPast && time && time.slots.length) || (time && time.slots[0][0] * 1000 > now)) return true;
-        return false;
-      })
-      .map(id => {
-        const {
-          title,
-          team,
-          url,
-          published,
-          features: [{ properties: { title: meeting } = {} }] = [{}],
-          time: { slots } = {},
-          attendees,
-        } = walks.get(id);
-        let start;
-        if (slots && slots.length) start = +slots[0][0];
-        return ce(Walk, { title, id, key: `walk${id}`, team, url, published, meeting, start, canEdit, attendees });
-      });
-    } else if (currentView === 'map') {
-      WalkList = ce(WalksMap, { walks: user.walks.map(wID => walks.get(wID)), city });
+    const now = Date.now();
+    let walkIDs = [];
+    let canEdit = false;
+    if (show === 'city') {
+      walkIDs = city.walks;
+      // If this is a CO, who can edit
+      canEdit = currentUser.groups.includes('City Organizers');
+    } else {
+      walkIDs = user.walks;
+      // Walk owner
+      canEdit = user.id === currentUser.id;
     }
 
-    // The toggle for the past walks
-    const DateToggle = (
-      ce(Tag.CheckableTag, { checked: filterPast, onClick: this.handleToggleFilterPast },
-        filterPast ? t`Without Past Walks` : t`With Past Walks`
-      )
-    );
+    const filteredWalks = walkIDs
+    .map(id => walks.get(id))
+    .filter(({ time, title }) => {
+      // Don't show empty-titled walks
+      if (!(title && title.trim())) return false;
+      // Always show unset times, or if we're not filtering
+      if (!(filterPast && time && time.slots.length) || (time && time.slots[0][0] * 1000 > now)) return true;
+      return false;
+    });
 
+    if (currentView === 'list') {
+      WalkList = filteredWalks.map(({
+        attendees,
+        features: [{ properties: { title: meeting } = {} }] = [{}],
+        id: walkId,
+        published,
+        team,
+        time: { slots: [[start] = []] = [] } = {},
+        title,
+        url,
+      }) => ce(Walk, {
+        attendees,
+        canEdit,
+        key: `walk${walkId}`,
+        meeting,
+        published,
+        start,
+        team,
+        title,
+        url,
+        walkId,
+      }));
+    } else if (currentView === 'map') {
+      WalkList = ce(WalksMap, { walks: filteredWalks, city });
+    }
+
+//      WalkList = ce(WalksMap, { walks: user.walks.map(wID => walks.get(wID)), city });
     // TODO: Place buttons in WalksFilterOptions (should be a generic FilterOptions)
     return (
       ce('div', { className: 'walks' },
@@ -96,7 +99,9 @@ export default class Walks extends Component {
           checked: currentView === 'map',
           onChange: () => this.setState({ currentView: 'map' }),
         }, t`Map`),
-        DateToggle,
+        ce(Tag.CheckableTag, { checked: filterPast, onChange: handleToggleFilterPast },
+          filterPast ? t`Without Past Walks` : t`With Past Walks`
+        ),
         city ? ce('a', { target: '_blank', href: `/profile/exportCity/${city.id}` },
           ce(Button, {}, t`Export Spreadsheet`)
         ) : null,

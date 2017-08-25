@@ -143,14 +143,14 @@ export default class LocationMap extends Component {
   state = { map: null, markers: {} };
 
   componentDidMount() {
-    const { zoomlevel, coordinates: [lng, lat], outings } = this.props;
+    const { zoomlevel: zoom = 12, coordinates: [lng, lat], outings } = this.props;
     loadGoogle();
     const locationLatLng = new google.maps.LatLng(lat, lng);
 
     // Setup map
     const map = new google.maps.Map(this.mapNode, {
       center: locationLatLng,
-      zoom: zoomlevel || 10,
+      zoom,
       backgroundColor: '#d7f0fa',
       scrollwheel: false,
     });

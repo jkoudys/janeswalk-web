@@ -63,9 +63,11 @@ const dev = Object.assign({}, base, {
       exclude: /(bower_components|node_modules)/,
       loader: 'babel-loader',
       query: {
-        presets: [['env', { targets: { chrome: 59 } }], 'babel-preset-stage-2'],
+        presets: [['env', { targets: { chrome: 59 } }]],
         plugins: [
           ['import', { libraryName: 'antd' }],
+          'transform-object-rest-spread',
+          'transform-class-properties',
         ],
       },
     }]),
