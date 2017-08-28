@@ -7,8 +7,9 @@
                 <?php (new GlobalArea('Footer'))->display($c) ?>
             </section>
             <section class="social-icons">
-                <a href="http://twitter.com/janeswalk" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a href="http://instagram.com/janeswalk" target="_blank"><i class="fa fa-instagram"></i></a>
                 <a href="http://facebook.com/janeswalk" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                <a href="http://twitter.com/janeswalk" target="_blank"><i class="fa fa-twitter"></i></a>
             </section>
         </nav>
         <section class="status-copyright">
