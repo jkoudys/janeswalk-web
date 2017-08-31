@@ -126,7 +126,7 @@ export default class WalkFilter extends Component {
   });
 
   getFiltered = () => {
-    const { outings = [], selectedFilters, city, dateRange, typeahead } = this.state;
+    const { outings = [], selectedFilters, city = {}, dateRange, typeahead } = this.state;
     // Only apply filters that are set
     const appliedFilters = Object.entries(selectedFilters).filter(([, v]) => v);
 
