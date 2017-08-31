@@ -3,6 +3,18 @@ use Concrete\Core\Legacy\TextHelper;
 use Concrete\Core\Legacy\ImageHelper;
 use Concrete\Core\Legacy\DateHelper;
 use Concrete\Core\Legacy\NavigationHelper;
+use Qaribou\Collection\ImmArray;
+
+function getQuotes() {
+    $stack = Stack::getByName('Blog Quotes');
+
+    return array_map(
+        function ($block) {
+            return $block->instance->content;
+        },
+        $stack->getBlocks(STACKS_AREA_NAME)
+    );
+}
 
 // Ordered list of common summary for all blogs
 function summarize($page) {
@@ -109,32 +121,35 @@ EOT
     </div>
 </div>
 EOT;
-} 
+}
 
-function renderEntries(array $entries) {
-    return implode('', array_map(function (array $set) {
+function renderEntries(array $entries) : string {
+    $quotes = getQuotes();
+    return ImmArray::fromArray(array_chunk($entries, 5))
+    ->map(function (array $set, $i) use ($quotes) {
+        $quote = $quotes[$i % count($quotes)];
         $big = implode('', array_map('bigCard', array_slice($set, 0, 1)));
         $small = implode('', array_map('smallCard', array_slice($set, 1, 3)));
         $medium = implode('', array_map('mediumCard', array_slice($set, 4, 1)));
         $foot = '';
         if (count($medium) > 0) $foot = <<<EOT
 <div class="BlogIndex__break">
-    <blockquote>
-        <p>You can't opt out of geography</p>
-        <cite>Daniel Rotsztain</cite>
-    </blockquote>
-    <div class="BlogIndex__article--med">{$medium}</div>
+<blockquote>
+    {$quote} 
+</blockquote>
+<div class="BlogIndex__article--med">{$medium}</div>
 </div>
 EOT;
 
         return <<<EOT
 <div class="BlogIndex__articles">
-    <div class="BlogIndex__article--main">{$big}</div>
-    <div class="BlogIndex__article--sub">{$small}</div>
+<div class="BlogIndex__article--main">{$big}</div>
+<div class="BlogIndex__article--sub">{$small}</div>
 </div>
 {$foot}
 EOT;
-    }, array_chunk($entries, 5)));
+    })
+    ->join('');
 }
 ?>
 <div class="ccm-page-list BlogIndex">
