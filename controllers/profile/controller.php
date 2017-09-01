@@ -124,7 +124,7 @@ class ProfileController extends Concrete5_Controller_Profile
     /**
      * Export a CSV of all the walk outings. Simplified for speed.
      */
-    public function exportAllWalks(int $start = null, int $end = null)
+    public function exportAllWalks(string $start = null, string $end = null)
     {
         WalkExporter::renderAllWalksCSV(['start' => $start, 'end' => $end]);        
     }
