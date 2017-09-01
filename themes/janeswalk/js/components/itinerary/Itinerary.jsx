@@ -37,7 +37,7 @@ export default class Itinerary extends Component {
   handleChangeTitle = v => Actions.updateTitle(this.state.activeList, v);
   handleChangeDescription = v => Actions.updateDescription(this.state.activeList, v);
 
-  handleICS = () => {
+  handleICS = (walk) => {
     const { activeList, schedule } = this.state;
     const events = [...activeList.walks].map((walk) => {
     const timeSet = schedule.get(walk) || new Set();
@@ -145,7 +145,7 @@ END:VCALENDAR`;
           ce('a', { onClick: this.handleICS },
             ce('i', { className: 'fa fa-calendar' }),
             ' ',
-            t`Add to Calendar`,
+            t`Add to Apple Calendar`,
           ),
           ItineraryWalks
         ),

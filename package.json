@@ -65,6 +65,7 @@
     "postcss-loader": "^0.13.0",
     "precss": "^1.4.0",
     "react": "^15.4.0",
+    "react-add-to-calendar": "^0.1.4",
     "react-date-picker": "^5.3.28",
     "react-dom": "^15.4.0",
     "react-recaptcha": "^2.3.3",
