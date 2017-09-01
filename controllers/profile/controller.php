@@ -11,6 +11,7 @@ use Concrete\Core\Legacy\ImageHelper;
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
 use JanesWalk\Models\Exporters\City as CityExporter;
+use JanesWalk\Models\Exporters\Walk as WalkExporter;
 use JanesWalk\Models\Exporters\Interest as InterestExporter;
 
 class ProfileController extends Concrete5_Controller_Profile
@@ -118,6 +119,14 @@ class ProfileController extends Concrete5_Controller_Profile
                 break;
         }
         exit;
+    }
+
+    /**
+     * Export a CSV of all the walk outings. Simplified for speed.
+     */
+    public function exportAllWalks(int $start = null, int $end = null)
+    {
+        WalkExporter::renderAllWalksCSV(['start' => $start, 'end' => $end]);        
     }
 
     /**
