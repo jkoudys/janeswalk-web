@@ -6,11 +6,19 @@
 /* global CCM_TOOLS_PATH */
 import { createElement as ce } from 'react';
 import t from 'es2015-i18n-tag';
-import { Form, Input, Upload, Icon, Select } from 'antd';
+import { Form, Input, Upload, Icon, Select, message } from 'antd';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
 
 const { Option } = Select;
+
+const MAXSIZE = 8;
+function beforeUpload(file) {
+  const isSmallEnough = file.size / 1024 / 1024 < MAXSIZE;
+  if (!isSmallEnough) {
+    message.error(t`Image must smaller than ${MAXSIZE}MB.`);
+  }
+}
 
 const WalkDetails = ({
   id,
@@ -52,6 +60,7 @@ const WalkDetails = ({
         onChange: handlers.images,
         onRemove: handlers.images.remove,
         style: { padding: '15px' },
+        beforeUpload,
         className: 'WalkDetails__Upload',
       },
         ce('p', { className: 'ant-upload-drag-icon' }, ce(Icon, { type: 'inbox' })),

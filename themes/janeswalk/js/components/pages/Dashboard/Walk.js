@@ -56,15 +56,16 @@ class Walk extends Component {
                ce('a', { href: `mailto:${leaderEmail}` }, leaderEmail),
             ) : null,
           ce('h4', {}, t`Meeting at ${meeting}`),
-          /* TODO: link to a 'promote' feature
-           (start * 1000 > Date.now()) ?
-            ce('button', {},
-              ce('a', { href: '' }, 'Promote')
-              ) : null, */
           canEdit ? ce('a', { className: 'option', href: `/walk/form/${walkId}` }, 'Edit') : null,
           (published && canEdit && !unpublished) ?
             ce('a', { onClick: this.handleUnpublish, className: 'option' }, 'Unpublish') :
             null,
+          (start * 1000 > Date.now()) ?
+            ce('p', {}, ce('strong', {}, t`Share on`, ': ',
+              ce('a', { href: `https://www.facebook.com/sharer/sharer.php?u=${url}`, target: '_blank' },
+                 ce('i', { className: 'fa fa-facebook-square' }),
+              ),
+            )) : null,
         ),
       )
     );
