@@ -20,8 +20,8 @@ class Walk
         $columns = ['id', 'published', 'name', 'start', 'end', 'city', 'url'];
 
         // Set header so it d/l's as a CSV file
-        // header('Content-Type: text/csv');
-        // header('Content-Disposition: attachment;filename=AllWalks.csv');
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment;filename=AllWalks.csv');
 
         echo join(',', $columns);
 
@@ -53,6 +53,7 @@ INNER JOIN atSchedule ats ON
 INNER JOIN atEventTime atet ON
     ats.avID = atet.atScheduleID
 
+-- Get the 'published' flag
 LEFT JOIN CollectionAttributeValues cavB ON
     cavB.cvID = cv.cvID AND
     cavB.cID = cv.cID AND
@@ -60,7 +61,6 @@ LEFT JOIN CollectionAttributeValues cavB ON
     -- TODO load from handle instead
     cavB.akID = 6
 
--- Get the 'published' flag
 INNER JOIN atBoolean atb ON
     atb.avID = cavB.avID
 
