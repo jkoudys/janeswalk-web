@@ -17,7 +17,7 @@ class Walk
 
         $db = Loader::db();
 
-        $columns = ['id', 'published', 'name', 'start', 'end', 'city'];
+        $columns = ['id', 'published', 'name', 'start', 'end', 'city', 'url'];
 
         // Set header so it d/l's as a CSV file
         // header('Content-Type: text/csv');
@@ -33,7 +33,8 @@ SELECT
     cv.cvName AS {$columns[2]},
     atet.start AS {$columns[3]},
     atet.end AS {$columns[4]},
-    cvParent.cvName AS {$columns[5]}
+    cvParent.cvName AS {$columns[5]},
+    CONCAT('http://janeswalk.org', pp.cPath) AS {$columns[6]}
 
 -- Join the latest, saved version of a Walk
 FROM CollectionVersions cv
@@ -62,6 +63,10 @@ LEFT JOIN CollectionAttributeValues cavB ON
 -- Get the 'published' flag
 INNER JOIN atBoolean atb ON
     atb.avID = cavB.avID
+
+-- Get the URL
+INNER JOIN PagePaths pp ON
+    pp.cID = cv.cID
 
 -- Grab the parent's name
 INNER JOIN Pages p ON
