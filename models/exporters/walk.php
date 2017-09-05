@@ -17,11 +17,11 @@ class Walk
 
         $db = Loader::db();
 
-        $columns = ['id', 'published', 'name', 'start', 'end'];
+        $columns = ['id', 'published', 'name', 'start', 'end', 'city'];
 
         // Set header so it d/l's as a CSV file
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment;filename=AllWalks.csv');
+        // header('Content-Type: text/csv');
+        // header('Content-Disposition: attachment;filename=AllWalks.csv');
 
         echo join(',', $columns);
 
@@ -32,7 +32,8 @@ SELECT
     atb.value AS {$columns[1]},
     cv.cvName AS {$columns[2]},
     atet.start AS {$columns[3]},
-    atet.end AS {$columns[4]}
+    atet.end AS {$columns[4]},
+    cvParent.cvName AS {$columns[5]}
 
 -- Join the latest, saved version of a Walk
 FROM CollectionVersions cv
@@ -60,7 +61,17 @@ LEFT JOIN CollectionAttributeValues cavB ON
 
 -- Get the 'published' flag
 INNER JOIN atBoolean atb ON
-    atb.avID = cavB.avID;
+    atb.avID = cavB.avID
+
+-- Grab the parent's name
+INNER JOIN Pages p ON
+    p.cID = cv.cID
+LEFT JOIN CollectionVersions cvParent ON
+    cvParent.cID = p.cParentID AND
+    cvParent.cvIsApproved = 1
+
+ORDER BY cvParent.cvName, atet.start
+;
 EOT
         );
 
