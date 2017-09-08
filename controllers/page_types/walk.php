@@ -325,7 +325,7 @@ EOT;
         if ($thumb) {
             self::addMetaTags(
                 [
-                    'og:image' => (BASE_URL . $im->getThumbnail($thumb, 340, 720)->src)
+                    'og:image' => (BASE_URL . $im->getThumbnail($thumb, 680, 1440)->src)
                 ],
                 $doc
             );
