@@ -8,7 +8,6 @@ $v->addHeaderItem('<script src="' . BASE_URL . '/js/jwglobal.js"></script>');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="google-site-verification" content="jrG7QMwIluWHDRaFad1G36OBcuF7TUgz_fqz2-onqKc" />
-    <meta property="og:image" content="http://janeswalk.org/themes/janeswalk/img/jwlogo.png" />
 
     <link rel="stylesheet" type="text/css" href="/concrete5/web/css/jquery.ui.css" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
