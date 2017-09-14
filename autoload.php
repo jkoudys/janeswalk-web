@@ -12,9 +12,13 @@ spl_autoload_register(function ($class) {
     if ('JanesWalk' === $nameSpace) {
         require implode('/', array_map(
             function ($str) {
-                return strtolower(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $str));
+                return strtolower(preg_replace(
+                    ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
+                    '$1_$2',
+                    $str
+                ));
             },
-                $path
+            $path
         )) . '.php';
     }
 });
