@@ -53,9 +53,11 @@ class RegisterController extends Concrete5_Controller_Register
         }
 
         if (ENABLE_REGISTRATION_CAPTCHA) {
-            $captcha = Loader::helper('validation/captcha');
-            if (!$captcha->check()) {
-                $e->add(t("Incorrect image validation code. Please check the image and re-enter the letters or numbers as necessary."));
+            $gRecaptchaResponse = $_POST['g-recaptcha-response'];
+            $recaptcha = new \ReCaptcha\ReCaptcha(GOOGLE_RECAPTCHA_SECRET);
+            $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+            if (!$resp->isSuccess()) {
+                $e->add('We couldn\'t verify you\'re human. Refresh the page and try again.');
             }
         }
 

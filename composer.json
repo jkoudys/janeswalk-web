@@ -1,6 +1,7 @@
 {
   "require": {
     "slim/slim": "^3.8",
-    "qaribou/immutable.php": "^1.1"
+    "qaribou/immutable.php": "^1.1",
+    "google/recaptcha": "^1.1"
   }
 }

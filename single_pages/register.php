@@ -1,6 +1,15 @@
 <?php
 $v = View::getInstance();
-?>
+
+if (ENABLE_REGISTRATION_CAPTCHA) { ?>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+function concrete_handleSubmitRegistration() {
+    document.querySelector('.concrete-registration-form').submit();
+}
+</script>
+<?php } ?>
+
 <div id="ccm-profile-wrapper">
   <div class="row">
     <div class="col-md-10">
@@ -61,7 +70,7 @@ $v = View::getInstance();
     <?php
     } else { ?>
 
-    <form method="post" action="<?= $v->url('/register', 'do_register') ?>" class="form-horizontal">
+    <form method="post" action="<?= $v->url('/register', 'do_register') ?>" class="form-horizontal concrete-registration-form">
       <div class="row">
 
         <?php  if (count($attribs) > 0) { ?>
@@ -109,33 +118,21 @@ $v = View::getInstance();
           </fieldset>
         </div>
         <?php  } ?>
-        <div class="col-md-10  ">
-          <?php  if (ENABLE_REGISTRATION_CAPTCHA) { ?>
-
-          <div class="control-group">
-            <?php  $captcha = Loader::helper('validation/captcha'); ?>
-            <?= $captcha->label()?>
-            <div class="controls">
-              <?php
-              $captcha->showInput();
-              $captcha->display();
-              ?>
-            </div>
-          </div>
-
-          <?php  } ?>
-
-        </div>
         <div class="col-md-10 ">
           <div class="actions">
             <?= $form->hidden('rcID', $rcID); ?>
-            <?= $form->submit('register', t('Register') . ' &gt;', ['class' => 'primary']) ?>
+            <button
+                class="g-recaptcha"
+                data-sitekey="<?= GOOGLE_RECAPTCHA_KEY ?>"
+                data-callback="concrete_handleSubmitRegistration"
+            >
+                Submit
+            </button>
           </div>
         </div>
 
       </div>
     </form>
     <?php  } ?>
-
   </div>
 </div>
