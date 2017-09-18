@@ -11,6 +11,9 @@
             </script>
         <?php          } ?>
         <h1 class="profilin"><?php echo t('Edit Profile')?></h1>
+        <p>
+            <a href="./avatar">Change my avatar</a>
+        </p>
         <div class="ccm-form">
             <form method="post" action="<?php echo $this->action('save')?>" id="profile-edit-form" enctype="multipart/form-data">
 <?php

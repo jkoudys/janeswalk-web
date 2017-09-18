@@ -2,9 +2,7 @@
 $v = View::getInstance();
 ?>
 <div id="ccm-profile-wrapper">
-    <?php  Loader::element('profile/sidebar', array('profile'=> $ui)); ?>
     <div id="ccm-profile-body">
-
         <h2><?php  echo t('User Avatar')?></h2>
         <p><?php  echo t('Change the picture attached to my posts.')?></p>
 
@@ -14,6 +12,9 @@ $v = View::getInstance();
                 <br /><br />
                 <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">Download the Flash Player here</a>.
             </div>
+            <p>
+                <a href="./edit">Back to edit profile</a>
+            </p>
             <?php  if ($ui->hasAvatar()) { ?>
 				<br/><br/>
                 <a href="<?= $v->action('delete') ?>"><?= t('Remove your user avatar &gt;') ?></a>
